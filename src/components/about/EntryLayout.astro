@@ -32,7 +32,14 @@ const { Content } = await render(entry);
             )
           }
           <h2 set:html={markdownify(title)} class="h3 mb-6" />
-            <Content />
+            <div class="text-justify">
+              <Content />
+              { description && (
+                <p class="text-muted mt-4">
+                  {markdownify(description)}
+                </p>
+              ) }
+            </div>
         </div>
       </div>
     </div>
