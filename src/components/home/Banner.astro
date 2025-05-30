@@ -1,0 +1,10 @@
+---
+// Import the default export component
+import BannerComponent from './Banner.jsx';
+
+// Add client-side styles for Bootstrap
+//import 'bootstrap/dist/css/bootstrap.min.css';
+---
+
+<!-- Use client:only="react" to ensure client-side-only rendering, avoiding hydration issues -->
+<BannerComponent client:only="react" />
