@@ -2,7 +2,7 @@
 title: Kurt Gödel - The Logician Who Shook Mathematics
 description: Explore the life and work of Kurt Gödel, the mathematical genius behind the incompleteness theorems.
 date: 2024-08-08
-image: "@assets/blog/kurt-godel.jpg"
+image: "@assets/projects/kurt-godel.jpg"
 imageAlt: Profile of Kurt Godel
 categories: [Mathematics]
 author: jane-doe

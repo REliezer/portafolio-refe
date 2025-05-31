@@ -47,8 +47,8 @@ const authors = defineCollection({
     }),
 });
 
-const blog = defineCollection({
-  loader: glob({ pattern: "**\/[^_]*.{md,mdx}", base: "./src/content/blog" }),
+const projects = defineCollection({
+  loader: glob({ pattern: "**\/[^_]*.{md,mdx}", base: "./src/content/projects" }),
   schema: ({ image }) =>
     searchable.extend({
       date: z.date().optional(),
@@ -166,7 +166,7 @@ const terms = defineCollection({
 export const collections = {
   about,
   authors,
-  blog,
+  projects,
   docs,
   home,
   indexCards,

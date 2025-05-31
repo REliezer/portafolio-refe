@@ -1,15 +1,15 @@
 ---
-import type { BlogEntry } from "@/types";
+import type { ProjectEntry } from "@/types";
 import { getEntries } from "@lib/contentParser";
 import { getTaxa } from "@lib/taxonomyParser";
 import taxonomyFilter from "@lib/taxonomyFilter";
-import TaxonLayout from "@components/blog/TaxonLayout.astro";
+import TaxonLayout from "@components/projects/TaxonLayout.astro";
 
 export async function getStaticPaths() {
-  const taxa = await getTaxa("blog", "tags");
+  const taxa = await getTaxa("projects", "categories");
   const paths = taxa.map((taxon) => ({
     params: {
-      tag: taxon,
+      category: taxon,
     },
     props: { taxon },
   }));
@@ -17,8 +17,8 @@ export async function getStaticPaths() {
 }
 
 const { taxon } = Astro.props;
-const entries = await getEntries("blog") as BlogEntry[];
-const filteredEntries: BlogEntry[] = taxonomyFilter(entries, "tags", taxon!);
+const entries = await getEntries("projects") as ProjectEntry[];
+const filteredEntries: ProjectEntry[] = taxonomyFilter(entries, "categories", taxon!);
 ---
 
 <TaxonLayout taxon={taxon} entries={filteredEntries} />

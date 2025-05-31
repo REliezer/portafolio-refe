@@ -2,12 +2,12 @@
 import BaseLayout from "@components/base/BaseLayout.astro";
 import PageHeader from "@components/common/PageHeader.astro";
 import { upperHumanize } from "@lib/textConverter";
-import BlogCard from "@components/blog/Card.astro";
-import type { BlogEntry } from "@/types";
+import BlogCard from "@components/projects/Card.astro";
+import type { ProjectEntry } from "@/types";
 
 interface Props {
   taxon: string;
-  entries: BlogEntry[];
+  entries: ProjectEntry[];
 }
 
 const { taxon, entries }: Props = Astro.props;

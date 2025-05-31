@@ -1,14 +1,14 @@
 ---
 import BaseLayout from "@components/base/BaseLayout.astro";
-import BlogCard from "@components/blog/Card.astro";
+import BlogCard from "@components/projects/Card.astro";
 import Pagination from "@components/common/Pagination.astro";
 import PageHeader from "@components/common/PageHeader.astro";
-import BlogSidebar from "@components/blog/Sidebar.astro";
-import type { BlogEntry } from "@/types";
+import BlogSidebar from "@components/projects/Sidebar.astro";
+import type { ProjectEntry } from "@/types";
 
 interface Props {
-  entryIndex: BlogEntry;
-  entries: BlogEntry[];
+  entryIndex: ProjectEntry;
+  entries: ProjectEntry[];
   tags: string[];
   categories: string[];
   allCategories: string[];
@@ -42,7 +42,7 @@ const {
             ))
           }
           <Pagination
-            collection="blog"
+            collection="projects"
             pageIndex={pageIndex}
             pageCount={pageCount}
           />

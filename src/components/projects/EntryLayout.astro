@@ -1,15 +1,15 @@
 ---
 import BaseLayout from "@components/base/BaseLayout.astro";
-import BlogCard from "@components/blog/Card.astro";
+import BlogCard from "@components/projects/Card.astro";
 import Share from "@components/common/Share.astro";
 import { plainify } from "@lib/textConverter";
-import type { BlogEntry } from "@/types";
+import type { ProjectEntry } from "@/types";
 import TableOfContents from "@components/common/TableOfContents.astro";
 import { render } from "astro:content";
 import EntryHeader from "@components/common/EntryHeader.astro";
 interface Props {
-  entry: BlogEntry;
-  relatedEntries: BlogEntry[];
+  entry: ProjectEntry;
+  relatedEntries: ProjectEntry[];
 }
 
 const { entry, relatedEntries }: Props = Astro.props;
@@ -60,7 +60,7 @@ const entryDescription =
       <Share
         title={title}
         description={entryDescription}
-        folder={"blog"}
+        folder={"projects"}
         id={entry.id}
       />
     </div>
