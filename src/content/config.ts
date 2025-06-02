@@ -1,6 +1,5 @@
 import { defineCollection, reference, z } from "astro:content";
 import { glob } from "astro/loaders";
-import { link } from "fs";
 
 // May also need to update /src/types/index.d.ts when updating this file
 // When updating the set of searchable collections, update collectionList in /src/pages/search.astro
@@ -34,21 +33,6 @@ const about = defineCollection({
     }),
 });
 
-const projects = defineCollection({
-  loader: glob({ pattern: "**\/[^_]*.{md,mdx}", base: "./src/content/projects" }),
-  schema: ({ image }) =>
-    searchable.extend({
-      date: z.date().optional(),
-      image: image().optional(),
-      imageAlt: z.string().default(""),
-      author: reference("authors").optional(),
-      categories: z.array(z.string()).optional(),
-      tags: z.array(z.string()).optional(),
-      complexity: z.number().default(1),
-      hideToc: z.boolean().default(false),
-    }),
-});
-
 const home = defineCollection({
   loader: glob({ pattern: "-index.{md,mdx}", base: "./src/content/home" }),
   schema: ({ image }) =>
@@ -66,27 +50,10 @@ const home = defineCollection({
     }),
 });
 
-const portfolio = defineCollection({
-  loader: glob({
-    pattern: "-index.{md,mdx}",
-    base: "./src/content/portfolio",
-  }),
-  schema: searchable.extend({
-    projects: z.array(
-      z.object({
-        title: z.string(),
-        github: z.string().optional(),
-        technologies: z.array(z.string()).optional(),
-        content: z.array(z.string()).optional(),
-      }),
-    ),
-  }),
-});
-
-const recipes = defineCollection({
+const projects = defineCollection({
   loader: glob({
     pattern: "**\/[^_]*.{md,mdx}",
-    base: "./src/content/recipes",
+    base: "./src/content/projects",
   }),
   schema: ({ image }) =>
     searchable.extend({
@@ -125,9 +92,7 @@ const terms = defineCollection({
 // Export collections
 export const collections = {
   about,
-  projects,
   home,
-  portfolio,
-  recipes,
+  projects,
   terms,
 };

@@ -4,18 +4,13 @@ import type { MarkdownHeading } from "astro";
 export type GenericEntry = CollectionEntry<CollectionKey>;
 
 export type AboutEntry = CollectionEntry<"about">;
-export type ProjectEntry = CollectionEntry<"projects">;
-export type DocsEntry = CollectionEntry<"docs">;
 export type HomeEntry = CollectionEntry<"home">;
-export type PortfolioEntry = CollectionEntry<"portfolio">;
-export type RecipesEntry = CollectionEntry<"recipes">;
+export type ProjectEntry = CollectionEntry<"projects">;
 
 export type SearchableEntry =
   | AboutEntry
-  | ProjectEntry
   | DocsEntry
-  | PortfolioEntry
-  | RecipesEntry;
+  | ProjectEntry;
 
 export type SocialLinks = {
   discord?: string;

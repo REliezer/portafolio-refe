@@ -1,11 +1,8 @@
 ---
 import BaseLayout from "@components/base/BaseLayout.astro";
-import { markdownify } from "@lib/textConverter";
-import Button from "@components/common/Button.astro";
 import type { HomeEntry } from "@/types";
 import { Image } from "astro:assets";
-import Banner from "../home/Banner.astro";
-import BannerComponent from "./Banner.jsx";
+import BannerComponent from "./Banner.tsx";
 //import 'bootstrap/dist/css/bootstrap.min.css';
 
 interface Props {
@@ -20,14 +17,13 @@ const { image, imageAlt, title, content, button } = entry.data;
   <!-- Banner -->
   <BannerComponent client:only="react" title={title} content={content} button={button}>
     <Image
-      class="mb-6 w-64"
+      class="mb-6"
       src={image}
       alt={imageAlt}
       width={1024}
       height={1024}
       loading="eager"
     />
-  </BannerComponent>
-  
+  </BannerComponent>  
   
 </BaseLayout>

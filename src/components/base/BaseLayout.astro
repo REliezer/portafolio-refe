@@ -2,7 +2,6 @@
 import { plainify } from "@lib/textConverter";
 import Footer from "@components/base/Footer.astro";
 import Header from "@components/base/Header.astro";
-import ObserverScript from "@components/base/ObserverScript.astro";
 import "@/styles/main.scss";
 import { ClientRouter } from "astro:transitions";
 import Background from "@/components/base/Background.astro";
@@ -20,7 +19,7 @@ export interface Props {
 const { title, description, image, noindex, canonical } = Astro.props;
 
 const siteTitle = "Portafolio | Rodrigo Fúnes";
-const siteDescription = "Astrogon is a simple and elegant Astro theme.";
+const siteDescription = "Portafolio de proyectos.";
 const siteImage = "@assets/og-image.png";
 const siteAuthor = "Rodrigo Fúnes";
 const baseUrl = "https://rfunes.dev";

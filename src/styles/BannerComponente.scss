@@ -1,4 +1,4 @@
-@import './variables';
+@use './variables';
 
 /************ Banner Css ************/
 .banner {
@@ -16,7 +16,7 @@
     letter-spacing: 0.8px;
     padding: 8px 10px;
     background: linear-gradient(90.21deg, rgba(170, 54, 124, 0.5) -5.91%, rgba(74, 47, 189, 0.5) 111.58%);
-    border: 1px solid rgba($white-color, 0.5);
+    border: 1px solid rgba(variables.$white-color, 0.5);
     font-size: 20px;
     margin-bottom: 16px;
     display: inline-block;
@@ -40,7 +40,7 @@
 }
 
 .banner button {
-    color: $white-color;
+    color: variables.$white-color;
     font-weight: 700;
     font-size: 20px;
     margin-top: 60px;
@@ -50,7 +50,7 @@
 }
 
 .banner button a {
-    color: $white-color;
+    color: variables.$white-color;
     font-weight: 700;
     font-size: 20px;
     letter-spacing: 0.8px;

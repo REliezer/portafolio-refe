@@ -1,34 +1,25 @@
 ---
 import CollectionLayout from "@components/projects/CollectionLayout.astro";
-import { getTaxaMultiset, getTaxa } from "@lib/taxonomyParser";
-import { getEntries, getIndex } from "@lib/contentParser";
+import { getIndex, getEntries } from "@lib/contentParser";
 import { sortByDate } from "@lib/sortFunctions";
 import type { ProjectEntry } from "@/types";
-
-const { slug } = Astro.params;
-const currentPageIndex = slug && !isNaN(Number(slug)) ? Number(slug) : 1;
 
 const entryIndex = (await getIndex("projects")) as ProjectEntry;
 const entries = (await getEntries("projects", sortByDate)) as ProjectEntry[];
 
-const allCategories = await getTaxaMultiset("projects", "categories");
-const categories = await getTaxa("projects", "categories");
-const tags = await getTaxa("projects", "tags");
+const { slug } = Astro.params;
 
-const entriesPerPage = 4;
+const entriesPerPage = 6;
+const currentPageIndex = slug && !isNaN(Number(slug)) ? Number(slug) : 1;
+const pageCount = Math.ceil(entries.length / entriesPerPage);
 const indexOfLastEntry = currentPageIndex * entriesPerPage;
 const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
 const currentEntries = entries.slice(indexOfFirstEntry, indexOfLastEntry);
-
-const pageCount: number = Math.ceil(entries.length / entriesPerPage);
 ---
 
 <CollectionLayout
   entryIndex={entryIndex}
   entries={currentEntries}
-  categories={categories}
-  tags={tags}
-  allCategories={allCategories}
   pageIndex={currentPageIndex}
   pageCount={pageCount}
 />

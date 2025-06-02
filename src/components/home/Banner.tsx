@@ -3,12 +3,18 @@ import { ArrowRightCircle } from "react-bootstrap-icons";
 import 'animate.css';
 import '../../styles/BannerComponente.scss';
 
-const BannerComponent = ({title, content, button, children}) => {
+interface BannerProps {
+  title: string;
+  content: string;
+  button?: { label: string; link: string };
+  children?: React.ReactNode;
+}
+
+const BannerComponent = ({title, content, button, children}: BannerProps) => {
     const [loopNum, setLoopNum] = useState(0); //bucle numero, indice de palabra a mostrar
     const [isDeleting, setIsDeleting] = useState(false); //determina que palabra se escribe o se elimina
     const [text, setText] = useState(''); //con que parte de la palabra comenzara
     const [delta, setDelta] = useState(300 - Math.random() * 100);
-    const [index, setIndex] = useState(1);
     const toRotate = ["Web Developer", "Web Designer", "UI/UX Designer", "Frontend Developer"]; //lista de palabras para mostrar
     const period = 2000;
 
