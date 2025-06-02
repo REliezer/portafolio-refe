@@ -4,12 +4,14 @@ import Share from "@components/common/Share.astro";
 import { Image } from "astro:assets";
 import BaseLayout from "@components/base/BaseLayout.astro";
 import { upperHumanize, markdownify, slugify } from "@lib/textConverter";
+import { formatDate } from "@lib/formatDate";
 
 import {
+  FaGithub,
+  FaLink,
   FaRegClock,
+  FaRegFolder,
   FaRegUserCircle,
-  FaUtensils,
-  FaSeedling,
 } from "react-icons/fa";
 
 interface Props {
@@ -19,20 +21,23 @@ interface Props {
 const { entry } = Astro.props;
 const {
   title,
-  author,
-  description,
+  resume,
+  date,
   image,
   imageAlt,
-  prepTime,
-  servings,
-  diet,
-  ingredients,
-  instructions,
-  notes,
+  categories,
+  author,
+  stack,
+  description,
+  content,
+  github,
+  link,
 } = entry.data;
+
+const entryDate = date ? formatDate(date) : null;
 ---
 
-<BaseLayout title={title} description={description} image={image?.src}>
+<BaseLayout title={title} description={resume} image={image?.src}>
   <section class="section">
     <div class="container">
       <div class="row justify-center">
@@ -58,116 +63,160 @@ const {
           }
           <!-- About -->
           <section class="col basis-1/3 p-2 min-w-72">
-            <div class="glass rounded-lg p-2 h-full intersect:animate-fadeUp opacity-0">
+            <div
+              class="glass rounded-lg p-2 h-full intersect:animate-fadeUp opacity-0"
+            >
               <!-- Author -->
               {
                 author && (
                   <div class="m-4">
-                    <a href={`/authors/${slugify(author.id)}`}>
+                    <a href={`/about/`}>
                       <FaRegUserCircle className={"mr-2 -mt-1 inline-block"} />
-                      {upperHumanize(author.id)}
+                      {upperHumanize(author)}
                     </a>
                   </div>
                 )
               }
-              <!-- Prep Time -->
+              <!-- Date -->
               {
-                prepTime && (
+                entryDate && (
                   <div class="m-4">
                     <FaRegClock className={"mr-2 -mt-1 inline-block"} />
-                    {prepTime + " minutes"}
+                    {entryDate}
                   </div>
                 )
               }
-              <!-- Servings -->
+              <!-- Categories -->
               {
-                servings && (
+                categories && (
+                  <>
+                    <div class="m-4">
+                      <FaRegFolder className={"mr-2 -mt-1 inline-block"} />
+                      Categories
+                    </div>
+                    <div class="row m-4">
+                      <div class="col-12">
+                        {categories.map((category: string, index: number) => (
+                          <li>
+                            <a
+                              href={`/recipes/categories/${slugify(category)}`}
+                            >
+                              {upperHumanize(category)}
+                            </a>
+                          </li>
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                )
+              }
+              <!-- GitHub -->
+              {
+                github && (
                   <div class="m-4">
-                    <FaUtensils className={"mr-2 -mt-1 inline-block"} />
-                    {servings === 1 ? "1 serving" : servings + " servings"}
+                    <a href={github}>
+                      <FaGithub className={"mr-2 -mt-1 inline-block"} />
+                      Repositorio GitHub
+                    </a>
                   </div>
                 )
               }
-              <!-- Diet -->
+              <!-- Link -->
               {
-                diet && (
+                link && (
                   <div class="m-4">
-                    <FaSeedling className={"mr-2 -mt-1 inline-block"} />
-                    {diet}
+                    <a href={link}>
+                      <FaLink className={"mr-2 -mt-1 inline-block"} />
+                      Web
+                    </a>
                   </div>
                 )
               }
               <!-- Description -->
               {
-                description && (
+                resume && (
                   <div>
-                    {author || prepTime || servings || diet ? (
-                      <hr class="my-2" />
-                    ) : null}
+                    {author ? <hr class="my-2" /> : null}
                     <div class="m-4">
-                      <div set:html={markdownify(description)} />
+                      <div set:html={markdownify(resume)} />
                     </div>
                   </div>
                 )
               }
             </div>
           </section>
-          <!-- Ingredients -->
+          <!-- Descripcion -->
           {
-            ingredients && (
+            description && (
+              <section class="col basis-full p-2 min-w-72">
+                <div class="glass rounded-lg p-4 intersect:animate-fadeUp opacity-0">
+                  <h2 class="mb-2">Descripción del proyecto</h2>
+                  <div class="justify-center">
+                    <div class="text-justify my-1">{description}</div>
+                    <hr class="my-1" />
+                  </div>
+                </div>
+              </section>
+            )
+          }
+          <!-- Contenido -->
+          {
+            content && (
+              <section class="col basis-full p-2 min-w-72">
+                <div class="glass rounded-lg p-4 intersect:animate-fadeUp opacity-0">
+                  <h2 class="mb-2">Contenido:</h2>
+                  <div class="row justify-center">
+                    {content.map((item, index) => (
+                      <div class="my-1">
+                        <h3>{item.nombre}</h3>
+                        {item.modulos &&
+                          item.modulos.length > 0 &&
+                          item.modulos.map((mod: string, i: number) => (
+                            <div class="ml-4">
+                              {i + 1}. {mod}
+                            </div>
+                          ))}
+                      </div>
+                    ))}
+                    <hr class="my-1" />
+                  </div>
+                </div>
+              </section>
+            )
+          }
+          <!-- Tecnologias -->
+          {
+            stack && (
               <section class="col basis-1/3 p-2 min-w-72">
                 <div class="glass rounded-lg p-4 intersect:animate-fadeUp opacity-0">
-                  <h2 set:html="Ingredients" class="mb-2" />
-                  <div class="row justify-center">
-                    {ingredients.list.map((it: string, index: number) => (
-                      <div class="row my-1">
-                        <div class="col-7" set:html={ingredients.list[index]} />
-                        <div
-                          class="col-5 text-right"
-                          set:html={ingredients.qty[index]}
-                        />
-                        <hr class="my-1" />
-                      </div>
-                    ))}
+                  <h2 class="mb-2">Técnologias utilizadas</h2>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    {Object.entries(stack).map(
+                      ([key, values]) =>
+                        values?.length > 0 && (
+                          <div key={key}>
+                            <h3 class="text-left capitalize">
+                              {key === "baseDatos"
+                                ? "Base de Datos"
+                                : key === "almacenamiento"
+                                  ? "Almacenamiento"
+                                  : key === "otros"
+                                    ? "Otros"
+                                    : key.charAt(0).toUpperCase() +
+                                      key.slice(1)}
+                            </h3>
+                            <ul class="list-disc list-inside text-sm mt-1">
+                              {values.map((it: string) => (
+                                <li key={it} class="ml-2">
+                                  {it}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ),
+                    )}
                   </div>
-                </div>
-              </section>
-            )
-          }
-          <!-- Instructions -->
-          {
-            instructions && (
-              <section class="col basis-full p-2 min-w-72">
-                <div class="glass rounded-lg p-4 intersect:animate-fadeUp opacity-0">
-                  <h2 set:html="Instructions" class="mb-2" />
-                  <div class="row justify-center">
-                    {instructions.map((it: string, index: number) => (
-                      <div class="row my-1">
-                        <div class="col">
-                          {index + 1}. {it}
-                        </div>
-                        <hr class="my-1" />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </section>
-            )
-          }
-          <!-- Notes -->
-          {
-            notes && (
-              <section class="col basis-full p-2 min-w-72">
-                <div class="glass rounded-lg p-4 intersect:animate-fadeUp opacity-0">
-                  <h2 set:html="Notes" class="mb-2" />
-                  <div class="row justify-center">
-                    {notes.map((it: string, index: number) => (
-                      <div class="row my-1">
-                        <div class="col">{it}</div>
-                        <hr class="my-1" />
-                      </div>
-                    ))}
-                  </div>
+                  <hr class="my-1" />
                 </div>
               </section>
             )
@@ -179,7 +228,7 @@ const {
         >
           <Share
             title={title}
-            description={description}
+            description={resume}
             folder="recipes"
             id={entry.id}
           />
