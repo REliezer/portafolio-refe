@@ -1,0 +1,28 @@
+---
+import BaseLayout from "@components/base/BaseLayout.astro";
+import type { ContactEntry } from "@/types";
+import { Image } from "astro:assets";
+import ContactForm from "./Contact.tsx";
+
+interface Props {
+  entry: ContactEntry;
+}
+
+const { entry } = Astro.props;
+const { image, imageAlt, title } = entry.data;
+---
+
+<BaseLayout>
+  <!-- Banner -->
+  <ContactForm client:only="react" title={title}>
+    <Image
+      class="mb-6"
+      src={image!}
+      alt={imageAlt}
+      width={1024}
+      height={1024}
+      loading="eager"
+    />
+  </ContactForm>  
+  
+</BaseLayout>

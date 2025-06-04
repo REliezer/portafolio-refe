@@ -89,10 +89,20 @@ const terms = defineCollection({
   schema: searchable,
 });
 
+const contact = defineCollection({
+  loader: glob({ pattern: "-index.{md,mdx}", base: "./src/content/contact" }),
+  schema: ({ image }) =>
+    z.object({
+      image: image().optional(),
+      imageAlt: z.string().default(""),
+      title: z.string(),      
+    }),
+});
 // Export collections
 export const collections = {
   about,
   home,
   projects,
   terms,
+  contact,
 };

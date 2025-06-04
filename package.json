@@ -15,8 +15,10 @@
     "@astrojs/mdx": "^4.3.0",
     "@astrojs/react": "^4.3.0",
     "@astrojs/sitemap": "^3.4.0",
+    "@astrojs/vercel": "^8.1.5",
     "@popperjs/core": "^2.11.8",
     "@radix-ui/react-scroll-area": "^1.2.9",
+    "@react-email/components": "^0.0.41",
     "@tailwindcss/vite": "^4.1.7",
     "animate.css": "^4.1.1",
     "astro": "5.8.0",
@@ -36,6 +38,7 @@
     "remark-collapse": "^0.1.2",
     "remark-math": "^6.0.0",
     "remark-toc": "^9.0.0",
+    "resend": "^4.5.1",
     "swiper": "^11.2.8",
     "tailwind-merge": "^3.3.0"
   },

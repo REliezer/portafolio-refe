@@ -2,6 +2,7 @@ import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
+import vercel from '@astrojs/vercel';
 import AutoImport from "astro-auto-import";
 import { defineConfig } from "astro/config";
 import remarkCollapse from "remark-collapse";
@@ -11,6 +12,8 @@ import remarkMath from "remark-math";
 
 // https://astro.build/config
 export default defineConfig({
+  output: 'server',
+  adapter: vercel(),
   vite: {
     plugins: [tailwindcss({
       config: {
@@ -45,5 +48,5 @@ export default defineConfig({
       }
     },
     extendDefaultPlugins: true
-  },
+  },  
 });

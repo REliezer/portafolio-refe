@@ -6,11 +6,13 @@ export type GenericEntry = CollectionEntry<CollectionKey>;
 export type AboutEntry = CollectionEntry<"about">;
 export type HomeEntry = CollectionEntry<"home">;
 export type ProjectEntry = CollectionEntry<"projects">;
+export type ContactEntry = CollectionEntry<"contact">;
 
 export type SearchableEntry =
   | AboutEntry
   | DocsEntry
-  | ProjectEntry;
+  | ProjectEntry
+  | ContactEntry;
 
 export type SocialLinks = {
   discord?: string;
