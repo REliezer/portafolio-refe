@@ -1,8 +1,5 @@
-import { defineCollection, reference, z } from "astro:content";
+import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
-
-// May also need to update /src/types/index.d.ts when updating this file
-// When updating the set of searchable collections, update collectionList in /src/pages/search.astro
 
 const searchable = z.object({
   title: z.string(),
@@ -98,6 +95,22 @@ const contact = defineCollection({
       title: z.string(),      
     }),
 });
+
+const skill = defineCollection({
+  schema: z.object({
+    title: z.string(),
+    description: z.string().optional(),
+    techs: z.array(
+      z.object({
+        label: z.string(),
+        img: z.string(),
+        level: z.number(),
+        group: z.string()
+      })
+    ),
+  }),
+});
+
 // Export collections
 export const collections = {
   about,
@@ -105,4 +118,5 @@ export const collections = {
   projects,
   terms,
   contact,
+  skill,
 };
