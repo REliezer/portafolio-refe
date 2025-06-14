@@ -1,6 +1,9 @@
 <script is:inline data-astro-rerun>
   const defaultTheme = "dark";
-  /*
+
+  localStorage.removeItem("theme"); // Borra cualquier tema guardado
+  setTheme(getTheme(defaultTheme)); // Aplica el tema por defecto
+
   function getTheme(defaultTheme) {
     var darkMode = defaultTheme === "dark" ? true : false;
     if (localStorage.getItem("theme") === "system") {
@@ -37,12 +40,5 @@
       });
     });
   });
-*/
-  function setTheme() {
-    document.documentElement.classList.add("dark"); // Aplica modo oscuro
-    localStorage.setItem("theme", "dark"); // Guarda la preferencia en localStorage
-  }
 
-  // Ejecutar el tema oscuro al cargar la página
-  setTheme();
 </script>
