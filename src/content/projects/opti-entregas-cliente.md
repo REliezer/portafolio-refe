@@ -5,8 +5,15 @@ date: 2024-09-21
 image: "@assets/projects/project-img1b.png"
 imageAlt: Opti-Entregas
 categories: [Proyectos Academicos]
+platform:
+  web: false
+  movil: true
+  nativo: false
+  pwa: false
+  desktop: false
+  api: false
 author: Rodrigo Fúnes
-github: ""
+github: "https://github.com/"
 link: ""
 
 stack:

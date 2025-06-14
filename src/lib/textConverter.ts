@@ -18,6 +18,7 @@ export const markdownify = (content: string, div?: boolean) => {
 
 // hyphen to space, uppercase only first letter in each word
 export const upperHumanize = (content: string) => {
+  if (typeof content !== "string") return "";
   return content
     .toLowerCase()
     .replace(/-/g, " ")

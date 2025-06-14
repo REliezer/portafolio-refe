@@ -5,8 +5,15 @@ date: 2023-01-01
 image: "@assets/projects/project-img5.png"
 imageAlt: Portafolio
 categories: [Proyectos Personales]
+platform:
+  web: true
+  movil: true
+  nativo: false
+  pwa: false
+  desktop: false
+  api: false
 author: Rodrigo Fúnes
-github: ""
+github: "https://github.com/"
 link: ""
 
 stack:

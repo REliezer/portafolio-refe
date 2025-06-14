@@ -5,9 +5,16 @@ date: 2024-09-21
 image: "@assets/projects/project-img1b.png"
 imageAlt: Opti-Entregas
 categories: [Proyectos Academicos]
+platform:
+  web: true
+  movil: false
+  nativo: false
+  pwa: true
+  desktop: false
+  api: false
 author: Rodrigo Fúnes
-github: ""
-link: ""
+github: "https://github.com/REliezer/fronted-web-administrativa-deploy.git"
+link: "https://web-administrativa.vercel.app/"
 
 stack:
   frontend:

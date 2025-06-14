@@ -4,6 +4,7 @@ import { getEntries } from "@lib/contentParser";
 import { getTaxa } from "@lib/taxonomyParser";
 import taxonomyFilter from "@lib/taxonomyFilter";
 import TaxonLayout from "@components/projects/TaxonLayout.astro";
+export const prerender = true;
 
 export async function getStaticPaths() {
   const taxa = await getTaxa("projects", "categories");

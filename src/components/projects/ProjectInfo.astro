@@ -1,0 +1,124 @@
+---
+import { upperHumanize, markdownify, slugify } from "@lib/textConverter";
+import ProjectInfoItem from "./ProjectInfoItem.astro";
+
+interface Props {
+  author?: string;
+  entryDate?: string;
+  categories?: string[];
+  github?: string;
+  link?: string;
+  resume?: string;
+  platform?: Record<string, boolean>;
+}
+
+const { author, entryDate, categories, github, link, resume, platform }: Props = Astro.props;
+const plataformasActivas = Object.entries(platform || {})
+  .filter(([_, value]) => value)
+  .map(([key]) => (key));
+
+const platformIcons: Record<string, string> = {
+  web: "🌐",
+  movil: "📱",
+  nativo: "🖥️",
+  pwa: "⚡",
+  desktop: "💻",
+  api: "🔗",
+};
+
+---
+
+<section class="col basis-1/3 p-2 min-w-72">
+    <div class="glass rounded-lg p-2 h-full intersect:animate-fadeUp opacity-0">
+        <!-- Author -->
+        {
+        author && (
+            <ProjectInfoItem
+                icon="user"
+                title={author}
+                url={`/about/`}
+            />
+        )}
+        <!-- Date -->
+        {
+        entryDate && (
+            <ProjectInfoItem
+                icon="clock"
+                title={entryDate}
+            />
+        
+        )}
+        <!-- Platform -->
+        {
+        platform && (
+            <ProjectInfoItem
+                icon="folder"
+                title="Plataforma"
+            />
+            <div class="row m-4">
+                <div class="col-12">
+                    {plataformasActivas.map((plat) => (
+                <li>
+                    {platformIcons[plat] || "❓"}
+                    {` ${upperHumanize(plat)}`}
+                </li>
+                ))}
+                </div>
+            </div>
+            )
+        }
+        <!-- Categories -->
+        {
+        categories && (
+            <ProjectInfoItem
+                icon="folder"
+                title="Categorías"
+            />
+            <div class="row m-4">
+                <div class="col-12">
+                {categories?.map((category: string, index: number) => (
+                    category ? (
+                    <li>
+                        <a href={`/projects/categories/${slugify(category)}`} >
+                            {upperHumanize(category)}
+                        </a>
+                    </li>
+                    ) : null
+                ))}
+                </div>
+            </div>
+        )
+        }
+        <!-- GitHub -->
+        {
+        github && (
+            <ProjectInfoItem
+                icon="github"
+                title="Repositorio GitHub"
+                url={github}
+            />
+        )
+        }
+        <!-- Link -->
+        {
+        link && (
+            <ProjectInfoItem
+                icon="link"
+                title="Enlace al proyecto"
+                url={link}
+            />
+        )
+        }
+        <!-- Description -->
+        {
+        resume && (
+            <div>
+            {author ? <hr class="my-2" /> : null}
+            <div class="m-4">
+                <div set:html={markdownify(resume)} />
+            </div>
+            </div>
+        )
+        }
+    </div>
+</section>

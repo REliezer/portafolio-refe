@@ -1,0 +1,35 @@
+---
+import { FaGithub, FaLink, FaRegClock, FaRegFolder, FaRegUserCircle } from "react-icons/fa";
+
+const icons = {
+  clock: FaRegClock,
+  folder: FaRegFolder,
+  user: FaRegUserCircle,
+  github: FaGithub,
+  link: FaLink,
+};
+
+interface Props {
+  icon: keyof typeof icons;
+  title: string;
+  url?: string;
+}
+
+const { icon, title, url }: Props = Astro.props;
+const Icon = icons[icon];
+---
+
+<div class="m-4">
+    {url ? (
+    <a href={url} target="_blank" rel="noopener noreferrer">
+        <Icon className="mr-2 -mt-1 inline-block" />
+        {title}
+    </a>
+    ) : (
+    <>
+        <Icon className="mr-2 -mt-1 inline-block" />
+        {title}
+    </>
+    )}
+
+</div>

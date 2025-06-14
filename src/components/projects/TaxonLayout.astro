@@ -2,7 +2,7 @@
 import BaseLayout from "@components/base/BaseLayout.astro";
 import PageHeader from "@components/common/PageHeader.astro";
 import { upperHumanize } from "@lib/textConverter";
-import BlogCard from "@components/projects/Card.astro";
+import ProjectCard from "@components/projects/Card.astro";
 import type { ProjectEntry } from "@/types";
 
 interface Props {
@@ -22,7 +22,7 @@ const { taxon, entries }: Props = Astro.props;
           {
             entries.map((entry) => (
               <div class="py-2 md:py-4 md:col-6">
-                <BlogCard entry={entry} />
+                <ProjectCard entry={entry} />
               </div>
             ))
           }

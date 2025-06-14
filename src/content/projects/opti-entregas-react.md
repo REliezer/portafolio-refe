@@ -5,9 +5,16 @@ date: 2024-09-21
 image: "@assets/projects/project-img1b.png"
 imageAlt: Opti-Entregas
 categories: [Proyectos Personales]
+platform:
+  web: true
+  movil: true
+  nativo: false
+  pwa: false
+  desktop: false
+  api: false
 author: Rodrigo Fúnes
-github: ""
-link: ""
+github: "https://github.com/REliezer/frontend-cliente-final-react.git"
+link: "https://opti-entregas.vercel.app/"
 
 stack:
   frontend:

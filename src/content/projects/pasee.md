@@ -5,9 +5,16 @@ date: 2025-04-21
 image: "@assets/projects/project-img4.png"
 imageAlt: PASEE
 categories: [Proyectos Academicos, Proyectos Colaborativos]
+platform:
+  web: true
+  movil: true
+  nativo: false
+  pwa: false
+  desktop: false
+  api: false
 author: Rodrigo Fúnes
-github: "Google.hn"
-link: "Google.hn"
+github: "https://github.com/CarlosTorresGz/BecasUnahFE"
+link: "https://becas-unah-pasee.vercel.app/"
 
 stack:
   frontend:

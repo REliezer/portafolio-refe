@@ -59,8 +59,9 @@ const projects = defineCollection({
       image: image().optional(),
       imageAlt: z.string().default(""),
       author: z.string().optional(),
-      categories: z.array(z.string()).optional().default([]), //new
-      resume: z.string().optional(), //new
+      categories: z.array(z.string()).optional().default([]),
+      platform: z.record(z.boolean()).optional().default({}),
+      resume: z.string().optional(),
       stack: z
         .object({
           frontend: z.array(z.string()),
@@ -78,8 +79,8 @@ const projects = defineCollection({
           }))
         .optional(),
       github: z.string()
-        //.url("Debe ser una URL válida")
-        //.startsWith("https://github.com/", "Debe ser un enlace a GitHub")
+        .url("Debe ser una URL válida")
+        .startsWith("https://github.com/", "Debe ser un enlace a GitHub")
         .optional(),
       link: z.string()
         //.url("Debe ser una URL válida")

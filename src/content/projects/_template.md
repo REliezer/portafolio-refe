@@ -5,8 +5,15 @@ date: 2025-04-21
 image: "@assets/projects/project-img.png"
 imageAlt: Lorem ipsum
 categories: [Proyectos Academicos, Proyectos Colaborativos]
+platform:
+  web: false
+  movil: false
+  nativo: false
+  pwa: false
+  desktop: false
+  api: false
 author: Your Name
-github: ""
+github: "https://github.com/"
 link: ""
 
 stack:
