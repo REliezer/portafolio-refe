@@ -79,6 +79,6 @@ techs:
 
   - label: "GitHub"
     img: "/icons/github.svg"
-    level: 50
+    level: 80
     group: "Control de Versiones" 
 ---

@@ -7,12 +7,7 @@ export type AboutEntry = CollectionEntry<"about">;
 export type HomeEntry = CollectionEntry<"home">;
 export type ProjectEntry = CollectionEntry<"projects">;
 export type ContactEntry = CollectionEntry<"contact">;
-
-export type SearchableEntry =
-  | AboutEntry
-  | DocsEntry
-  | ProjectEntry
-  | ContactEntry;
+export type SkillEntry = CollectionEntry<"skill">;
 
 export type SocialLinks = {
   discord?: string;

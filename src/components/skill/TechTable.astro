@@ -22,9 +22,8 @@ const groupedTechs = techs.reduce((acc, tech) => {
 }, {} as Record<string, typeof techs>);
 
 ---
-<div>
-    <h2 class="text-2xl font-bold mb-4 ">{title}</h2>
-    <p class="mb-6">{description}</p>
+
+  <div class=" container rounded-lg intersect:animate-fadeDown opacity-0 p-8">
     <div class="grid grid-cols-4 md:grid-cols-4 gap-4 ">
         {
         Object.entries(groupedTechs).map(([group, techs]) => (
@@ -32,7 +31,7 @@ const groupedTechs = techs.reduce((acc, tech) => {
                 <h3 class="bg-[#4A2FBD] text-xl text-[#020403] font-semibold mb-2 p-2 rounded h-10">{group}</h3>
                 <div class="flex flex-col items-center gap-4 p-2 border border-[#fbfcf8] rounded h-[calc(100% - 40px)]">
                     {
-                    techs.slice() // create a shallow copy to avoid mutating original array
+                    techs.slice()
                         .sort((a, b) => Number(b.level) - Number(a.level))
                         .map((tech) => (                      
                         <div class="flex-col items-center gap-2 p-2">
@@ -58,15 +57,3 @@ const groupedTechs = techs.reduce((acc, tech) => {
         }
     </div>
 </div>
-
-
-<style>
-  .table {
-    @apply table-auto;
-  }
-  .table th, .table td {
-    @apply px-4 py-2 border-b;
-  }
-  .table th {
-    @apply bg-gray-100;
-  }

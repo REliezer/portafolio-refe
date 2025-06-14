@@ -54,11 +54,12 @@ const projects = defineCollection({
   }),
   schema: ({ image }) =>
     searchable.extend({
+      title: z.string(),
       date: z.date().optional(),
       image: image().optional(),
       imageAlt: z.string().default(""),
       author: z.string().optional(),
-      categories: z.array(z.string()).optional(), //new
+      categories: z.array(z.string()).optional().default([]), //new
       resume: z.string().optional(), //new
       stack: z
         .object({
@@ -76,8 +77,13 @@ const projects = defineCollection({
             modulos: z.array(z.string()).optional(),
           }))
         .optional(),
-      github: z.string().optional(),
-      link: z.string().optional(),
+      github: z.string()
+        //.url("Debe ser una URL válida")
+        //.startsWith("https://github.com/", "Debe ser un enlace a GitHub")
+        .optional(),
+      link: z.string()
+        //.url("Debe ser una URL válida")
+        .optional(),
     }),
 });
 
@@ -92,7 +98,7 @@ const contact = defineCollection({
     z.object({
       image: image().optional(),
       imageAlt: z.string().default(""),
-      title: z.string(),      
+      title: z.string(),
     }),
 });
 

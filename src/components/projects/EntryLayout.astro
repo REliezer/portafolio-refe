@@ -5,33 +5,15 @@ import BaseLayout from "@components/base/BaseLayout.astro";
 import { upperHumanize, markdownify, slugify } from "@lib/textConverter";
 import { formatDate } from "@lib/formatDate";
 
-import {
-  FaGithub,
-  FaLink,
-  FaRegClock,
-  FaRegFolder,
-  FaRegUserCircle,
-} from "react-icons/fa";
+import { FaGithub, FaLink, FaRegClock, FaRegFolder, FaRegUserCircle, } from "react-icons/fa";
 
 interface Props {
   entry: ProjectEntry;
 }
 
 const { entry } = Astro.props;
-const {
-  title,
-  resume,
-  date,
-  image,
-  imageAlt,
-  categories,
-  author,
-  stack,
-  description,
-  content,
-  github,
-  link,
-} = entry.data;
+
+const { title, resume, date, image, imageAlt, categories, author, stack, description, content, github, link, } = entry.data;
 
 const entryDate = date ? formatDate(date) : null;
 ---
@@ -88,7 +70,6 @@ const entryDate = date ? formatDate(date) : null;
               <!-- Categories -->
               {
                 categories && (
-                  <>
                     <div class="m-4">
                       <FaRegFolder className={"mr-2 -mt-1 inline-block"} />
                       Categories
@@ -106,7 +87,6 @@ const entryDate = date ? formatDate(date) : null;
                         ))}
                       </div>
                     </div>
-                  </>
                 )
               }
               <!-- GitHub -->
