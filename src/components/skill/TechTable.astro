@@ -1,17 +1,22 @@
 ---
+/* * Componente para mostrar una tabla de tecnologías agrupadas por su grupo.
+ * Cada tecnología tiene un nombre, una imagen, un nivel y opcionalmente un grupo.
+ */
 interface Props {
-  title: string;
-  description: string;
   techs: {
     label: string;
     img: string;
-    level: string;
+    level: number;
     group?: string;
   }[];
 }
 
-const { title, description, techs } = Astro.props;
+const { techs } = Astro.props;
 
+/*
+ * Agrupa las tecnologías por su grupo.
+ * Si no tienen grupo, se asigna al grupo "Other".
+ */
 const groupedTechs = techs.reduce((acc, tech) => {
   const group = tech.group || 'Other';
   if (!acc[group]) {
@@ -22,38 +27,37 @@ const groupedTechs = techs.reduce((acc, tech) => {
 }, {} as Record<string, typeof techs>);
 
 ---
-
-  <div class=" container rounded-lg intersect:animate-fadeDown opacity-0 p-8">
-    <div class="grid grid-cols-4 md:grid-cols-4 gap-4 ">
-        {
-        Object.entries(groupedTechs).map(([group, techs]) => (
-            <div class="p-4 rounded-lg shadow glass intersect:animate-fadeDown opacity-0 ">
-                <h3 class="bg-[#4A2FBD] text-xl text-[#020403] font-semibold mb-2 p-2 rounded h-10">{group}</h3>
-                <div class="flex flex-col items-center gap-4 p-2 border border-[#fbfcf8] rounded h-[calc(100% - 40px)]">
-                    {
-                    techs.slice()
-                        .sort((a, b) => Number(b.level) - Number(a.level))
-                        .map((tech) => (                      
-                        <div class="flex-col items-center gap-2 p-2">
-                            <img src={tech.img} alt={tech.label} class="w-9 h-9" title={tech.label}/>
-                            <span class="text-center">{tech.label}</span>
-                        </div>
-                        <meter
-                            value={tech.level}
-                            min={0}
-                            max={100}
-                            low={30}
-                            high={80}
-                            optimum={95}
-                            class="w-full h-3 p-0 mb-0"
-                            title={`Nivel de habilidad en ${tech.label}`}
-                            aria-label={`Habilidad en ${tech.label}`}
-                        />
-                    ))
-                    }
-                </div>
-            </div>
-        ))
-        }
-    </div>
+<div class=" container rounded-lg intersect:animate-fadeDown opacity-0 p-8">
+  <div class="grid grid-cols-4 md:grid-cols-4 gap-4 ">
+      {
+      Object.entries(groupedTechs).map(([group, techs]) => (
+          <div class="p-4 rounded-lg shadow glass intersect:animate-fadeDown opacity-0 ">
+              <h3 class="bg-[#4A2FBD] text-xl text-[#020403] font-semibold mb-2 p-2 rounded h-10">{group}</h3>
+              <div class="flex flex-col items-center gap-4 p-2 border border-[#fbfcf8] rounded h-[calc(100% - 40px)]">
+                  {
+                  techs.slice()
+                      .sort((a, b) => Number(b.level) - Number(a.level))
+                      .map((tech) => (                      
+                      <div class="flex-col items-center gap-2 p-2">
+                          <img src={tech.img} alt={tech.label} class="w-9 h-9" title={tech.label}/>
+                          <span class="text-center">{tech.label}</span>
+                      </div>
+                      <meter
+                          value={tech.level}
+                          min={0}
+                          max={100}
+                          low={30}
+                          high={80}
+                          optimum={95}
+                          class="w-full h-3 p-0 mb-0"
+                          title={`Nivel de habilidad en ${tech.label}`}
+                          aria-label={`Habilidad en ${tech.label}`}
+                      />
+                  ))
+                  }
+              </div>
+          </div>
+      ))
+      }
+  </div>
 </div>

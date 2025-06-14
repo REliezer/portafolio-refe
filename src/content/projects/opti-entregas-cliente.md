@@ -30,4 +30,15 @@ stack:
 description:
   Opti-Entregas es una plataforma de delivery diseñada para facilitar compras en múltiples categorías, como Café & Panadería, Farmacias, Mascotas, Restaurantes y Tecnología. Los usuarios registrados pueden explorar negocios, seleccionar productos y definir cantidades con total facilidad. La experiencia de compra se completa con opciones flexibles de pago y selección de dirección de envío, garantizando un servicio cómodo y eficiente.
 
+content:
+  - nombre: "Módulos Generales"
+    modulos:
+    - Landing Page
+    - Categorias
+    - Login
+    - Cambio de Contraseña
+    - Registro
+    - Cesta de compras
+    - Pasarela de pago
+    - Perfil de usuario
 ---

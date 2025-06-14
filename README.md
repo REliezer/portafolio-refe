@@ -1,8 +1,4 @@
 
-<div align="center">
-  <img src="src/assets/astrogon-logo.svg" style="width:80%;" alt="Astrogon Logo" align="center" />
-</div>
-
 ---
 
 [![GitHub License](https://img.shields.io/github/license/astrogon/astrogon?color=red)](https://github.com/astrogon/astrogon/blob/main/LICENSE) [![Repo Size](https://img.shields.io/github/repo-size/astrogon/astrogon)](https://github.com/astrogon/astrogon) ![GitHub branch check runs](https://img.shields.io/github/check-runs/astrogon/astrogon/main) [![Website](https://img.shields.io/website?up_message=online&up_color=limegreen&down_message=offline&down_color=yellow&url=https%3A%2F%2Fastrogon.reednel.com%2F)](https://astrogon.reednel.com/)
@@ -60,30 +56,9 @@ Astrogon is a rapidly-customizable multipurpose website template built using Ast
 
 Every one of these features was designed with modularity and customizability in mind, for the smoothest development experience possible. For more details, see [docs/customization.md](docs/customization.md).
 
-## Recommended Technologies
-
-- [Git](https://git-scm.com)
-- [Node Version Manager](https://github.com/nvm-sh/nvm)
-- [Visual Studio Code](https://code.visualstudio.com/)
-
-See [docs/tech-stack.md](docs/tech-stack.md) for more details.
-
 ## Development Instructions
 
-1. Fork this repository to your own GitHub account, then clone it to your local machine
-2. Use Node 22: `nvm install 22` or `nvm use 22`
-3. From the project directory, install Node dependencies: `npm install`
-4. From the project directory, build: `npm run dev`
-5. See your changes live at `http://localhost:4321`
+1. From the project directory, install Node dependencies: `npm install`
+2. From the project directory, build: `npm run dev`
+3. See your changes live at `http://localhost:4321`
 
-## License
-
-Astrogon is licensed under the [MIT License](LICENSE).
-
-## Acknowledgments
-
-This template was originally inspired by the structures of [zeon-studio](https://github.com/zeon-studio)'s [astroplate](https://github.com/zeon-studio/astroplate), [jordienr](https://github.com/jordienr)'s [astro-design-system](https://github.com/jordienr/astro-design-system) and [TheOtterlord](https://github.com/TheOtterlord)'s [manual](https://github.com/TheOtterlord/manual).
-
-## Sponsorship
-
-[reednel](https://github.com/reednel) has dedicated hundreds of hours to building this template, and continues to maintain and improve on it. This software is fully Free and Open Source, but if you find value in it, a small donation [[here](https://github.com/sponsors/reednel)] would be warmly appreciated.
