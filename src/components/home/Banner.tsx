@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ArrowRightCircle } from "react-bootstrap-icons";
 import 'animate.css';
-import '../../styles/BannerComponente.scss';
+import '../../styles/components/BannerComponente.css';
 
 interface BannerProps {
   title: string;
@@ -54,7 +54,7 @@ const BannerComponent = ({title, content, button, children}: BannerProps) => {
                     <div className="text-center lg:col-8">
                         <span className='tagline'>{title}</span>
                         <h1>{'Hi I\'m Rodrigo Fúnes '}<span className='wrap'>{text}</span></h1>
-                        <p className='text-justify'>{content}</p>
+                        <p className='text-justify font-mono'>{content}</p>
                         <button onClick={() => console.log('connect')}><a href={button.link}>{button.label}</a><ArrowRightCircle size={25} /></button>
                     </div>
                     <div className="text-center lg:col-4 align-items-center">

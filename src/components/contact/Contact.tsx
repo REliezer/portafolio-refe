@@ -1,7 +1,6 @@
 import { useState } from "react";
 //import contactImg from "../../assets/contact/contact-img.svg";
-import '../../styles/ContactComponente.scss';
-import { Resend } from 'resend';
+import '../../styles/components/ContactComponente.css';
 
 interface BannerProps {
     title: string;
@@ -49,7 +48,7 @@ const Contact = ({ title, children }: BannerProps) => {
     }
 
     return (
-        <section className="glass container rounded-lg intersect:animate-fadeDown opacity-0 contact" id="connect">
+        <section className="glass container rounded-lg intersect:animate-fadeDown contact" id="connect">
             <div className="max-w-7xl mx-auto px-4">
                 <div className="flex flex-col md:flex-row items-center">
                     <div className="w-full md:w-1/2">

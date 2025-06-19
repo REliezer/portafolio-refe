@@ -1,0 +1,15 @@
+/************ Custom Color ************/
+:root {
+	--primary-color: #020403;
+	--secondary-color: #fbfcf8;
+	--tertiary-color: #4DB6AC;
+	--color-linear-gradient-1: #AA367C;
+	--color-linear-gradient-2: #4A2FBD;
+	--white-color: #fff;
+	--black-color: #000;
+	--background-color: #121212;
+	--succes-color: green;
+	--danger-color: red;
+	--primary-color-alfa: rgba(2, 4, 3, 0.1);
+	--secondary-color-alfa: rgba(251, 252, 248, 0.5);
+}

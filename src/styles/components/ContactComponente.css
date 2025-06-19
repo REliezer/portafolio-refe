@@ -1,15 +1,11 @@
-@use './variables';
+@import "../variables.css";
 
 /************ Contact Css ************/
 .contact {
-    //background: linear-gradient(90.21deg, $color-linear-gradient-1 -5.91%, $color-linear-gradient-2 111.58%);
+    /*background: linear-gradient(90.21deg, $color-linear-gradient-1 -5.91%, $color-linear-gradient-2 111.58%);*/
     padding: 30px;
     margin-top: 30px;
     margin-bottom: 30px;
-}
-
-.contact img {
-    width: 92%;
 }
 
 .contact h2 {
@@ -21,10 +17,10 @@
 .contact form input,
 .contact form textarea {
     width: 100%;
-    background: rgba(variables.$black-color, 0.1);
-    border: 1px solid rgba(variables.$white-color, 0.5);
+    background: var(--primary-color-alfa);
+    border: 1px solid var(--secondary-color-alfa);
     border-radius: 20px;
-    color: variables.$white-color;
+    color: var(--secondary-color);
     margin: 0 0 8px 0;
     padding: 18px 26px;
     font-weight: 500;
@@ -35,7 +31,8 @@
 
 .contact form input:focus,
 .contact form textarea:focus {
-    background: rgba(variables.$white-color, 1);
+    /*background: rgba(var(--secondary-color), 1);*/
+    background: var(--secondary-color);
     color: #121212;
 }
 
@@ -43,7 +40,7 @@
 .contact form textarea::placeholder {
     font-size: 16px;
     font-weight: 400;
-    color: variables.$white-color;
+    color: var(--secondary-color);
 }
 
 .contact form input:focus::placeholder,
@@ -54,8 +51,8 @@
 
 .contact form button {
     font-weight: 700;
-    color: variables.$black-color;
-    background-color: variables.$white-color;
+    color: var(--primary-color);
+    background-color: var(--secondary-color);
     padding: 14px 48px;
     font-size: 18px;
     margin-top: 25px;
@@ -70,7 +67,7 @@
 }
 
 .contact form button:hover {
-    color: variables.$white-color;
+    color: var(--secondary-color);
 }
 
 .contact form button::before {

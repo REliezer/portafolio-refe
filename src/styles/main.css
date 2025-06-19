@@ -1,0 +1,19 @@
+@config '../../tailwind.config.js';
+
+@import 'tailwindcss';
+
+@import './base/base.css';
+@import './base/fonts.css';
+@import './components/prose.css';
+@import './components/glass.css';
+@import './components/BannerComponente.css' layer(components);
+@import './components/ContactComponente.css' layer(components);
+@import './utilities/utilities.css';
+
+/**/
+
+@layer base {
+  
+}
+
+

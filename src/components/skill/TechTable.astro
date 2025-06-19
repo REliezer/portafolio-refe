@@ -27,11 +27,11 @@ const groupedTechs = techs.reduce((acc, tech) => {
 }, {} as Record<string, typeof techs>);
 
 ---
-<div class=" container rounded-lg intersect:animate-fadeDown opacity-0 p-8">
+<div class=" container rounded-lg intersect:animate-fadeDown p-8">
   <div class="grid grid-cols-4 md:grid-cols-4 gap-4 ">
       {
       Object.entries(groupedTechs).map(([group, techs]) => (
-          <div class="p-4 rounded-lg shadow glass intersect:animate-fadeDown opacity-0 ">
+          <div class="p-4 rounded-lg shadow glass intersect:animate-fadeDown ">
               <h3 class="bg-[#4A2FBD] text-xl text-[#020403] font-semibold mb-2 p-2 rounded h-10">{group}</h3>
               <div class="flex flex-col items-center gap-4 p-2 border border-[#fbfcf8] rounded h-[calc(100% - 40px)]">
                   {
