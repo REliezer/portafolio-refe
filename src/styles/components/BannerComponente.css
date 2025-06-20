@@ -1,4 +1,6 @@
 
+@import "../variables.css";
+
 /************ Banner Css ************/
 .banner {
     margin-top: 0;
@@ -14,15 +16,18 @@
     font-weight: 700;
     letter-spacing: 0.8px;
     padding: 8px 10px;
-    background: linear-gradient(90.21deg, rgba(170, 54, 124, 0.5) -5.91%, rgba(74, 47, 189, 0.5) 111.58%);
-    border: 1px solid rgba(var(--white-color), 0.5);
+    background: linear-gradient(90.21deg, var(--color-linear-gradient-1-alfa) -5.91%, var(--color-linear-gradient-2-alfa) 111.58%);
+    border: 5px solid;
+    border-image-slice: 1;
+    border-image-source: 
+        linear-gradient(to left, var(--color-linear-gradient-2), var(--color-linear-gradient-1))!important;
     font-size: 20px;
     margin-bottom: 16px;
     display: inline-block;
 }
 
 .banner h1 {
-    font-size: 65px;
+    /*font-size: 65px;*/
     font-weight: 700;
     letter-spacing: 0.8px;
     line-height: 1;
@@ -31,15 +36,14 @@
 }
 
 .banner p {
-    color: #FAF9F6;
-    font-size: 18px;
+    /*font-size: 18px;*/
     letter-spacing: 0.8px;
     line-height: 1.5em;
     width: 96%;
 }
 
 .banner button {
-    color: var(--white-color);
+    color: var(--secondary-color);
     font-weight: 700;
     font-size: 20px;
     margin-top: 60px;
@@ -49,7 +53,7 @@
 }
 
 .banner button a {
-    color: var(--white-color);
+    color: var(--secondary-color);
     font-weight: 700;
     font-size: 20px;
     letter-spacing: 0.8px;
@@ -66,7 +70,7 @@
     margin-left: 25px;
 }
 
-.txt-rotate>.wrap {
-    border-right: 0.08em solid #666;
+.wrap {
+    border-right: 0.08em solid var(--secondary-color);
 }
 

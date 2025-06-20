@@ -1,6 +1,7 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 
+
 const searchable = z.object({
   title: z.string(),
   description: z.string().optional(),
@@ -8,6 +9,7 @@ const searchable = z.object({
   draft: z.boolean().default(false),
 });
 
+// Esquema para redes sociales (todos opcionales)
 const social = z.object({
   discord: z.string().optional(),
   email: z.string().optional(),
@@ -21,6 +23,7 @@ const social = z.object({
   youtube: z.string().optional(),
 });
 
+// Colección About (solo archivos -index.md/mdx)
 const about = defineCollection({
   loader: glob({ pattern: "-index.{md,mdx}", base: "./src/content/about" }),
   schema: ({ image }) =>
@@ -30,6 +33,7 @@ const about = defineCollection({
     }),
 });
 
+// Colección Home (solo archivos -index.md/mdx)
 const home = defineCollection({
   loader: glob({ pattern: "-index.{md,mdx}", base: "./src/content/home" }),
   schema: ({ image }) =>
@@ -37,16 +41,18 @@ const home = defineCollection({
       image: image().optional(),
       imageAlt: z.string().default(""),
       title: z.string(),
+      subtitle: z.string(),
       content: z.string(),
       button: z
         .object({
           label: z.string(),
-          link: z.string().optional(),
+          link: z.string(),
         })
         .optional(),
     }),
 });
 
+// Colección Projects (archivos con nombre diferente a _*.md/mdx)
 const projects = defineCollection({
   loader: glob({
     pattern: "**\/[^_]*.{md,mdx}",
@@ -59,8 +65,8 @@ const projects = defineCollection({
       image: image().optional(),
       imageAlt: z.string().default(""),
       author: z.string().optional(),
-      categories: z.array(z.string()).optional().default([]),
-      platform: z.record(z.boolean()).optional().default({}),
+      categories: z.array(z.string()).default([]),
+      platform: z.record(z.boolean()).default({}),
       resume: z.string().optional(),
       stack: z
         .object({
@@ -72,8 +78,8 @@ const projects = defineCollection({
         })
         .optional(),
       content: z
-        .array(z
-          .object({
+        .array(
+          z.object({
             nombre: z.string(),
             modulos: z.array(z.string()).optional(),
           }))
@@ -88,11 +94,13 @@ const projects = defineCollection({
     }),
 });
 
+// Colección Terms (solo archivos -index.md/mdx)
 const terms = defineCollection({
   loader: glob({ pattern: "-index.{md,mdx}", base: "./src/content/terms" }),
   schema: searchable,
 });
 
+// Colección Contact (solo archivos -index.md/mdx)
 const contact = defineCollection({
   loader: glob({ pattern: "-index.{md,mdx}", base: "./src/content/contact" }),
   schema: ({ image }) =>
@@ -103,6 +111,7 @@ const contact = defineCollection({
     }),
 });
 
+// Colección Skills (lista de habilidades y tecnologías)
 const skill = defineCollection({
   schema: z.object({
     title: z.string(),
@@ -111,7 +120,7 @@ const skill = defineCollection({
       z.object({
         label: z.string(),
         img: z.string(),
-        level: z.number(),
+        level: z.number().min(10).max(100).optional(), // Nivel entre 10 y 100
         group: z.string()
       })
     ),

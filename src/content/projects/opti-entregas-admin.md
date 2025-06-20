@@ -1,7 +1,7 @@
 ---
 title: Opti-Entregas - Administración
-resume: Plataforma de administración para Opti-Entregas.
-date: 2024-09-21
+resume: Aplicación web que utilizaran los administradores para gestionar las empresas y productos que se muestran a los usuarios finales.
+date: 2022-12-21
 image: "@assets/projects/project-img1b.png"
 imageAlt: Opti-Entregas
 categories: [Proyectos Academicos]

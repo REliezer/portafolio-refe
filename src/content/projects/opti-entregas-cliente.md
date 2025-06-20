@@ -1,7 +1,7 @@
 ---
 title: Opti-Entregas - Clientes
-resume: Plataforma de delivery para clientes.
-date: 2024-09-21
+resume: Aplicación web diseñada para que los clientes de Opti Entregas puedan hacer sus pedidos.
+date: 2022-12-21
 image: "@assets/projects/project-img1b.png"
 imageAlt: Opti-Entregas
 categories: [Proyectos Academicos]

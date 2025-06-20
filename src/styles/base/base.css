@@ -1,7 +1,8 @@
-
 @layer base {
   html {
     @apply text-base h-screen;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
   }
 
   body {
@@ -45,7 +46,7 @@
   }
 
   p {
-    @apply intersect:animate-fade opacity-0;
+    @apply text-sm md:text-lg dark:text-dark-text-base intersect:animate-fade opacity-0;
   }
 
   b,
@@ -72,8 +73,21 @@
     background-color: var(--shiki-dark-bg) !important;
   }
 
-  /* code {
-  @apply after:border-none;
- }
-*/
+  /*Barra de Scroll*/
+  /**Ancho de la barra */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  /*Color y radio de la barra*/
+  ::-webkit-scrollbar-track {
+    background: var(--color-linear-gradient-2);
+    border-radius: 50px;
+  }
+
+  /*Color y radio de la barra interna*/
+  ::-webkit-scrollbar-thumb {
+    background: var(--secondary-color);
+    border-radius: 50px;
+  }
 }

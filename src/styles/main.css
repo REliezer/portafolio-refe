@@ -6,8 +6,8 @@
 @import './base/fonts.css';
 @import './components/prose.css';
 @import './components/glass.css';
-@import './components/BannerComponente.css' layer(components);
-@import './components/ContactComponente.css' layer(components);
+@import './components/BannerComponente.css';
+@import './components/ContactComponente.css';
 @import './utilities/utilities.css';
 
 /**/

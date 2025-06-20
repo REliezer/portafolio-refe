@@ -8,23 +8,28 @@ const stickyHeader = true;
 const menu = [
   {
     name: "Home",
+    id: "/",
     url: "/",
   },
   {
     name: "About",
+    id: "#about",
     url: "/about",
   },
   {
+    name: "Skills",
+    id: "#skills",
+    url: "/skill",
+  },
+  {
     name: "Projects",
+    id: "#projects",
     url: "/projects",
   },
   {
     name: "Contact",
+    id: "/contact",
     url: "/contact",
-  },
-  {
-    name: "Skills",
-    url: "/skill",
   },
 ];
 ---
@@ -60,7 +65,7 @@ const menu = [
         menu.map((item) => (
           <li class="">
             <a
-              href={item.url}
+              href={item.id}
               class={`block p-2 font-secondary font-semibold text-text-base transition dark:text-dark-text-base lg:px-2 lg:py-3 ${
                 (pathname === `${item.url}/` || pathname === item.url) &&
                 "active"

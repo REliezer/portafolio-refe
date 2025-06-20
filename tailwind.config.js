@@ -2,6 +2,7 @@ const plugin = require("tailwindcss/plugin");
 
 let font_base = 16;
 let font_scale = 1.25;
+let sm_factor = 0.5;
 
 const scale = (level) => (font_base / font_base) * Math.pow(font_scale, level);
 
@@ -57,7 +58,7 @@ module.exports = {
           tertiary: "#ccc",
         },
         border: {
-          DEFAULT: "#ddd",
+          DEFAULT: "#4A2FBD",
         },
         dark: {
           text: {
@@ -85,13 +86,16 @@ module.exports = {
         base: `${font_base}px`,
         h6: `${scale(0)}rem`,
         h5: `${scale(1)}rem`,
-        h4: `${scale(2)}rem`,
-        h3: `${scale(3)}rem`,
-        h2: `${scale(4)}rem`,
-        h1: `${scale(5)}rem`,
-        "h1-sm": `${scale(5) * 0.8}rem`,
-        "h2-sm": `${scale(4) * 0.8}rem`,
-        "h3-sm": `${scale(3) * 0.8}rem`,
+        h4: `${scale(3)}rem`,
+        h3: `${scale(4)}rem`,
+        h2: `${scale(5)}rem`,
+        h1: `${scale(6)}rem`,
+        "h1-sm": `${scale(6) * sm_factor}rem`,
+        "h2-sm": `${scale(5) * sm_factor}rem`,
+        "h3-sm": `${scale(4) * sm_factor}rem`,
+        "h4-sm": `${scale(3) * sm_factor}rem`,
+        lg: `${font_base + 2}px`,
+        sm: `${font_base - 2}px`,
       },
       fontFamily: {
         primary: [fontPrimary, fontPrimaryType],

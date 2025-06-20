@@ -26,9 +26,9 @@ const stars = Array.from({ length: numStars }).map(() => ({
       />
     ))
   }
-</div> -->
+</div> 
 
-<!-- Single Image Background -->
+/* Single Image Background */
 <style>
   html::before {
     content: "";
@@ -43,9 +43,9 @@ const stars = Array.from({ length: numStars }).map(() => ({
     pointer-events: none;
   }
 </style>
-
+-->
 <!-- Dual Image Background -->
-<!--<style>
+<style>
   html::before,
   html::after {
     content: "";
@@ -62,7 +62,8 @@ const stars = Array.from({ length: numStars }).map(() => ({
   }
 
   html::before {
-    background-image: url(/src/assets/backgrounds/bwca-day.png);
+    background-image: url(/src/assets/backgrounds/banner-bg-light.png);
+    filter: brightness(90%);
     opacity: 1;
   }
 
@@ -71,7 +72,7 @@ const stars = Array.from({ length: numStars }).map(() => ({
   }
 
   html::after {
-    background-image: url(/src/assets/backgrounds/bwca-night.png);
+    background-image: url(/src/assets/backgrounds/banner-bg.png);
     opacity: 0;
   }
 
@@ -79,4 +80,3 @@ const stars = Array.from({ length: numStars }).map(() => ({
     opacity: 1;
   }
 </style>
--->

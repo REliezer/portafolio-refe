@@ -5,12 +5,13 @@ import '../../styles/components/BannerComponente.css';
 
 interface BannerProps {
   title: string;
+  subtitle: string;
   content: string;
   button?: { label: string; link: string };
   children?: React.ReactNode;
 }
 
-const BannerComponent = ({title, content, button, children}: BannerProps) => {
+const BannerComponent = ({title, subtitle, content, button, children}: BannerProps) => {
     const [loopNum, setLoopNum] = useState(0); //bucle numero, indice de palabra a mostrar
     const [isDeleting, setIsDeleting] = useState(false); //determina que palabra se escribe o se elimina
     const [text, setText] = useState(''); //con que parte de la palabra comenzara
@@ -50,14 +51,16 @@ const BannerComponent = ({title, content, button, children}: BannerProps) => {
     return (
         <section className='banner' id='home'>
             <div className="container">
-                <div className="align-items-center row justify-center">
-                    <div className="text-center lg:col-8">
+                <div className="flex items-center justify-center">
+                    <div className="text-center lg:w-2/3">
                         <span className='tagline'>{title}</span>
-                        <h1>{'Hi I\'m Rodrigo Fúnes '}<span className='wrap'>{text}</span></h1>
+                        <h1>{subtitle} <span className='wrap'>{text}</span></h1>
                         <p className='text-justify font-mono'>{content}</p>
-                        <button onClick={() => console.log('connect')}><a href={button.link}>{button.label}</a><ArrowRightCircle size={25} /></button>
+                        <button>
+                            <a href={button?.link}>{button?.label}</a>
+                            <ArrowRightCircle size={25} /></button>
                     </div>
-                    <div className="text-center lg:col-4 align-items-center">
+                    <div className="text-center lg:w-1/3 flex items-center justify-center">
                         {children}                        
                     </div>
                 </div>

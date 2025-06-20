@@ -1,9 +1,60 @@
 ---
-import { getIndex } from "@lib/contentParser";
-import EntryLayout from "@components/home/EntryLayout.astro";
-import type { HomeEntry } from "@/types";
+import { getIndex, getEntries } from "@lib/contentParser";
+import { sortByDate } from "@lib/sortFunctions";
+import BaseLayout from "@components/base/BaseLayout.astro";
+import type { HomeEntry, AboutEntry, SkillEntry, ProjectEntry } from "@/types";
 
+//Componentes
+import EntryLayout from "@components/home/EntryLayout.astro";
+import TechTable from "@components/skill/TechTable.astro";
+import RecipeCard from "@components/projects/Card.astro";
+
+//Datos
 const entry = (await getIndex("home")) as HomeEntry;
+
+const entryAbout = (await getIndex("about")) as AboutEntry;
+const { title, description} = entryAbout.data;
+
+const entrySkills = (await getIndex("skill")) as SkillEntry;
+const { title: titleSkills, description: descriptionSkills } = entrySkills.data;
+const techs = entrySkills.data.techs;
+
+const entryIndex = (await getIndex("projects")) as ProjectEntry; // Index entry for projects
+const { title: titleProject, description: descriptionProject } = entryIndex.data;
+const allEntries = (await getEntries("projects", sortByDate)) as ProjectEntry[]; // All project entries
+const entries = allEntries.slice(0, 3); //Ultimos 3 proyectos
 ---
 
-<EntryLayout entry={entry} />
+<BaseLayout>
+  <EntryLayout entry={entry} />
+  <section class="container mb-6" id="about">
+    <h2 class="font-bold text-right">{title}</h2>
+    <hr class="mb-6 hr-separator" />
+    <div class="text-lg text-justify w-full line-clamp-7">{description}</div>
+    <a href="/about" class="btn-more">Leer mas...</a>
+  </section>
+  
+  <section class="container mb-6" id="skills">
+    <h2 class="font-bold text-left">{titleSkills}</h2>
+    <hr class="mb-6 hr-separator" />
+    <p class="text-lg text-justify">{descriptionSkills}</p>
+    <TechTable techs={techs} />
+  </section>
+  <section class="container mb-6" id="projects">
+    <h2 class="font-bold text-right">{titleProject}</h2>
+    <hr class="mb-6 hr-separator" />
+    <p class="text-lg text-justify">{descriptionProject}</p>
+    <div class="container">
+      <div class="row">
+        {
+          entries.map((entryProject) => (
+            <div class="col-12 md:col-4 h-min p-2">
+              <RecipeCard entry={entryProject} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+    <a href="/projects" class="btn-more">Ver mas proyectos...</a>
+  </section>
+</BaseLayout>
