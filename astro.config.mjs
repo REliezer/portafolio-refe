@@ -7,8 +7,6 @@ import AutoImport from "astro-auto-import";
 import { defineConfig } from "astro/config";
 import remarkCollapse from "remark-collapse";
 import remarkToc from "remark-toc";
-import rehypeKatex from "rehype-katex";
-import remarkMath from "remark-math";
 
 // https://astro.build/config
 export default defineConfig({
@@ -20,12 +18,14 @@ export default defineConfig({
         applyBaseStyles: false
       }
     }), AutoImport({
-      imports: ["@components/common/Button.astro", "@shortcodes/Accordion", "@shortcodes/Notice", "@shortcodes/Youtube", "@shortcodes/Tabs", "@shortcodes/Tab"]
+      imports: [
+        "@components/common/Button.astro", 
+      ]
     }
 
     )],
   },
-  site: "https://janedoe.com",
+  site: "https://rfunes.dev",
   base: "/",
   trailingSlash: "ignore",
   prefetch: {
@@ -39,8 +39,8 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [remarkToc, [remarkCollapse, {
       test: "Table of contents"
-    }], remarkMath],
-    rehypePlugins: [[rehypeKatex, {}]],
+    }]
+  ],
     shikiConfig: {
       themes: { // https://shiki.style/themes
         light: "light-plus",

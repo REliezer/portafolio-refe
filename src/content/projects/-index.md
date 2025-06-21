@@ -1,4 +1,4 @@
 ---
-title: Projects
-description: The projects of Rodrigo Fúnes
+title: Proyectos
+description: Mis ultimos proyectos en los que he trabajado.
 ---

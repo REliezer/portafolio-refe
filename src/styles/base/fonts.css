@@ -1,0 +1,74 @@
+/* ----------------- Centra ----------------- */
+@font-face {
+  font-family: 'Centra';
+  src: url('/fonts/Centra/CentraNo2-Book.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Centra';
+  src: url('/fonts/Centra/CentraNo2-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Centra';
+  src: url('/fonts/Centra/CentraNo2-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ----------------- Inter ----------------- */
+@font-face {
+    font-family: 'Inter';
+    src: url('/fonts/Inter/Inter-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/fonts/Inter/Inter-Italic.woff2') format('woff2');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* ----------------- Ubuntu Mono ----------------- */
+@font-face {
+    font-family: 'Ubuntu Mono';
+    src: url('/fonts/Ubuntu_Mono/UbuntuMono-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Ubuntu Mono';
+    src: url('/fonts/Ubuntu_Mono/UbuntuMono-Italic.woff2') format('woff2');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Ubuntu Mono';
+    src: url('/fonts/Ubuntu_Mono/UbuntuMono-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Ubuntu Mono';
+    src: url('/fonts/Ubuntu_Mono/UbuntuMono-BoldItalic.woff2') format('woff2');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}

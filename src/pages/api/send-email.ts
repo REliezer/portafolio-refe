@@ -1,5 +1,4 @@
 export const prerender = false;
-
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
 
@@ -8,16 +7,7 @@ const resend = new Resend(import.meta.env.RESEND_API_KEY);
 export const POST: APIRoute = async ({ request }) => {
     console.log('Received request to send email', request);
     const body = await request.json();
-    console.log('Request body:', body);
     const { firstName, lastName, email, phone, message } = body;
-
-    console.log('Parsed form data:', {
-        firstName,
-        lastName,
-        email,
-        phone,
-        message,
-    });
     
     const htmlContent = `
             <h2>Nuevo mensaje de: <strong>${firstName} ${lastName}</strong></h2>

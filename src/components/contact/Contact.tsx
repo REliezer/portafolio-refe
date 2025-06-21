@@ -1,7 +1,6 @@
 import { useState } from "react";
 //import contactImg from "../../assets/contact/contact-img.svg";
-import '../../styles/ContactComponente.scss';
-import { Resend } from 'resend';
+import '../../styles/components/ContactComponente.css';
 
 interface BannerProps {
     title: string;
@@ -49,7 +48,7 @@ const Contact = ({ title, children }: BannerProps) => {
     }
 
     return (
-        <section className="glass container rounded-lg intersect:animate-fadeDown opacity-0 contact" id="connect">
+        <section className="glass container rounded-lg intersect:animate-fadeDown contact" id="connect">
             <div className="max-w-7xl mx-auto px-4">
                 <div className="flex flex-col md:flex-row items-center">
                     <div className="w-full md:w-1/2">
@@ -58,14 +57,19 @@ const Contact = ({ title, children }: BannerProps) => {
                     </div>
                     <div className="w-full md:w-1/2">
                         <h2>{title}</h2>
-                        <form onSubmit={handleSubmit}>
+                        <form
+                            /*onSubmit={handleSubmit} */
+                            /*action="https://formspree.io/f/mnnvvpzl"*/
+                            action="https://formsubmit.co/b66d0e1b08cc1f34ecab001167b37c48 "
+                            method="POST"
+                        >
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <input type='text' value={formDetails.firstName} placeholder='First Name' onChange={(e) => onFormUpdate('firstName', e.target.value)} />
-                                <input type='text' value={formDetails.lastName} placeholder='Last Name' onChange={(e) => onFormUpdate('lastName', e.target.value)} />
-                                <input type='email' value={formDetails.email} placeholder='Email' onChange={(e) => onFormUpdate('email', e.target.value)} />
-                                <input type='tel' value={formDetails.phone} placeholder='Phones' onChange={(e) => onFormUpdate('phone', e.target.value)} />
-                                <textarea rows={6} value={formDetails.message} placeholder='Message' onChange={(e) => onFormUpdate('message', e.target.value)} className="col-span-full" ></textarea>
-
+                                <input type='text' name='Nombre' value={formDetails.firstName} placeholder='First Name' onChange={(e) => onFormUpdate('firstName', e.target.value)} />
+                                <input type='text' name='Apellido' value={formDetails.lastName} placeholder='Last Name' onChange={(e) => onFormUpdate('lastName', e.target.value)} />
+                                <input type='email' name='Correo Electronico' value={formDetails.email} placeholder='Email' onChange={(e) => onFormUpdate('email', e.target.value)} />
+                                <input type='tel' name='Telefono' value={formDetails.phone} placeholder='Phones' onChange={(e) => onFormUpdate('phone', e.target.value)} />
+                                <textarea rows={6} name='Mensaje' value={formDetails.message} placeholder='Message' onChange={(e) => onFormUpdate('message', e.target.value)} className="col-span-full" ></textarea>
+                                <input type="hidden" name="_template" value="box"></input>
                             </div>
                             <button type='submit'>
                                 <span>{buttonText}</span>

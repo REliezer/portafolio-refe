@@ -3,10 +3,11 @@ image: "@assets/home/header-img.svg"
 imageAlt: Image Home
 title: Bienvenido a mi portafolio.
 title_en: Welcome to my Portfolio.
+subtitle: Hola, Soy Rodrigo Fúnes!
+subtitle_en: Hey, I'm Rodrigo Fúnes!
 content: 
-  Desarrollador web con conocimineto en tecnologías frontend (HTML, CSS, JavaScript y React), backend (node.js) y diseño de interfaces intuitivas y atractivas con Figma y Adobe XD, asegurando una excelente experiencia de usuario.
-  También cuento con conocimientos en bases de datos relacionales y no relacionales, manejo de control de versiones con GitHub.
-content_en: I have knowledge in development web with HTML, CSS, PHP, JavaScript and React. Also use of libraries/framework like Bootstrap or Laravel. <br /> Management of Relational and Non-Relational Databases. Management of GitHub.
+  Desarrollador web enfocado en tecnologías frontend y en la creación de interfaces intuitivas, funcionales y visualmente atractivas que den al usuario la mejor experiencia. Con mi conocimiento en diseño UI y desarrollo web ayudo a las empresas a crear soluciones digitales que no solo funcionan o se vean bien, sino que también aportan un valor medible y generan un impacto real en su negocio.
+content_en: Web developer focused on front-end technologies and creating intuitive, functional, and visually compelling interfaces that provide the best user experience. With my knowledge of UI design and web development, I help companies create digital solutions that not only work or look good, but also provide measurable value and generate a real impact on their business.
 button:
   label: Contáctame 
   label_en: Let's connect 

@@ -1,19 +1,21 @@
-import plugin from "tailwindcss/plugin";
+const plugin = require("tailwindcss/plugin");
 
 let font_base = 16;
 let font_scale = 1.25;
+let sm_factor = 0.5;
 
-let h6 = font_base / font_base;
-let h5 = h6 * font_scale;
-let h4 = h5 * font_scale;
-let h3 = h4 * font_scale;
-let h2 = h3 * font_scale;
-let h1 = h2 * font_scale;
+const scale = (level) => (font_base / font_base) * Math.pow(font_scale, level);
 
-let fontPrimary = "serif";
-let fontPrimaryType = "serif";
-let fontSecondary = "open sans";
+let fontPrimary = "Inter";
+let fontPrimaryType = "sans-serif";
+
+let fontSecondary = "Centra";
 let fontSecondaryType = "sans-serif";
+
+let fontMono = "Ubuntu Mono";
+let fontMonoType = "monospace";
+
+const animations = require("./src/tailwind/animations.js");
 
 fontPrimary = fontPrimary
   .replace(/\+/g, " ")
@@ -25,7 +27,10 @@ fontSecondary = fontSecondary
 
 /** @type {import("tailwindcss").Config} */
 module.exports = {
-  content: ["./src/**/*.{astro,html,js,jsx,md,mdx,ts,tsx}"],
+  content: ["./src/**/*.{astro,html,js,jsx,md,mdx,ts,tsx}",
+    "./src/**/*.css",
+    "./styles/**/*.{css,scss}",
+  ],
   safelist: [],
   darkMode: "class",
   theme: {
@@ -42,29 +47,33 @@ module.exports = {
     },
     extend: {
       colors: {
-        txt: {
-          p: "#000",
-          s: "#222",
+        text: {
+          base: "#020403",
+          secondary: "#222",
           light: "#444",
         },
-        bg: {
-          p: "#fff",
-          s: "#ddd",
-          t: "#ddd",
+        background: {
+          base: "#fbfcf8",
+          secondary: "#ddd",
+          tertiary: "#ccc",
         },
-        border: "#ddd",
-        darkmode: {
-          txt: {
-            p: "#fff",
-            s: "#ddd",
+        border: {
+          DEFAULT: "#4A2FBD",
+        },
+        dark: {
+          text: {
+            base: "#fbfcf8",
+            secondary: "#ddd",
             light: "#bbb",
           },
-          bg: {
-            p: "#222",
-            s: "#444",
-            t: "#444",
+          background: {
+            base: "#020403",
+            secondary: "#444",
+            tertiary: "#333",
           },
-          border: "#444",
+          border: {
+            DEFAULT: "#444",
+          },
         },
       },
       minHeight: {
@@ -74,20 +83,24 @@ module.exports = {
         static_sidemenu: "calc(100vh - 6rem)",
       },
       fontSize: {
-        base: font_base + "px",
-        h1: h1 + "rem",
-        "h1-sm": h1 * 0.8 + "rem",
-        h2: h2 + "rem",
-        "h2-sm": h2 * 0.8 + "rem",
-        h3: h3 + "rem",
-        "h3-sm": h3 * 0.8 + "rem",
-        h4: h4 + "rem",
-        h5: h5 + "rem",
-        h6: h6 + "rem",
+        base: `${font_base}px`,
+        h6: `${scale(0)}rem`,
+        h5: `${scale(1)}rem`,
+        h4: `${scale(3)}rem`,
+        h3: `${scale(4)}rem`,
+        h2: `${scale(5)}rem`,
+        h1: `${scale(6)}rem`,
+        "h1-sm": `${scale(6) * sm_factor}rem`,
+        "h2-sm": `${scale(5) * sm_factor}rem`,
+        "h3-sm": `${scale(4) * sm_factor}rem`,
+        "h4-sm": `${scale(3) * sm_factor}rem`,
+        lg: `${font_base + 2}px`,
+        sm: `${font_base - 2}px`,
       },
       fontFamily: {
         primary: [fontPrimary, fontPrimaryType],
         secondary: [fontSecondary, fontSecondaryType],
+        mono: [fontMono, fontMonoType],
       },
       spacing: {
         "1/2": "50%",
@@ -114,56 +127,7 @@ module.exports = {
         "11/12": "91.666667%",
         "9/16": "56.25%",
       },
-      animation: {
-        // Intersect
-        fade: "fadeIn 1000ms both",
-        fadeUp: "fadeInUp 1000ms both",
-        fadeDown: "fadeInDown 1000ms both",
-        fadeRight: "fadeInRight 1000ms both",
-        fadeLeft: "fadeInLeft 1000ms both",
-        scale: "scaleOut 1000ms both",
-        // Star Background
-        twinkle: "twinkle 5s infinite ease-in-out",
-        // Cycle Background
-        cycleBg: "cycleBg 60s ease infinite",
-      },
-      keyframes: {
-        // Intersect
-        fadeIn: {
-          "0%": { opacity: 0 },
-          "100%": { opacity: 1 },
-        },
-        fadeInUp: {
-          "0%": { opacity: 0, transform: "translateY(2rem)" },
-          "100%": { opacity: 1, transform: "translateY(0)" },
-        },
-        fadeInDown: {
-          "0%": { opacity: 0, transform: "translateY(-2rem)" },
-          "100%": { opacity: 1, transform: "translateY(0)" },
-        },
-        fadeInRight: {
-          "0%": { opacity: 0, transform: "translateX(-2rem)" },
-          "100%": { opacity: 1, transform: "translateX(0)" },
-        },
-        fadeInLeft: {
-          "0%": { opacity: 0, transform: "translateX(2rem)" },
-          "100%": { opacity: 1, transform: "translateX(0)" },
-        },
-        scaleOut: {
-          "0%": { opacity: 0, transform: "scale(0.5)" },
-          "100%": { opacity: 1, transform: "scale(1)" },
-        },
-        // Star Background
-        twinkle: {
-          "0%, 20%, 100%": { opacity: 1 },
-          "10%": { opacity: 0.25 },
-        },
-        // Cycle Background
-        cycleBg: {
-          "0%, 100%": { backgroundPosition: "0% 50%" },
-          "50%": { backgroundPosition: "100% 50%" },
-        },
-      },
+      ...animations,
     },
   },
   plugins: [

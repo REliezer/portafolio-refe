@@ -1,7 +1,7 @@
 ---
 title: Opti-Entregas - Repartidores
-resume: Plataforma de delivery para repartidores.
-date: 2024-09-21
+resume: Aplicación web que utilizarán los repartidores para gestionar los pedidos, podrán ver las ordenes disponibles, ver si tienen alguna orden asignada o tomada y un historial de ordenes entregadas.
+date: 2022-12-21
 image: "@assets/projects/project-img1b.png"
 imageAlt: Opti-Entregas
 categories: [Proyectos Academicos]

@@ -1,0 +1,65 @@
+@layer utilities {
+  .section {
+    @apply py-12 xl:py-16;
+  }
+
+  .section-sm {
+    @apply py-8 xl:py-12;
+  }
+
+  .container {
+    @apply mx-auto max-w-[1200px] px-4;
+  }
+
+  .rounded-sm {
+    @apply rounded-[4px];
+  }
+
+  .rounded {
+    @apply rounded-[6px];
+  }
+
+  .rounded-lg {
+    @apply rounded-[12px];
+  }
+
+  .rounded-xl {
+    @apply rounded-[16px];
+  }
+
+  .btn-more {
+    @apply font-mono m-4 inline-flex items-center justify-center gap-2 text-lg font-semibold bg-transparent rounded-lg;
+
+    padding: 8px 10px;
+    letter-spacing: 0.8px;
+    border-width: 5px;
+    border-style: solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to left, var(--color-linear-gradient-2), var(--color-linear-gradient-1)) !important;
+  }
+
+  .btn-more:hover {
+    opacity: 0.85;
+    transform: scale(1.03);
+    transition: all 0.2s ease-in-out;
+  }
+
+  .hr-separator {
+    border: 2px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to left, var(--color-linear-gradient-2), var(--color-linear-gradient-1)) !important;
+  }
+
+  /* Header Conditionals */
+  input#nav-toggle:checked+label #show-button {
+    @apply hidden;
+  }
+
+  input#nav-toggle:checked+label #hide-button {
+    @apply block;
+  }
+
+  input#nav-toggle:checked~#nav-menu {
+    @apply block;
+  }
+}

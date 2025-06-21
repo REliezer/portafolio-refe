@@ -1,0 +1,86 @@
+@layer components {
+  .content {
+    /* Base */
+    @apply prose max-w-none intersect:animate-fade-up;
+
+    /* Headings */
+    @apply prose-headings:mb-[.3em] prose-headings:mt-[.6em];
+    @apply prose-h1:text-h1-sm md:prose-h1:text-h1;
+    @apply prose-h2:text-h2-sm md:prose-h2:text-h2;
+    @apply prose-h3:text-h3-sm md:prose-h3:text-h3;
+
+    /* Paragraphs and links */
+    @apply prose-p:text-base prose-p:text-text-secondary dark:prose-p:text-dark-text-secondary;
+    @apply prose-a:text-text-secondary prose-a:underline hover:prose-a:text-text-base;
+    @apply dark:prose-a:text-dark-text-secondary dark:hover:prose-a:text-dark-text-base;
+
+    /* Images */
+    @apply prose-img:max-w-full prose-img:rounded-xs;
+
+    /* Horizontal rules */
+    @apply prose-hr:border-border dark:prose-hr:border-dark-border prose-hr:my-4;
+
+    /* Strong */
+    @apply prose-strong:text-text-base dark:prose-strong:text-dark-text-secondary;
+
+    /* Code blocks */
+    @apply prose-pre:rounded-lg prose-pre:bg-background-tertiary dark:prose-pre:bg-dark-background-tertiary;
+    @apply prose-code:px-1 prose-code:text-text-base dark:prose-code:text-dark-text-base;
+
+    /* Blockquote */
+    @apply prose-blockquote:rounded-lg prose-blockquote:border prose-blockquote:border-l-8;
+    @apply prose-blockquote:px-4 prose-blockquote:py-0 prose-blockquote:font-secondary prose-blockquote:text-2xl prose-blockquote:not-italic;
+    @apply prose-blockquote:border-border dark:prose-blockquote:border-dark-border prose-blockquote:text-text-secondary dark:prose-blockquote:text-dark-text-secondary;
+    @apply prose-blockquote:prose-p:m-0;
+  }
+
+  /* Table Fix - Avoid Circular Dependency */
+  .content .prose-table {
+    position: relative;
+    overflow: hidden;
+    border-radius: theme('borderRadius.lg'); 
+  }
+
+  .content .prose-table::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    border: 1px solid var(--tw-border-color);
+    border-radius: theme('borderRadius.lg');
+  }
+
+  .content .prose-thead {
+    @apply border-border dark:border-dark-border dark:bg-dark-background-tertiary;
+    @apply bg-background-tertiary/40 dark:bg-background-tertiary/40 backdrop-blur-lg;
+  }
+
+  .content .prose-th {
+    @apply relative z-10 px-4 py-2 text-text-base dark:text-dark-text-base;
+  }
+
+  .content .prose-tr {
+    @apply border-border dark:border-dark-border;
+  }
+
+  .content .prose-td {
+    @apply relative z-10 px-3 py-2 text-text-secondary dark:text-dark-text-secondary;
+  }
+
+  /* Lists */
+  .content .prose-li {
+    @apply text-text-secondary dark:text-dark-text-secondary;
+  }
+
+  /* Fix for list markers */
+  .content li::marker {
+    @apply text-text-secondary dark:text-dark-text-secondary;
+  }
+
+  /* Fix for <p> inside <li> */
+  .content li p {
+    @apply m-0;
+  }
+}

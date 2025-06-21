@@ -8,23 +8,28 @@ const stickyHeader = true;
 const menu = [
   {
     name: "Home",
+    id: "/",
     url: "/",
   },
   {
     name: "About",
+    id: "#about",
     url: "/about",
   },
   {
+    name: "Skills",
+    id: "#skills",
+    url: "/skill",
+  },
+  {
     name: "Projects",
+    id: "#projects",
     url: "/projects",
   },
   {
     name: "Contact",
+    id: "/contact",
     url: "/contact",
-  },
-  {
-    name: "Skills",
-    url: "/skill",
   },
 ];
 ---
@@ -38,7 +43,7 @@ const menu = [
     <input id="nav-toggle" type="checkbox" class="hidden" />
     <label
       for="nav-toggle"
-      class="order-0 cursor-pointer flex items-center md:hidden text-txt-p dark:text-darkmode-txt-p lg:order-1"
+      class="order-0 cursor-pointer flex items-center md:hidden text-text-base dark:text-dark-text-base lg:order-1"
     >
       <svg id="show-button" class="h-6 fill-current block" viewBox="0 0 20 20">
         <title>Menu Open</title>
@@ -60,8 +65,8 @@ const menu = [
         menu.map((item) => (
           <li class="">
             <a
-              href={item.url}
-              class={`block p-2 font-secondary font-semibold text-txt-p transition dark:text-darkmode-txt-p lg:px-2 lg:py-3 ${
+              href={item.id}
+              class={`block p-2 font-secondary font-semibold text-text-base transition dark:text-dark-text-base lg:px-2 lg:py-3 ${
                 (pathname === `${item.url}/` || pathname === item.url) &&
                 "active"
               }`}

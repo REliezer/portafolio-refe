@@ -1,49 +1,49 @@
 ---
 title: "Habilidades"
-description: "Tecnologías y niveles de dominio."
+description: "Lista de mis habilidades y tecnologías que manejo."
 techs:  
   - label: "HTML"
-    img: "https://img.icons8.com/color/48/html-5--v1.png"
+    img: "/icons/html.svg"
     level: 80
     group: "Frontend"
 
   - label: "CSS"
-    img: "https://img.icons8.com/color/48/css3.png"
+    img: "/icons/css.svg"
     level: 80
     group: "Frontend"
 
   - label: "Javascript"
-    img: "https://img.icons8.com/color/48/javascript--v1.png"
+    img: "/icons/javascript.svg"
     level: 75
     group: "Frontend"
 
-  - label: "React"
-    img: "https://img.icons8.com/color/48/react-native.png"
+  - label: "ReactJS"
+    img: "/icons/reactjs.svg"
     level: 75
     group: "Frameworks JavaScript"
 
   - label: "Tailwind CSS"
-    img: "https://img.icons8.com/color/48/tailwindcss.png"
-    level: 10
-    group: "Frameworks CSS"
+    img: "/icons/tailwind.svg"
+    level: 50
+    group: "Frameworks/Preprocesadores CSS"
 
   - label: "Bootstrap"
     img: "/icons/bootstrap.svg"
     level: 80
-    group: "Frameworks CSS"
+    group: "Frameworks/Preprocesadores CSS"
 
   - label: "SASS"
-    img: "https://img.icons8.com/color/48/sass.png"
+    img: "/icons/sass.svg"
     level: 60
-    group: "Preprocesadores CSS"
+    group: "Frameworks/Preprocesadores CSS"
 
   - label: "Astro.js"
-    img: "/icons/astro.svg"
-    level: 10
+    img: "/icons/astrojs.svg"
+    level: 25
     group: "Frameworks JavaScript"
 
   - label: "Node.js"
-    img: "https://img.icons8.com/color/48/nodejs.png"
+    img: "/icons/nodejs.svg"
     level: 50
     group: "Backend"
 
@@ -53,12 +53,12 @@ techs:
     group: "Backend"
 
   - label: "SQL"
-    img: "https://img.icons8.com/color/48/microsoft-sql-server.png"
+    img: "/icons/sql.svg"
     level: 65
     group: "Base de Datos"
 
   - label: "MongoDB"
-    img: "/icons/mongo.svg"
+    img: "/icons/mongodb.svg"
     level: 50
     group: "Base de Datos"
     
@@ -68,17 +68,20 @@ techs:
     group: "Base de Datos" 
 
   - label: "Figma"
-    img: "https://img.icons8.com/color/48/figma--v1.png"
+    img: "/icons/figma.svg"
     level: 80
     group: "Herramientas de Diseño"
     
   - label: "Adobe XD"
-    img: "https://img.icons8.com/color/48/adobe-xd--v1.png"
+    img: "/icons/xd.svg"
     level: 50
     group: "Herramientas de Diseño" 
 
   - label: "GitHub"
     img: "/icons/github.svg"
-    level: 80
-    group: "Control de Versiones" 
+    group: ""
+
+  - label: "Postman"
+    img: "/icons/postman.svg"
+    group: ""
 ---
