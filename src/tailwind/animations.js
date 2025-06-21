@@ -10,6 +10,7 @@ module.exports = {
         twinkle: "twinkle 5s infinite ease-in-out",
         cycleBg: "cycleBg 60s ease infinite",
         updown: "updown 3s linear infinite",
+        blinkCursor: "blink-cursor 0.8s infinite",
     },
     keyframes: {
         fadeIn: {
@@ -50,6 +51,11 @@ module.exports = {
         updown: {
             "0%, 100%": { transform: "translateY(-20px)" },
             "50%": { transform: "translateY(20px)" },
-        }
+        },
+        // Cursor Blink Animation
+        blinkCursor: {
+            "0%, 100%": { opacity: 0 },
+            "50%": { opacity: 1 },
+        },
     },
 };
