@@ -13,29 +13,38 @@ platform:
   desktop: false
   api: false
 author: Rodrigo Fúnes
-github: "https://github.com/"
+github:
+  - title: "Repositorio GitHub"
+    link: "https://github.com/"
 link: ""
 
 stack:
-  frontend:
-    - HTML
-    - CSS
-    - JavaScript
-    - Bootstrap
-    - ReactJS
-    - Astro
-    - Tailwind CSS
+  - label: "HTML"
+    group: "Frontend"
+  - label: "CSS"
+    group: "Frontend"
+  - label: "JavaScript"
+    group: "Frontend"
+  - label: "Bootstrap"
+    group: "Frontend"
+  - label: "ReactJS"
+    group: "Frontend"
+  - label: "Astro"
+    group: "Frontend"
+  - label: "Tailwind CSS"
+    group: "Frontend"
 
 description:
   Este es mi portafolio personal, donde muestro mis proyectos y habilidades. Diseñado principalmente con AstroJS, uso de ReactJS para algunos componentes y Tailwind para ofrecer una experiencia de usuario fluida y atractiva. Aquí puedes encontrar información sobre mis proyectos académicos y personales, así como información acerca de mi y mi experiencia profesional.
 
 content:
-  - nombre: "Módulos Generales"
-    modulos:
-    - Inicio
-    - Acerca de mi
-    - Proyectos
-    - Habilidades
-    - Contacto
+  item:
+    - nombre: "Módulos Generales"
+      modulos:
+      - Inicio
+      - Acerca de mi
+      - Proyectos
+      - Habilidades
+      - Contacto
 ---
 

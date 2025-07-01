@@ -16,6 +16,10 @@ export const techIcons: Record<string, string> = {
     "Adobe XD": "/icons/xd.svg",
     "GitHub": "/icons/github.svg",
     "Postman": "/icons/postman.svg",
-    "Azure SQL Server": "/icons/azure.svg",
-    "Blob Storage": "/icons/azure.svg",
+    "Azure SQL Database": "/icons/azure.svg",
+    "Azure Blob Storage": "/icons/azure.svg",
+    "Azure Queue Storage": "/icons/azure.svg",
+    "Azure Data Factory": "/icons/azure.svg",
+    "Azure App Service": "/icons/azure.svg",
+    "Terraform": "/icons/terraform.svg",
 };

@@ -2,7 +2,7 @@
 title: Lorem ipsum
 resume: Lorem ipsum.
 date: 2025-04-21
-image: "@assets/projects/project-img.png"
+image: "@assets/projects/default.svg"
 imageAlt: Lorem ipsum
 categories: [Proyectos Academicos, Proyectos Colaborativos]
 platform:
@@ -17,15 +17,15 @@ github: "https://github.com/"
 link: ""
 
 stack:
-  frontend:
+  Frontend:
     - Lorem ipsum
-  backend:
+  Backend:
     - Lorem ipsum
-  baseDatos:
+  Base de Datos:
     - Lorem ipsum
-  almacenamiento:
+  Almacenamiento:
     - Lorem ipsum
-  otros:
+  Otros:
     - Lorem ipsum
 
 description:
