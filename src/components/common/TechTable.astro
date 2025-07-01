@@ -1,11 +1,12 @@
 ---
+import { techIcons } from "@/data/icons";
+
 /* * Componente para mostrar una tabla de tecnologías agrupadas por su grupo.
  * Cada tecnología tiene un nombre, una imagen, un nivel y opcionalmente un grupo.
  */
 export interface Props {
   techs: {
     label: string;
-    img: string;
     level?: number;
     group?: string;
   }[];
@@ -15,11 +16,11 @@ const { techs } = Astro.props;
 
 /*
  * Agrupa las tecnologías por su grupo.
- * Si no tienen grupo, se asigna al grupo "Other".
+ * Si no tienen grupo, se asigna al grupo "Varios".
  */
 const groupedTechs = techs.reduce(
   (acc, tech) => {
-    const group = tech.group || "Other";
+    const group = tech.group || "Varios";
     if (!acc[group]) {
       acc[group] = [];
     }
@@ -46,7 +47,7 @@ const groupedTechs = techs.reduce(
             .map((tech) => (
               <div class="flex flex-col items-center text-center content-center gap-2 p-2 rounded-md border border-[#4A2FBD] shadow-sm min-h-[115px] hover:scale-105 transition-transform">
                 <img
-                  src={tech.img}
+                  src={techIcons[tech.label] ?? "/icons/default.svg"}
                   alt={tech.label}
                   class="w-10 h-10"
                   title={tech.label}

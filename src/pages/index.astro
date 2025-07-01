@@ -6,7 +6,7 @@ import type { HomeEntry, AboutEntry, SkillEntry, ProjectEntry } from "@/types";
 
 //Componentes
 import EntryLayout from "@components/home/EntryLayout.astro";
-import TechTable from "@components/skill/TechTable.astro";
+import TechTable from "@components/common/TechTable.astro";
 import RecipeCard from "@components/projects/Card.astro";
 
 //Datos
@@ -44,16 +44,14 @@ const entries = allEntries.slice(0, 3); //Ultimos 3 proyectos
     <h2 class="font-bold text-right">{titleProject}</h2>
     <hr class="mb-6 hr-separator" />
     <p class="text-lg text-justify">{descriptionProject}</p>
-    <div class="container">
       <div class="row">
         {
           entries.map((entryProject) => (
-            <div class="col-12 md:col-4 h-min p-2">
+            <div class="col-12 sm:col-6 md:col-4 h-min p-2">
               <RecipeCard entry={entryProject} />
             </div>
           ))
         }
-      </div>
     </div>
     <a href="/projects" class="btn-more">Ver mas proyectos...</a>
   </section>

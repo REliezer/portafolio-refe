@@ -3,13 +3,13 @@ import { upperHumanize, markdownify, slugify } from "@lib/textConverter";
 import ProjectInfoItem from "./ProjectInfoItem.astro";
 
 interface Props {
-  author?: string;
-  entryDate?: string;
-  categories?: string[];
-  github?: string;
-  link?: string;
-  resume?: string;
-  platform?: Record<string, boolean>;
+    author?: string;
+    entryDate?: string;
+    categories?: string[];
+    github?: { title?: string; link: string }[];
+    link?: string;
+    resume?: string;
+    platform?: Record<string, boolean>;
 }
 
 const { author, entryDate, categories, github, link, resume, platform }: Props = Astro.props;
@@ -92,11 +92,16 @@ const platformIcons: Record<string, string> = {
         <!-- GitHub -->
         {
         github && (
-            <ProjectInfoItem
-                icon="github"
-                title="Repositorio GitHub"
-                url={github}
-            />
+            <div>
+            {github?.map((git: { title?: string; link: string }) => (
+                <ProjectInfoItem
+                    icon="github"
+                    title= {git.title ? git.title : "Repositorio GitHub"}
+                    url={git.link}
+                />                                      
+                ))
+            }
+            </div>  
         )
         }
         <!-- Link -->

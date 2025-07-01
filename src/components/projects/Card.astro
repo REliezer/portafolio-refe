@@ -7,12 +7,15 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const { title, image, imageAlt } = entry.data;
+const { title, image, imageAlt, resume } = entry.data || {};
+
+// Ensure required values exist
+const projectTitle = title || "Untitled Project";
+const projectResume = resume || "No description available";
+const projectImageAlt = imageAlt || projectTitle;
 ---
 
-<div
-  class="h-full m-2 pl-0 bg-gradient-to-br gradient rounded-lg intersect:animate-fadeUp  "
->
+<div class="h-full m-2 pl-0 bg-gradient-to-br gradient rounded-lg intersect:animate-fadeUp" >
   <div class="glass h-full rounded-lg">
     <a class="group hover:opacity-100" href={`/projects/${entry.id}`}>
       <div class="relative rounded-lg pb-9/16 overflow-hidden">
@@ -21,19 +24,18 @@ const { title, image, imageAlt } = entry.data;
             <Image
               class="absolute rounded-lg object-cover w-full h-full group-hover:scale-[105%] transition-all duration-300"
               src={image}
-              alt={imageAlt}
+              alt={projectImageAlt}
               width={1280}
               height={720}
               loading="eager"
             />
           )
         }
-        <div
-          class="glass-t absolute text-center rounded-lg px-2 py-1 top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]"
-        >
-          <h4 class="text-h4 md:text-h4-sm text-text-base dark:text-dark-text-base">
-            {title}
+        <div class="glass-d absolute w-[80%] text-center rounded-lg px-2 py-1 top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]" >
+          <h4 class="text-h4 md:text-h4-sm text-text-base dark:text-dark-text-base font-bold">
+            {projectTitle}
           </h4>
+          <span class="font-mono text-sm text-justify">{projectResume}</span>
         </div>
       </div>
     </a>
