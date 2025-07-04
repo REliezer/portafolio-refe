@@ -7,7 +7,7 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const { title, image, imageAlt, resume } = entry.data || {};
+const { title, imageCover, imageCoverAlt, resume } = entry.data || {};
 
 ---
 
@@ -16,11 +16,11 @@ const { title, image, imageAlt, resume } = entry.data || {};
     <a class="group hover:opacity-100" href={`/projects/${entry.id}`}>
       <div class="relative rounded-lg pb-9/16 overflow-hidden">
         {
-          image && (
+          imageCover && (
             <Image
               class="absolute rounded-lg object-cover w-full h-full group-hover:scale-[105%] transition-all duration-300"
-              src={image}
-              alt={imageAlt}
+              src={imageCover}
+              alt={imageCoverAlt}
               width={1280}
               height={720}
               loading="eager"
@@ -28,10 +28,10 @@ const { title, image, imageAlt, resume } = entry.data || {};
           )
         }
         <div class="glass-d absolute w-[80%] text-center rounded-lg px-2 py-1 top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]" >
-          <h1 class="text-h4 md:text-h4-sm text-text-base dark:text-dark-text-base font-bold">
+          <h3 class="text-h3-sm text-text-base dark:text-dark-text-base font-bold">
             {title}
-          </h1>
-          <span class="font-mono text-sm text-justify">{resume}</span>
+          </h3>
+          <span class="hidden font-mono text-sm text-justify w-full md:line-clamp-3">{resume}</span>
         </div>
       </div>
     </a>
