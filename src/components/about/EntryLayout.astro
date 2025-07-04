@@ -16,17 +16,11 @@ const { Content } = await render(entry);
 
 <BaseLayout title={title} description={description} image={image?.src}>
   <section class="section-sm">
-    <div class="container glass rounded-lg text-center p-8 xl:col-12 md:col-10 lg:col-7 intersect:animate-fadeUp intersect-no-queue">
+    <div
+      class="container glass rounded-lg text-center p-8 xl:col-12 md:col-10 lg:col-7 intersect:animate-fadeUp intersect-no-queue"
+    >
       <div class="row justify-center">
         <h2 set:html={markdownify(title)} class="h3 mb-6" />
-        <div class="xl:col-9 md:col-8 text-justify">            
-              <Content />
-              { description && (
-                <p class="text-muted mt-4">
-                  {(description)}
-                </p>
-              ) }
-        </div>
         <div class="xl:col-3 md:col-4">
           {
             image && (
@@ -40,7 +34,18 @@ const { Content } = await render(entry);
               />
             )
           }
-          </div>          
+        </div>
+        <div class="xl:col-9 md:col-8 text-justify">
+          <Content />
+          {
+            description && (
+              <p
+                class="text-muted mt-4"
+                set:html={description.replace(/\n/g, "<br />")}
+              />
+            )
+          }
+        </div>
       </div>
     </div>
   </section>

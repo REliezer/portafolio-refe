@@ -74,17 +74,24 @@ const projects = defineCollection({
     searchable.extend({
       title: z.string(),
       date: z.date().optional(),
-      image: image().optional(),
-      imageAlt: z.string().default(""),
+      imageCover: image().optional(),
+      imageCoverAlt: z.string().default(""),
       author: z.string().optional(),
       categories: z.array(z.string()).default([]),
       platform: z.record(z.boolean()).default({}),      
       resume: z.string().optional(),
       diagrama: z.
         object({
-          resume: z.string().optional(),
+          resume: z.string().default(""),
           image: image(),
           imageAlt: z.string().optional().default(""),
+          diagramaComponent: z
+          .array(
+                z.object({
+                  nombre: z.string(),
+                  resume: z.string().optional(),
+                }))
+              .optional(),
         })
       .optional(),
       stack: z.array(TechSchema).optional(),
@@ -114,6 +121,13 @@ const projects = defineCollection({
       link: z.string()
         //.url("Debe ser una URL válida")
         .optional(),
+      gallery: z.
+        array(
+          z.object({
+            img: image(),
+            imgAlt: z.string().optional(),
+          })
+        ).optional(),
     }),
 });
 

@@ -62,4 +62,12 @@
   input#nav-toggle:checked~#nav-menu {
     @apply block;
   }
+
+  #about-content {
+    --about-max-height: 10rem;
+  }
+
+  #about-content.expanded {
+    overflow: visible;
+  }
 }

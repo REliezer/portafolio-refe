@@ -9,7 +9,7 @@ description: |
   Fuera del código, disfruto compartir tiempo con mi familia viendo series o películas. También suelo desconectarme jugando videojuegos o siguiendo animes de temporada con mi hermano. De vez en cuando, me gusta escuchar música mientras recargo energías o encuentro inspiración para seguir creando líneas de codigo. 
 
 description_en: <p>Studying Systems Engineering, with knowledge in development web with HTML, CSS, PHP, JavaScript and React. Also use of libraries/framework like Bootstrap or Laravel.<br />Management of Relational and Non-Relational Databases. Management of GitHub.</p>
-images: "@assets/profile/rodrigo-funes.jpg"
+image: "@assets/profile/profile.jpg"
 
 ---
 
