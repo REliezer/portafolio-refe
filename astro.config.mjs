@@ -25,7 +25,7 @@ export default defineConfig({
 
     )],
   },
-  site: "https://rfunes.dev",
+  site: "https://portafolio-refe.vercel.app/",
   base: "/",
   trailingSlash: "ignore",
   prefetch: {

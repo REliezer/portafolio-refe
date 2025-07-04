@@ -15,11 +15,7 @@ interface Props {
 const { entryIndex, entries, pageIndex, pageCount }: Props = Astro.props;
 ---
 
-<BaseLayout
-  title={entryIndex.data.title}
-  image={entryIndex.data.image?.src}
-  description={entryIndex.data.description}
->
+<BaseLayout title={entryIndex.data.title} >
   <PageHeader title={entryIndex.data.title} />
   <section class="section m-2">
     <div class="container">

@@ -12,5 +12,6 @@ button:
   label: Contáctame 
   label_en: Let's connect 
   link: /contact
-
+role: "Frontend Developer"
+stack: ["HTML", "CSS", "JavaScript", "React", "Tailwind"]
 ---

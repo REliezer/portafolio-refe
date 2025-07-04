@@ -1,6 +1,6 @@
 import { useState } from "react";
 //import contactImg from "../../assets/contact/contact-img.svg";
-import '../../styles/components/ContactComponente.css';
+import '@/styles/components/ContactComponente.css';
 
 interface BannerProps {
     title: string;
@@ -16,6 +16,8 @@ const Contact = ({ title, children }: BannerProps) => {
         message: ''
     }
 
+    type FormField = keyof typeof formInitialDetails;
+
     const [formDetails, setFormDetails] = useState(formInitialDetails);
     const [buttonText, setButtonText] = useState('Send');
     const [status, setStatus] = useState({
@@ -23,14 +25,14 @@ const Contact = ({ title, children }: BannerProps) => {
         success: false
     });
 
-    const onFormUpdate = (category, value) => {
+    const onFormUpdate = (category: FormField, value: string) => {
         setFormDetails({
             ...formDetails,
             [category]: value
         })
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setButtonText('Sending...');
 
@@ -58,10 +60,10 @@ const Contact = ({ title, children }: BannerProps) => {
                     <div className="w-full md:w-1/2">
                         <h2>{title}</h2>
                         <form
-                            /*onSubmit={handleSubmit} */
-                            /*action="https://formspree.io/f/mnnvvpzl"*/
-                            action="https://formsubmit.co/b66d0e1b08cc1f34ecab001167b37c48 "
-                            method="POST"
+                            onSubmit={handleSubmit}
+                        /*action="https://formspree.io/f/mnnvvpzl"*/
+                        /*action="https://formsubmit.co/b66d0e1b08cc1f34ecab001167b37c48 "*/
+                        /*method="POST"*/
                         >
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <input type='text' name='Nombre' value={formDetails.firstName} placeholder='First Name' onChange={(e) => onFormUpdate('firstName', e.target.value)} />

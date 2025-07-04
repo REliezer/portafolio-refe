@@ -13,27 +13,52 @@ import RecipeCard from "@components/projects/Card.astro";
 const entry = (await getIndex("home")) as HomeEntry;
 
 const entryAbout = (await getIndex("about")) as AboutEntry;
-const { title, description} = entryAbout.data;
+const { title, description } = entryAbout.data;
 
 const entrySkills = (await getIndex("skill")) as SkillEntry;
 const { title: titleSkills, description: descriptionSkills } = entrySkills.data;
 const techs = entrySkills.data.techs;
 
 const entryIndex = (await getIndex("projects")) as ProjectEntry; // Index entry for projects
-const { title: titleProject, description: descriptionProject } = entryIndex.data;
+const { title: titleProject, description: descriptionProject } =
+  entryIndex.data;
 const allEntries = (await getEntries("projects", sortByDate)) as ProjectEntry[]; // All project entries
 const entries = allEntries.slice(0, 3); //Ultimos 3 proyectos
 ---
 
-<BaseLayout>
+<BaseLayout title="Home | Portafolio Rodrigo Funes">
   <EntryLayout entry={entry} />
   <section class="container mb-6" id="about">
     <h2 class="font-bold text-right">{title}</h2>
     <hr class="mb-6 hr-separator" />
-    <div class="text-lg text-justify w-full line-clamp-7">{description}</div>
-    <a href="/about" class="btn-more">Leer mas...</a>
+    <div
+      class="text-lg text-justify w-full transition-all duration-500 ease-in-out overflow-hidden"
+      style="max-height: var(--about-max-height)"
+      id="about-content"
+      set:html={description.replace(/\n/g, "<br />")}
+    />
+    <button
+      type="button"
+      class="btn-more mt-2"
+      on:click={() => {
+        const content = document.getElementById("about-content");
+        const isExpanded = content.classList.toggle("expanded");
+        content.style.setProperty(
+          "--about-max-height",
+          isExpanded ? `${content.scrollHeight}px` : "10rem",
+        );
+        document.getElementById("about-btn").textContent = isExpanded
+          ? "Leer menos..."
+          : "Leer más...";
+      }}
+      id="about-btn"
+    >
+      Leer más...
+    </button>
+
+    {/*<a href="/about" class="btn-more">Leer mas...</a>*/}
   </section>
-  
+
   <section class="container mb-6" id="skills">
     <h2 class="font-bold text-left">{titleSkills}</h2>
     <hr class="mb-6 hr-separator" />
@@ -44,15 +69,29 @@ const entries = allEntries.slice(0, 3); //Ultimos 3 proyectos
     <h2 class="font-bold text-right">{titleProject}</h2>
     <hr class="mb-6 hr-separator" />
     <p class="text-lg text-justify">{descriptionProject}</p>
-      <div class="row">
-        {
-          entries.map((entryProject) => (
-            <div class="col-12 sm:col-6 md:col-4 h-min p-2">
-              <RecipeCard entry={entryProject} />
-            </div>
-          ))
-        }
+    <div class="row">
+      {
+        entries.map((entryProject) => (
+          <div class="col-12 sm:col-6 md:col-4 h-min p-2">
+            <RecipeCard entry={entryProject} />
+          </div>
+        ))
+      }
     </div>
     <a href="/projects" class="btn-more">Ver mas proyectos...</a>
   </section>
 </BaseLayout>
+
+<script is:client>
+  const btn = document.getElementById("about-btn");
+  const content = document.getElementById("about-content");
+
+  btn?.addEventListener("click", () => {
+    const isExpanded = content.classList.toggle("expanded");
+    content.style.setProperty(
+      "--about-max-height",
+      isExpanded ? `${content.scrollHeight}px` : "10rem"
+    );
+    btn.textContent = isExpanded ? "Leer menos..." : "Leer más...";
+  });
+</script>

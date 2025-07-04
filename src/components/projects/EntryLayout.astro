@@ -6,31 +6,33 @@ import { formatDate } from "@lib/formatDate";
 import ProjectInfo from "./ProjectInfo.astro";
 import PageHeader from "@components/common/PageHeader.astro";
 import TechTable from "@components/common/TechTable.astro";
+import ProjectSection from "./ProjectSection.astro";
 
 interface Props {
   entry: ProjectEntry;
 }
 
 const { entry } = Astro.props;
-const { title, resume, date, image, imageAlt, categories, author, stack, description, content, github, link, platform, diagrama} = entry.data;
+const { title, resume, date, imageCover, imageCoverAlt, categories, author, stack, description, content, github, link, platform, diagrama, gallery} = entry.data;
 const entryDate = date ? formatDate(date) : "";
+
 ---
 
-<BaseLayout title={title} description={resume} image={image?.src}>
+<BaseLayout title={title}>
   <PageHeader title={title} />
-  <section class="section">    
+  <section class="section">
     <div class="container">
       <div class="row justify-center">
         <article class="lg:col-10 flex flex-wrap content-start">
           <!-- Cover Photo -->
           {
-            image && (
+            imageCover && (
               <div class="col basis-2/3 p-2 min-w-72">
                 <div class="glass rounded-lg intersect:animate-fadeDown">
                   <Image
                     class="w-full rounded-lg"
-                    src={image}
-                    alt={imageAlt}
+                    src={imageCover}
+                    alt={imageCoverAlt}
                     width={1920}
                     height={1080}
                     loading="eager"
@@ -40,7 +42,7 @@ const entryDate = date ? formatDate(date) : "";
             )
           }
           <!-- About Project-->
-          <ProjectInfo 
+          <ProjectInfo
             author={author}
             entryDate={entryDate}
             categories={categories}
@@ -52,75 +54,43 @@ const entryDate = date ? formatDate(date) : "";
           <!-- Descripcion -->
           {
             description && (
-              <section class="col basis-full p-2 min-w-72">
-                <div class="glass rounded-lg p-4 intersect:animate-fadeUp  ">
-                  <h3 class="mb-2">Acerca del proyecto</h3>
-                  <div class="justify-center">
-                    <div class="text-justify my-1">{description}</div>
-                    <hr class="my-1" />
-                  </div>
-                </div>
-              </section>
+              <ProjectSection
+                titleSection="Acerca del proyecto"
+                resumeSection={description}
+              />
             )
           }
-                    <!-- Diagrama -->
-           {
+          <!-- Diagrama -->
+          {
             diagrama && (
-              <section class="col basis-full p-2 min-w-72">
-                <div class="glass rounded-lg p-4 intersect:animate-fadeDown">
-                  <h3 class="mb-2">Arquitectura Propuesta</h3>
-                  <div class="justify-center mb-2">
-                    <div class="text-justify my-1">{diagrama.resume}</div>
-                  </div>
-                  <Image
-                    class="w-full rounded-lg"
-                    src={diagrama.image}
-                    alt={diagrama.imageAlt}
-                    width={1920}
-                    height={1080}
-                    loading="eager"
-                  />
-                  <hr class="my-1" />
-                </div>
-              </section>
+              <ProjectSection 
+                titleSection="Arquitectura Propuesta"
+                resumeSection={diagrama.resume}
+                imgSection={diagrama.image}
+                imgAltSection={diagrama.imageAlt}
+                diagramaComponent={diagrama.diagramaComponent}
+              />
             )
-           }
+          }
           <!-- Contenido -->
           {
             content && (
-              <section class="col basis-full p-2 min-w-72">
-                <div class="glass rounded-lg p-4 intersect:animate-fadeUp  ">
-                  <h3 class="mb-2">Contenido del proyecto:</h3>
-                  <div class="justify-center mb-2">
-                    <div class="text-justify my-1">{content.description}</div>
-                  </div>
-                  <div class="row justify-center">
-                    {content?.item?.map((item, index) => (
-                      <div class="my-1">
-                        <h4>{item.nombre}</h4>
-                        <p class="font-mono">{item.resume}</p>
-                        {item.modulos &&
-                          item.modulos.length > 0 &&
-                          item.modulos.map((mod: string, i: number) => (
-                            <div class="ml-4">
-                              {i + 1}. {mod}
-                            </div>
-                          ))}
-                      </div>
-                    ))}                    
-                  </div>
-                  <hr class="my-1" />
-                </div>
-              </section>
+              <ProjectSection 
+                titleSection="Contenido del proyecto"
+                resumeSection={
+                  content.description ? content.description : "Lista de los diferentes modulos y contenidos que encontraras en este proyecto."
+                }
+                itemSection={content.item}
+              />
             )
           }
-
           <!-- Tecnologias -->
-  {
+          {
             stack && (
               <section class="col basis-1/3 p-2 min-w-72">
                 <div class="glass rounded-lg p-4 intersect:animate-fadeUp  ">
-                  <h3 class="mb-2">Técnologias utilizadas</h3>
+                  <h2 class="mb-2">Técnologias utilizadas</h2>
+                  <hr class="my-1" />
                   <TechTable techs={stack} />
                   <hr class="my-1" />
                 </div>
@@ -128,7 +98,16 @@ const entryDate = date ? formatDate(date) : "";
             )
           }
           <!-- Gallery -->
-           
+          {
+          gallery && (
+            <ProjectSection 
+              titleSection="Galeria de Imagenes"
+              resumeSection="Imagenes de las pantallas del sistema."
+              gallery={gallery}
+            />
+          )
+          }
+          
         </article>
       </div>
     </div>

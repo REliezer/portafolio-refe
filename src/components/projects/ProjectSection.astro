@@ -1,0 +1,92 @@
+---
+import { Image } from "astro:assets";
+import Carousel from "@components/common/Carousel.astro";
+import type { ImageMetadata } from "astro";
+
+interface Props {
+  titleSection: string;
+  resumeSection: string;
+  imgSection?: ImageMetadata;
+  imgAltSection?: string;
+  itemSection?: {
+    nombre?: string;
+    resume?: string;
+    modulos?: string[];
+  }[];
+  diagramaComponent?: {
+    nombre?: string;
+    resume?: string;
+  }[];
+  gallery?: {
+    img: ImageMetadata;
+    imgAlt?: string;
+  }[];
+}
+
+const { titleSection, resumeSection, imgSection, imgAltSection, itemSection, diagramaComponent, gallery }: Props = Astro.props;
+
+---
+
+<section class="col basis-full p-2 min-w-72">
+  <div class="glass rounded-lg p-6 intersect:animate-fadeUp"> {/*intersect:animate-fadeDown*/}
+    <h2 class="mb-2">{ titleSection }</h2>
+    <hr class="my-1" />
+    <div class="justify-center m-2">
+      <p
+        class="text-justify"
+        set:html={resumeSection.replace(/\n/g, "<br />")}
+      />
+      {
+        imgSection && (
+          <Image
+            class="w-full rounded-lg mt-2 mb-2"
+            src={imgSection}
+            alt={imgAltSection ? imgAltSection : "Arquitectura propuesta"}
+            width={1920}
+            height={1080}
+            loading="eager"
+          />
+        )
+      }
+      {
+        diagramaComponent && (
+          <div class="row justify-center mt-2 mb-2">
+            {diagramaComponent?.map((item, i) => (
+              <div class="my-1">
+                <h4>{i + 1}. {item.nombre}</h4>
+                <p class="text-justify">{item.resume}</p>
+              </div>
+            ))}
+          </div>
+        )
+      }
+      {
+        itemSection && (
+          <div class="row justify-center mt-2 mb-2">
+            {itemSection?.map((item) => (
+              <div class="my-1">
+                <h4>{item.nombre}</h4>
+                <p class="text-justify">{item.resume}</p>
+                {item.modulos &&
+                  item.modulos.length > 0 &&
+                  item.modulos.map((mod: string, i: number) => (
+                    <p class="ml-4">
+                      {i + 1}. {mod}
+                    </p>
+                  ))}
+              </div>
+            ))}
+          </div>
+        )
+      }
+      {
+        gallery && (
+          <Carousel 
+            images={gallery}
+          />
+        )
+      }      
+      <hr class="my-1" />
+    </div>
+  </div>
+</section>
