@@ -43,6 +43,12 @@ content:
 diagrama:
   resume: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.
   image: "@assets/projects/default.svg"
-  imageAlt: "Lorem Ipsum" 
+  imageAlt: "Lorem Ipsum"
+  diagramaComponent: 
+  - nombre: "Capa de Autenticación"
+    resume: "Para centralizar la autenticación para clientes y administradores. Se integra con ambos portales mediante flujos seguros de login y autorización."
+gallery:
+  - img: "@assets/projects/default.svg"
+    imgAlt: "Default Picture"
 ---
 

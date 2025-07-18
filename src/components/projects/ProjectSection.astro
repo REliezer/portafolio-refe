@@ -33,7 +33,7 @@ const { titleSection, resumeSection, imgSection, imgAltSection, itemSection, dia
     <hr class="my-1" />
     <div class="justify-center m-2">
       <p
-        class="text-justify"
+        class="text-justify leading-relaxed"
         set:html={resumeSection.replace(/\n/g, "<br />")}
       />
       {
@@ -65,12 +65,12 @@ const { titleSection, resumeSection, imgSection, imgAltSection, itemSection, dia
           <div class="row justify-center mt-2 mb-2">
             {itemSection?.map((item) => (
               <div class="my-1">
-                <h4>{item.nombre}</h4>
-                <p class="text-justify">{item.resume}</p>
+                <h4 class='mt-2'>{item.nombre}</h4>
+                <p class="text-justify leading-relaxed" set:html={item.resume?.replace(/\n/g, "<br>")} />
                 {item.modulos &&
                   item.modulos.length > 0 &&
                   item.modulos.map((mod: string, i: number) => (
-                    <p class="ml-4">
+                    <p class="ml-4 leading-relaxed">
                       {i + 1}. {mod}
                     </p>
                   ))}
