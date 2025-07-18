@@ -24,4 +24,11 @@ export const techIcons: Record<string, string> = {
     "Azure Data Factory": "/icons/azure/Data-Factories.svg",
     "Azure App Service Plans": "/icons/azure/App-Service-Plans.svg",
     "Azure App Service": "/icons/azure/App-Services.svg",
+    "Azure Container Registry": "/icons/azure/Container-Registries.svg",
+    "Azure Resource Group": "/icons/azure/Resource-Groups.svg",
+    "Application Insights": "/icons/azure/Application-Insights.svg",
+    "Azure Cache for Redis": "/icons/azure/Cache-Redis.svg",
+    "Azure SQL Server": "/icons/azure/SQL-Server.svg",
+    "Firebase Authentication": "/icons/firebase.svg",
+    "Docker": "/icons/docker.svg",
 };

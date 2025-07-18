@@ -34,7 +34,7 @@
   }
 
   h4 {
-    @apply text-h4 font-medium;
+    @apply text-h4-sm md:text-h4;
   }
 
   h5 {
@@ -46,7 +46,7 @@
   }
 
   p {
-    @apply text-sm md:text-lg dark:text-dark-text-base intersect:animate-fade opacity-0;
+    @apply text-sm md:text-lg font-normal dark:text-dark-text-base intersect:animate-fade opacity-0;
   }
 
   b,
