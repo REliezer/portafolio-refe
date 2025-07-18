@@ -61,12 +61,15 @@ stack:
   - label: "Firebase Authentication"
     group: "Identidad y Seguridad"
 
+  - label: "Azure Key Vault"
+    group: "Identidad y Seguridad"
+
 description: |
   Desarrollo de una solución integral de backend capaz de migrar datos a gran escala, exponerlos mediante una API segura y optimizada, y desplegar todo en un entorno productivo en la nube.  
   Además, se implementa un sistema de monitoreo y una estrategia de caché con invalidación automática.
 
 content:
-  description: "Para poder realizar este proyecto se tuvieron que ir completando diferentes fase."
+  description: "Para poder realizar este proyecto se tuvieron que ir completando diferentes fases."
   item:
   - nombre: "🏁 Fase 1: Preparación y Migración de Datos"
     resume: |
@@ -96,5 +99,8 @@ content:
     resume: |
         La última fase... La aplicación debia ser empaquetada y desplegada para funcionar en un entorno de nube real de forma independiente.
         Para ello se creó un Dockerfile con todas las dependencias y configuraciones necesarias para que pudiera ejecutarse de forma aislada y la imagen de Docker se publico en el Azure Container Registry y se terminó con el despliegue del contenedor usando Azure App Service.
+  - nombre: "🔐 Fase Extra: Integrar Key Vault"
+    resume: |
+        Se integró Azure Key Vault para gestionar de forma segura secretos sensibles como cadenas de conexión, claves de acceso a servicios y credenciales. Durante esta fase se modificó la configuración de la aplicación para recuperar estos valores directamente desde Key Vault, aumentando así la seguridad y facilitando la gestión centralizada de secretos, especialmente en entornos de despliegue continuo.
 ---
 

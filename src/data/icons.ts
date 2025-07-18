@@ -31,4 +31,5 @@ export const techIcons: Record<string, string> = {
     "Azure SQL Server": "/icons/azure/SQL-Server.svg",
     "Firebase Authentication": "/icons/firebase.svg",
     "Docker": "/icons/docker.svg",
+    "Azure Key Vault": "/icons/azure/Key-Vaults.svg",
 };
