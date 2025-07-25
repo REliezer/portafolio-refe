@@ -2,32 +2,281 @@
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from "astro";
 
+
 interface Props {
   images: {
     img: ImageMetadata;
     imgAlt?: string;
   }[];
+  showControls?: boolean;
+  showIndicators?: boolean;
+  autoPlay?: boolean;
+  height?: string;
 }
 
-const { images } = Astro.props;
+const { 
+  images, 
+  showControls = true, 
+  showIndicators = true,
+  autoPlay = false,
+  height = "400px"
+} = Astro.props;
+
+const carouselId = `carousel-${Math.random().toString(36).substr(2, 9)}`;
+const autoPlayInterval = 3000;
+
 ---
 
-<div class="container mb-4 overflow-x-auto flex w-full mx-auto px-[15px] scroll-smooth snap-x snap-mandatory space-x-4">
-  {
-    images?.map( (img, i) => (
+<div class='relative w-full mx-auto' id={carouselId}>
+  {images && images.length > 0 ? (
+    <>
       <div 
-        class="snap-center bg-white/25 shadow-lg backdrop-blur-md rounded-xl p-4 flex-shrink-0 w-[90%] sm:w-1/2 md:w-1/3 lg:w-1/4"
+        class="carousel-container overflow-hidden relative rounded-xl"
+        style={`height: ${height}`}
+        role="region"
+        aria-label="Carrusel de imágenes"
       >
-        <Image
-          class="rounded-lg"
-          src={img.img}
-          alt={img.imgAlt ? img.imgAlt : `Picture ${i}`}
-          width={1920}
-          height={1080}
-          loading="eager"
-          title={img.imgAlt}
-        />
+        <div 
+          class="flex transition-transform duration-500 ease-in-out h-full"
+          data-carousel-track
+        >
+          {images.map((img, i) => (
+            <div 
+              class="flex-shrink-0 w-full relative h-full"
+              data-slide={i}
+              role="group"
+              aria-label={`Imagen ${i + 1} de ${images.length}`}
+            >
+              <div class="bg-white/10 shadow-lg backdrop-blur-md rounded-xl p-4 h-full">
+                <div class="w-full h-full relative overflow-hidden rounded-lg">
+                  <Image
+                    class="w-full h-full object-contain absolute inset-0"
+                    src={img.img}
+                    alt={img.imgAlt ? img.imgAlt : `Imagen ${i + 1} del carrusel`}
+                    width={1920}
+                    height={1080}
+                    widths={[320, 480, 768, 1024, 1920]}
+                    sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, (max-width: 1024px) 100vw, 100vw"
+                    loading={i === 0 ? "eager" : "lazy"}
+                    decoding="async"
+                    title={img.imgAlt}
+                  />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-    ))
-  }
+      {showControls && images.length > 1 && (
+        <>
+          <button 
+            class="carousel-btn-prev absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/20 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-300 z-10 focus:outline-none focus:ring-2 focus:ring-white/50"
+            aria-label="Imagen anterior"
+            data-carousel-prev
+          >
+            <svg class="w-5 h-5" fill="none" stroke="#4A2FBD" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+          </button>
+          <button 
+            class="carousel-btn-next absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/20 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-300 z-10 focus:outline-none focus:ring-2 focus:ring-white/50"
+            aria-label="Siguiente imagen"
+            data-carousel-next
+          >
+            <svg class="w-5 h-5" fill="none" stroke="#4A2FBD" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </button>
+        </>
+      )}
+      {showIndicators && images.length > 1 && (
+        <div class="carousel-indicators flex justify-center space-x-2 mt-4">
+          {images.map((_, i) => (
+            <button 
+              class="w-3 h-3 rounded-full bg-[#4A2FBD]/30 hover:bg-[#4A2FBD]/50 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#AA367C]/50 cursor-pointer"
+              data-carousel-indicator={i}
+              aria-label={`Ir a imagen ${i + 1}`}
+            ></button>
+          ))}
+        </div>
+      )}
+    </>
+  ) : (
+    <div class="flex items-center justify-center w-full h-64 bg-gray-100 rounded-xl text-gray-500">
+      <p>No hay imágenes para mostrar</p>
+    </div>
+  )}
 </div>
+
+<!-- JavaScript para funcionalidad del carousel -->
+<script define:vars={{ carouselId, autoPlay, autoPlayInterval }}>
+  document.addEventListener('DOMContentLoaded', function() {
+    const carousel = document.getElementById(carouselId);
+    if (!carousel) return;
+
+    const track = carousel.querySelector('[data-carousel-track]');
+    const slides = carousel.querySelectorAll('[data-slide]');
+    const prevBtn = carousel.querySelector('[data-carousel-prev]');
+    const nextBtn = carousel.querySelector('[data-carousel-next]');
+    const indicators = carousel.querySelectorAll('[data-carousel-indicator]');
+    
+    let currentSlide = 0;
+    let autoPlayTimer = null;
+
+    function updateCarousel() {
+      if (!track || slides.length === 0) return;
+      
+      // Mover el track
+      track.style.transform = `translateX(-${currentSlide * 100}%)`;
+      
+      // Actualizar indicadores
+      indicators.forEach((indicator, index) => {
+        if (index === currentSlide) {
+          indicator.classList.add('bg-[#4A2FBD]/80');
+          indicator.classList.remove('bg-white/30');
+        } else {
+          indicator.classList.add('bg-white/30');
+          indicator.classList.remove('bg-[#4A2FBD]/80');
+        }
+      });
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % slides.length;
+      updateCarousel();
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+      updateCarousel();
+    }
+
+    function goToSlide(index) {
+      currentSlide = index;
+      updateCarousel();
+    }
+
+    // Event listeners
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        if (autoPlayTimer) {
+          clearInterval(autoPlayTimer);
+          startAutoPlay();
+        }
+        prevSlide();
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        if (autoPlayTimer) {
+          clearInterval(autoPlayTimer);
+          startAutoPlay();
+        }
+        nextSlide();
+      });
+    }
+
+    indicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', () => {
+        if (autoPlayTimer) {
+          clearInterval(autoPlayTimer);
+          startAutoPlay();
+        }
+        goToSlide(index);
+      });
+    });
+
+    // Auto-play functionality
+    function startAutoPlay() {
+      if (autoPlay && slides.length > 1) {
+        autoPlayTimer = setInterval(nextSlide, autoPlayInterval);
+      }
+    }
+
+    // Pause autoplay on hover
+    if (autoPlay) {
+      carousel.addEventListener('mouseenter', () => {
+        if (autoPlayTimer) clearInterval(autoPlayTimer);
+      });
+      
+      carousel.addEventListener('mouseleave', startAutoPlay);
+    }
+
+    // Touch/swipe support for mobile
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+
+    carousel.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+    });
+
+    carousel.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      currentX = e.touches[0].clientX;
+    });
+
+    carousel.addEventListener('touchend', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      
+      const diffX = startX - currentX;
+      const threshold = 50;
+      
+      if (Math.abs(diffX) > threshold) {
+        if (diffX > 0) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
+      }
+    });
+
+    // Keyboard navigation
+    carousel.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        prevSlide();
+      } else if (e.key === 'ArrowRight') {
+        nextSlide();
+      }
+    });
+
+    // Initialize
+    updateCarousel();
+    startAutoPlay();
+  });
+</script>
+
+<style>
+  /* Responsive adjustments */
+  @media (max-width: 640px) {
+    .carousel-btn {
+      padding: 0.5rem;
+    }
+    
+    .carousel-btn svg {
+      width: 1rem;
+      height: 1rem;
+    }
+    
+    .carousel-indicator {
+      width: 0.625rem;
+      height: 0.625rem;
+    }
+  }
+  
+  /* Responsive height adjustments */
+  @media (max-width: 768px) {
+    .carousel-container {
+      min-height: 250px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .carousel-container {
+      min-height: 200px;
+    }
+  }
+</style>
