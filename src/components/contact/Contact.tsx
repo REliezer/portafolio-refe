@@ -1,5 +1,6 @@
+import { Toaster, toast } from 'sonner'
 import { useState } from "react";
-//import contactImg from "../../assets/contact/contact-img.svg";
+import { useFormValidation } from '@/hooks/useFormValidation';
 import '@/styles/components/ContactComponente.css';
 
 interface BannerProps {
@@ -16,75 +17,163 @@ const Contact = ({ title, children }: BannerProps) => {
         message: ''
     }
 
-    type FormField = keyof typeof formInitialDetails;
+    const validationRules = {
+        firstName: { required: true, minLength: 2, maxLength: 50 },
+        lastName: { required: true, minLength: 2, maxLength: 50 },
+        email: { required: true, email: true },
+        phone: {
+            required: true,
+            pattern: /^[\+]?[0-9\-\s\(\)]+$/,
+            minLength: 7
+        },
+        message: { required: true, minLength: 10, maxLength: 500 }
+    };
 
-    const [formDetails, setFormDetails] = useState(formInitialDetails);
-    const [buttonText, setButtonText] = useState('Send');
-    const [status, setStatus] = useState({
-        message: '',
-        success: false
-    });
+    const { values, errors, touched, handleChange, handleBlur, validateAll, reset } = useFormValidation(
+        formInitialDetails,
+        validationRules
+    );
 
-    const onFormUpdate = (category: FormField, value: string) => {
-        setFormDetails({
-            ...formDetails,
-            [category]: value
-        })
-    }
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setButtonText('Sending...');
 
-        const res = await fetch('/api/send-email', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formDetails)
-        });
+        if (!validateAll()) {
+            toast.warning('Error de validación, Por favor, corrige los errores en el formulario');
+            return;
+        }
 
-        const data = await res.json();
-        console.log('Response from API:', data);
-        setButtonText('Send');
-        setStatus({ success: data.success, message: data.success ? 'Enviado' : 'Error' });
+        setIsSubmitting(true);
 
+        try {
+            const res = await fetch('/api/send-email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(values)
+            });
+
+            const data = await res.json();
+
+            if (data.success) {
+                toast.success('¡Mensaje enviado!. Tu mensaje ha sido enviado correctamente. Te responderé pronto.');
+                reset();
+            } else {
+                toast.error('Error al enviar. Hubo un problema al enviar tu mensaje. Por favor, inténtalo de nuevo.');
+            }
+        } catch (error) {
+            console.error('Error sending email:', error);
+            toast.error('Error de conexión. No se pudo conectar con el servidor. Verifica tu conexión a internet.');
+        } finally {
+            setIsSubmitting(false);
+        }
     }
 
     return (
-        <section className="glass container rounded-lg intersect:animate-fadeDown contact" id="connect">
-            <div className="max-w-7xl mx-auto px-4">
-                <div className="flex flex-col md:flex-row items-center">
-                    <div className="w-full md:w-1/2">
-                        {/*<img src={contactImg} alt='Contact Us' />*/}
-                        {children}
-                    </div>
-                    <div className="w-full md:w-1/2">
-                        <h2>{title}</h2>
-                        <form
-                            onSubmit={handleSubmit}
-                        /*action="https://formspree.io/f/mnnvvpzl"*/
-                        /*action="https://formsubmit.co/b66d0e1b08cc1f34ecab001167b37c48 "*/
-                        /*method="POST"*/
-                        >
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <input type='text' name='Nombre' value={formDetails.firstName} placeholder='First Name' onChange={(e) => onFormUpdate('firstName', e.target.value)} />
-                                <input type='text' name='Apellido' value={formDetails.lastName} placeholder='Last Name' onChange={(e) => onFormUpdate('lastName', e.target.value)} />
-                                <input type='email' name='Correo Electronico' value={formDetails.email} placeholder='Email' onChange={(e) => onFormUpdate('email', e.target.value)} />
-                                <input type='tel' name='Telefono' value={formDetails.phone} placeholder='Phones' onChange={(e) => onFormUpdate('phone', e.target.value)} />
-                                <textarea rows={6} name='Mensaje' value={formDetails.message} placeholder='Message' onChange={(e) => onFormUpdate('message', e.target.value)} className="col-span-full" ></textarea>
-                                <input type="hidden" name="_template" value="box"></input>
-                            </div>
-                            <button type='submit'>
-                                <span>{buttonText}</span>
-                            </button>
-                            {status.message && (
-                                <p className={status.success === false ? 'danger' : 'success'}>{status.message}</p>
-                            )}
+        <>
+            <Toaster position="bottom-center" richColors />
+            <section className="glass container rounded-lg intersect:animate-fadeDown contact" id="connect">
+                <div className="max-w-7xl mx-auto px-4">
+                    <div className="flex flex-col md:flex-row items-center">
+                        <div className="w-full md:w-1/2">
+                            {/*<img src={contactImg} alt='Contact Us' />*/}
+                            {children}
+                        </div>
+                        <div className="w-full md:w-1/2">
+                            <h2>{title}</h2>
+                            <form onSubmit={handleSubmit}>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    {/* First Name */}
+                                    <div className="form-field">
+                                        <input
+                                            type='text'
+                                            name='firstName'
+                                            value={values.firstName}
+                                            placeholder='Nombre'
+                                            onChange={(e) => handleChange('firstName', e.target.value)}
+                                            onBlur={() => handleBlur('firstName')}
+                                            className={touched.firstName && errors.firstName ? 'error' : ''}
+                                        />
+                                        {touched.firstName && errors.firstName && (
+                                            <span className="error-message">{errors.firstName}</span>
+                                        )}
+                                    </div>
 
-                        </form>
+                                    {/* Last Name */}
+                                    <div className="form-field">
+                                        <input
+                                            type='text'
+                                            name='lastName'
+                                            value={values.lastName}
+                                            placeholder='Apellidos'
+                                            onChange={(e) => handleChange('lastName', e.target.value)}
+                                            onBlur={() => handleBlur('lastName')}
+                                            className={touched.lastName && errors.lastName ? 'error' : ''}
+                                        />
+                                        {touched.lastName && errors.lastName && (
+                                            <span className="error-message">{errors.lastName}</span>
+                                        )}
+                                    </div>
+
+                                    {/* Email */}
+                                    <div className="form-field">
+                                        <input
+                                            type='email'
+                                            name='email'
+                                            value={values.email}
+                                            placeholder='Correo Electrónico'
+                                            onChange={(e) => handleChange('email', e.target.value)}
+                                            onBlur={() => handleBlur('email')}
+                                            className={touched.email && errors.email ? 'error' : ''}
+                                        />
+                                        {touched.email && errors.email && (
+                                            <span className="error-message">{errors.email}</span>
+                                        )}
+                                    </div>
+
+                                    {/* Phone */}
+                                    <div className="form-field">
+                                        <input
+                                            type='tel'
+                                            name='phone'
+                                            value={values.phone}
+                                            placeholder='Teléfono'
+                                            onChange={(e) => handleChange('phone', e.target.value)}
+                                            onBlur={() => handleBlur('phone')}
+                                            className={touched.phone && errors.phone ? 'error' : ''}
+                                        />
+                                        {touched.phone && errors.phone && (
+                                            <span className="error-message">{errors.phone}</span>
+                                        )}
+                                    </div>
+
+                                    {/* Message */}
+                                    <div className="form-field col-span-full">
+                                        <textarea
+                                            rows={6}
+                                            name='message'
+                                            value={values.message}
+                                            placeholder='Mensaje'
+                                            onChange={(e) => handleChange('message', e.target.value)}
+                                            onBlur={() => handleBlur('message')}
+                                            className={`col-span-full ${touched.message && errors.message ? 'error' : ''}`}
+                                        ></textarea>
+                                        {touched.message && errors.message && (
+                                            <span className="error-message">{errors.message}</span>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <button type='submit' disabled={isSubmitting} className={isSubmitting ? 'loading' : ''}>
+                                    <span>{isSubmitting ? 'Enviando...' : 'Enviar Mensaje'}</span>
+                                </button>
+
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </>
 
     )
 }
