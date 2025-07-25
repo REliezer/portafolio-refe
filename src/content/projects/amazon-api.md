@@ -102,5 +102,17 @@ content:
   - nombre: "🔐 Fase Extra: Integrar Key Vault"
     resume: |
         Se integró Azure Key Vault para gestionar de forma segura secretos sensibles como cadenas de conexión, claves de acceso a servicios y credenciales. Durante esta fase se modificó la configuración de la aplicación para recuperar estos valores directamente desde Key Vault, aumentando así la seguridad y facilitando la gestión centralizada de secretos, especialmente en entornos de despliegue continuo.
+diagrama:
+  resume: |
+    El diagrama representa el flujo de datos desde la migración de los datos hasta la consulta de estos a traves de una API segura, optimizada y desplegada en la nube. Utilizando servicios de Microsoft Azure.
+  image: "@assets/projects/amazonAPI/gallery_1.png"
+  imageAlt: "Flujo de Datos"
+gallery:
+  - img: "@assets/projects/amazonAPI/gallery_1.png"
+    imgAlt: "Flujo de los Datos"
+  - img: "@assets/projects/amazonAPI/gallery_2.png"
+    imgAlt: "Resources created"
+  - img: "@assets/projects/amazonAPI/gallery_3.png"
+    imgAlt: "Resources created"
 ---
 
