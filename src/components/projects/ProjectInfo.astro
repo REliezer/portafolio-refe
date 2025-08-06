@@ -56,13 +56,15 @@ const platformIcons: Record<string, string> = {
                 title="Plataforma"
             />
             <div class="row m-4">
-                <div class="col-12">
-                    {plataformasActivas.map((plat) => (
-                <li>
-                    {platformIcons[plat] || "❓"}
-                    {` ${upperHumanize(plat)}`}
-                </li>
-                ))}
+                <div class="col-12 pl-8">
+                    <ul class="list-none space-y-1">
+                        {plataformasActivas.map((plat) => (
+                        <li class="flex items-center">
+                            <span class="mr-2" style="list-style: none;">{platformIcons[plat] || "❓"}</span>
+                            {upperHumanize(plat)}
+                        </li>
+                        ))}
+                    </ul>
                 </div>
             </div>
             )
@@ -75,7 +77,7 @@ const platformIcons: Record<string, string> = {
                 title="Categorías"
             />
             <div class="row m-4">
-                <div class="col-12">
+                <div class="col-12 pl-10">
                 {categories?.map((category: string, index: number) => (
                     category ? (
                     <li>
@@ -93,14 +95,50 @@ const platformIcons: Record<string, string> = {
         {
         github && (
             <div>
-            {github?.map((git: { title?: string; link: string }) => (
-                <ProjectInfoItem
-                    icon="github"
-                    title= {git.title ? git.title : "Repositorio GitHub"}
-                    url={git.link}
-                />                                      
-                ))
-            }
+                {github.length <= 2 ? (
+                    <!-- Si hay 2 o menos enlaces, mostrar todos directamente -->
+                    {github.map((git: { title?: string; link: string }) => (
+                        <ProjectInfoItem
+                            icon="github"
+                            title={git.title ? git.title : "Repositorio GitHub"}
+                            url={git.link}
+                        />                                      
+                    ))}
+                ) : (
+                    <>
+                        <!-- Mostrar primeros 2 enlaces -->
+                        {github.slice(0, 2).map((git: { title?: string; link: string }) => (
+                            <ProjectInfoItem
+                                icon="github"
+                                title={git.title ? git.title : "Repositorio GitHub"}
+                                url={git.link}
+                            />                                      
+                        ))}
+                        <!-- Contenedor colapsable para enlaces adicionales -->
+                        <div id="github-expandable" class="github-expandable">
+                            <div class="expandable-content" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out;">
+                                {github.slice(2).map((git: { title?: string; link: string }) => (
+                                    <ProjectInfoItem
+                                        icon="github"
+                                        title={git.title ? git.title : "Repositorio GitHub"}
+                                        url={git.link}
+                                    />                                      
+                                ))}
+                            </div>
+                        </div>
+                        <!-- Botón para expandir/contraer -->
+                        <div class="ml-4 mt-0">
+                            <button 
+                                id="github-toggle-btn" 
+                                class="text-sm text-[#fbfcf8] hover:text-[#AA367C] hover:underline hover:underline-[#AA367C] hover:cursor-pointer focus:outline-none transition-colors duration-200"
+                                type="button"
+                            >
+                                <span class="expand-text">Ver más repositorios ({github.length - 2})</span>
+                                <span class="collapse-text" style="display: none;">Ver menos</span>
+                            </button>
+                        </div>
+                    </>
+                )}
             </div>  
         )
         }
@@ -127,3 +165,47 @@ const platformIcons: Record<string, string> = {
         }
     </div>
 </section>
+
+<script>
+    // Funcionalidad para expandir/contraer enlaces de GitHub
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleBtn = document.getElementById('github-toggle-btn');
+        const expandableContainer = document.querySelector('.expandable-content');
+        const expandText = document.querySelector('.expand-text');
+        const collapseText = document.querySelector('.collapse-text');
+        
+        if (toggleBtn && expandableContainer && expandText && collapseText) {
+            let isExpanded = false;
+            
+            // Calcular la altura real del contenido
+            const getContentHeight = () => {
+                const clone = expandableContainer.cloneNode(true);
+                clone.style.maxHeight = 'none';
+                clone.style.position = 'absolute';
+                clone.style.visibility = 'hidden';
+                clone.style.height = 'auto';
+                document.body.appendChild(clone);
+                const height = clone.offsetHeight;
+                document.body.removeChild(clone);
+                return height;
+            };
+            
+            toggleBtn.addEventListener('click', function() {
+                if (!isExpanded) {
+                    // Expandir
+                    const contentHeight = getContentHeight();
+                    expandableContainer.style.maxHeight = contentHeight + 'px';
+                    expandText.style.display = 'none';
+                    collapseText.style.display = 'inline';
+                    isExpanded = true;
+                } else {
+                    // Contraer
+                    expandableContainer.style.maxHeight = '0';
+                    expandText.style.display = 'inline';
+                    collapseText.style.display = 'none';
+                    isExpanded = false;
+                }
+            });
+        }
+    });
+</script>
