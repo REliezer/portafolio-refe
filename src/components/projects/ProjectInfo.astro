@@ -28,8 +28,8 @@ const platformIcons: Record<string, string> = {
 
 ---
 
-<section class="col basis-1/3 p-2 min-w-72">
-    <div class="glass rounded-lg p-2 h-full intersect:animate-fadeUp  ">
+<section class="col basis-1/3 p-2 min-w-72 lg:h-[500px]">
+    <div class="glass rounded-lg p-2 intersect:animate-fadeUp lg:h-[500px] lg:overflow-y-auto lg:overflow-x-hidden ">
         <!-- Author -->
         {
         author && (
@@ -106,7 +106,7 @@ const platformIcons: Record<string, string> = {
                     ))}
                 ) : (
                     <>
-                        <!-- Mostrar primeros 2 enlaces -->
+                        {/* Mostrar primeros 2 enlaces */}
                         {github.slice(0, 2).map((git: { title?: string; link: string }) => (
                             <ProjectInfoItem
                                 icon="github"

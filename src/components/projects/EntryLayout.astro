@@ -13,9 +13,24 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const { title, resume, date, imageCover, imageCoverAlt, categories, author, stack, description, content, github, link, platform, diagrama, gallery} = entry.data;
+const {
+  title,
+  resume,
+  date,
+  imageCover,
+  imageCoverAlt,
+  categories,
+  author,
+  stack,
+  description,
+  content,
+  github,
+  link,
+  platform,
+  diagrama,
+  gallery,
+} = entry.data;
 const entryDate = date ? formatDate(date) : "";
-
 ---
 
 <BaseLayout title={title}>
@@ -29,14 +44,21 @@ const entryDate = date ? formatDate(date) : "";
             imageCover && (
               <div class="col basis-2/3 p-2 min-w-72">
                 <div class="glass rounded-lg intersect:animate-fadeDown">
-                  <Image
-                    class="w-full rounded-lg"
-                    src={imageCover}
-                    alt={imageCoverAlt}
-                    width={1920}
-                    height={1080}
-                    loading="eager"
+                  {/* Imagen de fondo con blur */}
+                  <div
+                    class="absolute inset-0 bg-cover bg-center filter blur-xs opacity-50"
+                    style={`background-image: url(${imageCover.src || imageCover})`}
                   />
+                  <div class="relative z-10 flex items-center justify-center h-[500px]">
+                    <Image
+                      class="max-h-full max-w-full object-contain"
+                      src={imageCover}
+                      alt={imageCoverAlt}
+                      width={1920}
+                      height={1080}
+                      loading="eager"
+                    />
+                  </div>
                 </div>
               </div>
             )
@@ -63,7 +85,7 @@ const entryDate = date ? formatDate(date) : "";
           <!-- Diagrama -->
           {
             diagrama && (
-              <ProjectSection 
+              <ProjectSection
                 titleSection="Arquitectura Propuesta"
                 resumeSection={diagrama.resume}
                 imgSection={diagrama.image}
@@ -75,10 +97,12 @@ const entryDate = date ? formatDate(date) : "";
           <!-- Contenido -->
           {
             content && (
-              <ProjectSection 
+              <ProjectSection
                 titleSection="Contenido del proyecto"
                 resumeSection={
-                  content.description ? content.description : "Lista de los diferentes modulos y contenidos que encontraras en este proyecto."
+                  content.description
+                    ? content.description
+                    : "Lista de los diferentes modulos y contenidos que encontraras en este proyecto."
                 }
                 itemSection={content.item}
               />
@@ -99,15 +123,14 @@ const entryDate = date ? formatDate(date) : "";
           }
           <!-- Gallery -->
           {
-          gallery && (
-            <ProjectSection 
-              titleSection="Galeria de Imagenes"
-              resumeSection="Imagenes de las pantallas del sistema."
-              gallery={gallery}
-            />
-          )
+            gallery && (
+              <ProjectSection
+                titleSection="Galeria de Imagenes"
+                resumeSection="Imagenes de las pantallas del sistema."
+                gallery={gallery}
+              />
+            )
           }
-          
         </article>
       </div>
     </div>
