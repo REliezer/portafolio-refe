@@ -28,25 +28,28 @@ stack:
   - label: "Azure SQL DW"
     group: "Base de Datos"
 
-description:
+description: |
   Lorem ipsum dolor, sit amet consectetur adipisicing elit. Asperiores deleniti, odio dolorum in quo obcaecati recusandae totam aperiam vitae facilis omnis nulla assumenda et cumque necessitatibus perferendis consectetur est labore?.
 
 content:
   description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Asperiores deleniti, odio dolorum in quo obcaecati recusandae totam aperiam vitae facilis omnis nulla assumenda et cumque necessitatibus perferendis consectetur est labore?."
   item:
   - nombre: "Lorem Ipsum"
-    resume: "Lorem ipsum dolor, sit amet consectetur adipisicing elit."
+    resume: |
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit.
     modulos:
     - Lorem Ipsum
     - Lorem Ipsum
     - Lorem Ipsum
 diagrama:
-  resume: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+  resume: |
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
   image: "@assets/projects/default.svg"
   imageAlt: "Lorem Ipsum"
   diagramaComponent: 
   - nombre: "Capa de Autenticación"
-    resume: "Para centralizar la autenticación para clientes y administradores. Se integra con ambos portales mediante flujos seguros de login y autorización."
+    resume: |
+      Para centralizar la autenticación para clientes y administradores. Se integra con ambos portales mediante flujos seguros de login y autorización.
 gallery:
   - img: "@assets/projects/default.svg"
     imgAlt: "Default Picture"
