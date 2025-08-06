@@ -1,20 +1,27 @@
 ---
 import ThemeSwitcher from "@components/base/ThemeSwitcher.astro";
+import { getLangFromUrl, useTranslations, useTranslatedPath  } from '../../i18n/utils';
+import { navigate } from "astro:transitions/client";
+import LanguageSwitcher from '@components/base/LanguageSwitcher.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
 
 const { pathname } = Astro.url;
 const stickyHeader = true;
 
 const menu = [
   {
-    name: "Home",
+    name: "home",
     url: "/",
   },
   {
-    name: "Projects",
+    name: "projects",
     url: "/projects",
   },
   {
-    name: "Contact",
+    name: "contact",
     url: "/contact",
   },
 ];
@@ -45,19 +52,20 @@ const menu = [
       { menu.map((item) => (
           <li class="">
             <a
-              href={item.url}
+              href={`/${lang}/${item.url}/`}
               class={`block p-2 font-secondary font-semibold text-text-base transition dark:text-dark-text-base lg:px-2 lg:py-3 ${
                 (pathname === `${item.url}/` || pathname === item.url) &&
                 "active"
               }`}
             >
-              {item.name}
+              {t(`nav.${item.name}`)}
             </a>
           </li>
         ))
       }
     </ul>
-    <div class="order-1 ml-auto flex items-center md:order-2 lg:ml-0">      
+    <div class="order-1 ml-auto flex items-center md:order-2 lg:ml-0">
+      <LanguageSwitcher />
       <ThemeSwitcher />
     </div>
   </nav>

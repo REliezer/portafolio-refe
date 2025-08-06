@@ -1,0 +1,43 @@
+---
+import { getIndex, getEntries } from "@lib/contentParser";
+import { sortByDate } from "@lib/sortFunctions";
+import type { ProjectEntry } from "@/types";
+import CollectionLayout from "@components/projects/CollectionLayout.astro";
+
+const entryIndex = (await getIndex("projects")) as ProjectEntry;
+const entries = (await getEntries("projects", sortByDate)) as ProjectEntry[];
+
+const { page } = Astro.params;
+
+const entriesPerPage = 6;
+const currentPageIndex = page && !isNaN(Number(page)) ? Number(page) : 1;
+const pageCount = Math.ceil(entries.length / entriesPerPage);
+const indexOfLastEntry = currentPageIndex * entriesPerPage;
+const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
+const currentEntries = entries.slice(indexOfFirstEntry, indexOfLastEntry);
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const entries = (await getEntries("projects", sortByDate)) as ProjectEntry[];
+  // divisor below must equal entriesPerPage
+  const pageCount = Math.ceil(entries.length / 6);
+  const paths = [];
+
+  for (let i = 2; i <= pageCount; i++) {
+    paths.push({
+      params: {
+        page: i.toString(),
+      },
+    });
+  }
+  return paths;
+}
+---
+
+<CollectionLayout
+  entryIndex={entryIndex}
+  entries={currentEntries}
+  pageIndex={currentPageIndex}
+  pageCount={pageCount}
+/>

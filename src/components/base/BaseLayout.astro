@@ -8,7 +8,9 @@ import Background from "@/components/base/Background.astro";
 import { Tooltips } from "astro-tooltips";
 import ObserverScript from "./ObserverScript.astro";
 import PageHeader from "@components/base/PageHeader.astro";
+import { getLangFromUrl } from '../../i18n/utils';
 
+const lang = getLangFromUrl(Astro.url);
 export interface Props {
   title?: string;
   description?: string | null;
@@ -26,7 +28,7 @@ const baseUrl = "https://portafolio-refe.vercel.app/";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
 <!-- 
   <html lang={Astro.site?.lang ?? "en"}>
   Para i18n

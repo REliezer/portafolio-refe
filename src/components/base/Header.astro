@@ -1,6 +1,9 @@
 ---
 import ThemeSwitcher from "@components/base/ThemeSwitcher.astro";
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
 
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 const { pathname } = Astro.url;
 const stickyHeader = true;
 

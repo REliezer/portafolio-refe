@@ -1,0 +1,44 @@
+<script is:inline data-astro-rerun>
+  const defaultLanguage = "es";
+
+  localStorage.removeItem("lang");
+  setLanguage(getTheme(defaultLanguage));
+
+  function getTheme(defaultLanguage) {
+    var language = defaultLanguage === "es" ? true : false;
+    if (localStorage.getItem("lang") === "system") {
+      if (window.matchMedia("(prefers-color-scheme: es)").matches) {
+        language = true;
+      }
+    } else if (localStorage.getItem("lang") === "es") {
+      language = true;
+    } else if (localStorage.getItem("lang") === "en") {
+      language = false;
+    }
+    return language;
+  }
+
+  function setLanguage(language) {
+    // Update DOM
+    language
+      ? document.documentElement.classList.add("es")
+      : document.documentElement.classList.remove("es");
+    // Update localStorage
+    localStorage.setItem("lang", language ? "es" : "en");
+  }
+
+  // This prevents flickering back to default lang before the page is fully loaded
+  setLanguage(getTheme(defaultLanguage));
+
+  document.addEventListener("astro:page-load", () => {
+    setLanguage(getTheme(defaultLanguage));
+    // Theme switcher
+    var themeSwitch = document.querySelectorAll("[data-lang-switcher]");
+    themeSwitch.forEach((el) => {
+      el.addEventListener("change", (e) => {
+        setLanguage(e.target.checked);
+      });
+    });
+  });
+
+</script>
