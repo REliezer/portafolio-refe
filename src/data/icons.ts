@@ -32,4 +32,6 @@ export const techIcons: Record<string, string> = {
     "Firebase Authentication": "/icons/firebase.svg",
     "Docker": "/icons/docker.svg",
     "Azure Key Vault": "/icons/azure/Key-Vaults.svg",
+    "Next.js": "/icons/framework/nextjs.svg",
+    "FastAPI": "/icons/framework/fastapi.svg"
 };
