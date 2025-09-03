@@ -1,44 +1,106 @@
 <script is:inline data-astro-rerun>
-  const defaultTheme = "dark";
-
-  localStorage.removeItem("theme"); // Borra cualquier tema guardado
-  setTheme(getTheme(defaultTheme)); // Aplica el tema por defecto
-
-  function getTheme(defaultTheme) {
-    var darkMode = defaultTheme === "dark" ? true : false;
-    if (localStorage.getItem("theme") === "system") {
-      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        darkMode = true;
-      }
-    } else if (localStorage.getItem("theme") === "dark") {
-      darkMode = true;
-    } else if (localStorage.getItem("theme") === "light") {
-      darkMode = false;
+  // Configuration
+  const DEFAULT_THEME = "dark";
+  const STORAGE_KEY = "theme";
+  
+  // Utility functions
+  function getStoredTheme() {
+    try {
+      return localStorage.getItem(STORAGE_KEY);
+    } catch (error) {
+      return null;
     }
-    return darkMode;
   }
-
-  function setTheme(darkMode) {
-    // Update DOM
-    darkMode
-      ? document.documentElement.classList.add("dark")
-      : document.documentElement.classList.remove("dark");
-    // Update localStorage
-    localStorage.setItem("theme", darkMode ? "dark" : "light");
+  
+  function storeTheme(theme) {
+    try {
+      localStorage.setItem(STORAGE_KEY, theme);
+    } catch (error) {
+      console.warn("Unable to save theme preference");
+    }
   }
-
-  // This prevents flickering back to default theme before the page is fully loaded
-  setTheme(getTheme(defaultTheme));
-
-  document.addEventListener("astro:page-load", () => {
-    setTheme(getTheme(defaultTheme));
-    // Theme switcher
-    var themeSwitch = document.querySelectorAll("[data-theme-switcher]");
-    themeSwitch.forEach((el) => {
-      el.addEventListener("change", (e) => {
-        setTheme(e.target.checked);
-      });
+  
+  function getSystemTheme() {
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches 
+      ? "dark" 
+      : "light";
+  }
+  
+  function applyTheme(theme) {
+    const isDark = theme === "dark";
+    document.documentElement.classList.toggle("dark", isDark);
+  }
+  
+  function updateSwitchers(theme) {
+    const isDark = theme === "dark";
+    document.querySelectorAll("[data-theme-switcher]").forEach((el) => {
+      el.checked = isDark;
     });
+  }
+  
+  function setTheme(theme) {
+    applyTheme(theme);
+    storeTheme(theme);
+    updateSwitchers(theme);
+  }
+  
+  function toggleTheme() {
+    const currentTheme = getStoredTheme() || DEFAULT_THEME;
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+  }
+  
+  function initTheme() {
+    const storedTheme = getStoredTheme();
+    let theme;
+    
+    if (storedTheme === "system") {
+      theme = getSystemTheme();
+    } else if (storedTheme === "light" || storedTheme === "dark") {
+      theme = storedTheme;
+    } else {
+      theme = DEFAULT_THEME;
+    }
+    
+    applyTheme(theme);
+    // Don't store system-resolved theme, keep "system" preference
+    if (!storedTheme) {
+      storeTheme(theme);
+    }
+    updateSwitchers(theme);
+  }
+  
+  function setupEventListeners() {
+    // Theme switchers
+    document.querySelectorAll("[data-theme-switcher]").forEach((el) => {
+      el.addEventListener("change", toggleTheme);
+    });
+    
+    // Listen for system theme changes if user prefers system
+    if (getStoredTheme() === "system" && window.matchMedia) {
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+        if (getStoredTheme() === "system") {
+          initTheme();
+        }
+      });
+    }
+  }
+  
+  // Initialize immediately to prevent FOUC
+  initTheme();
+  
+  // Setup event listeners after DOM loads
+  document.addEventListener("DOMContentLoaded", setupEventListeners);
+  document.addEventListener("astro:page-load", () => {
+    initTheme();
+    setupEventListeners();
   });
+  
+  // Expose for debugging
+  window.themeDebug = {
+    current: () => getStoredTheme(),
+    set: setTheme,
+    toggle: toggleTheme
+  };
 
 </script>

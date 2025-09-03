@@ -1,6 +1,11 @@
 @config '../../tailwind.config.js';
 
 @import 'tailwindcss';
+/*@import "tailwindcss/preflight";*/
+/*@tailwind utilities;*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @import './base/base.css';
 @import './base/fonts.css';

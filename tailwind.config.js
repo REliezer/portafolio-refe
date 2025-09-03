@@ -48,31 +48,31 @@ module.exports = {
     extend: {
       colors: {
         text: {
-          base: "#020403",
-          secondary: "#222",
-          light: "#444",
+          base: "#1a1a1a",
+          secondary: "#4a4a4a",
+          light: "#6b7280",
         },
         background: {
           base: "#fbfcf8",
-          secondary: "#ddd",
-          tertiary: "#ccc",
+          secondary: "#f8fafc",
+          tertiary: "#f1f5f9",
         },
         border: {
-          DEFAULT: "#4A2FBD",
+          DEFAULT: "#231a4c",     // Primary border color
         },
         dark: {
           text: {
-            base: "#fbfcf8",
-            secondary: "#ddd",
-            light: "#bbb",
+            base: "#f8fafc",
+            secondary: "#cbd5e1",
+            light: "#94a3b8",
           },
           background: {
-            base: "#020403",
-            secondary: "#444",
-            tertiary: "#333",
+            base: "#0f172a",
+            secondary: "#1e293b",
+            tertiary: "#334155",
           },
           border: {
-            DEFAULT: "#444",
+            DEFAULT: "#827ffa",       // Primary border color (dark mode)
           },
         },
       },
