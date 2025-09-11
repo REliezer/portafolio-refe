@@ -35,7 +35,7 @@ const entries = allEntries.slice(0, 3); //Ultimos 3 proyectos
       class="text-lg text-justify w-full transition-all duration-500 ease-in-out overflow-hidden"
       style="max-height: var(--about-max-height)"
       id="about-content"
-      set:html={description.replace(/\n/g, "<br />")}
+      set:html={description?.replace(/\n/g, "<br />")}
     />
     <button
       type="button"

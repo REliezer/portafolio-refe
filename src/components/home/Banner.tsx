@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ArrowRightCircle } from "react-bootstrap-icons";
-import 'animate.css';
+import { BsArrowRightCircle } from "react-icons/bs";
 import '../../styles/components/BannerComponente.css';
 
 interface BannerProps {
@@ -59,7 +58,8 @@ const BannerComponent = ({title, subtitle, content, button, children}: BannerPro
                         <p className='text-justify font-mono'>{content}</p>
                         <button>
                             <a href={button?.link}>{button?.label}</a>
-                            <ArrowRightCircle size={25} /></button>
+                            <BsArrowRightCircle size={25} />
+                        </button>
                     </div>
                     <div className="text-center lg:w-1/3 flex items-center justify-center">
                         {children}                        
