@@ -67,7 +67,7 @@ const skill = defineCollection({
 // Colección Projects (archivos con nombre diferente a _*.md/mdx)
 const projects = defineCollection({
   loader: glob({
-    pattern: "**\/[^_]*.{md,mdx}",
+    pattern: ["**\/[^_]*.{md,mdx}", "!**/cooky.{md,mdx}"],
     base: "./src/content/projects",
   }),
   schema: ({ image }) =>
