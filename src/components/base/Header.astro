@@ -58,7 +58,7 @@ const menu = [
           <li class="">
             <a
               href={item.id}
-              class={`block p-2 font-secondary font-semibold text-text-base transition dark:text-dark-text-base lg:px-2 lg:py-3 ${
+              class={`cursor-pointer rounded-lg no-underline hover:bg-white/15 dark:hover:bg-black/15 block p-2 font-secondary font-semibold text-text-base transition-colors duration-200 dark:text-dark-text-base lg:px-2 lg:py-3 ${
                 (pathname === `${item.id}/` || pathname === item.id) &&
                 "active"
               }`}

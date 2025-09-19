@@ -1,0 +1,27 @@
+---
+import type { AstroComponentFactory } from "astro/runtime/server";
+
+export interface Props {
+  title: string;
+  description?: | AstroComponentFactory;
+  titleAlign: "left" | "right";
+  idSection: string;
+}
+
+const { title, description, titleAlign, idSection } = Astro.props;
+---
+
+<section class="container mb-6" id={idSection}>
+  <h2 class=`font-bold ${titleAlign === 'left' ? 'text-left' : 'text-right'}`>
+    {title}
+  </h2>
+  <hr class="mb-6 hr-separator" />
+  {description && (
+    typeof description === "string"
+      ? <p class="text-lg text-justify">{description}</p>
+      : <Fragment>{description}</Fragment>
+  )}
+  
+  <slot />
+</section>
+
