@@ -1,0 +1,95 @@
+---
+import type { AboutEntry } from "@/types";
+
+interface Props {
+  entry: AboutEntry;
+}
+
+const { entry } = Astro.props;
+const { title, description } = entry.data;
+---
+
+<section class="container mb-6" id="about">
+  <h2 class="font-bold text-right">{title}</h2>
+  <hr class="mb-6 hr-separator" />
+  <div
+    id="about-content"
+    class="about-transition text-lg text-justify w-full"
+    set:html={description?.replace(/\n/g, "<br />")}
+  />
+  <button
+    id="about-btn"
+    type="button"
+    class="btn-more mt-2"
+    aria-expanded="false"
+    aria-controls="about-content"
+  >
+    Leer más...
+  </button>
+</section>
+
+<style>
+  .about-transition {
+    height: 10rem;
+    overflow: hidden;
+    transition:
+      height 400ms cubic-bezier(0.22, 0.9, 0.32, 1),
+      opacity 260ms ease;
+    opacity: 0.92;
+  }
+
+  .about-transition.expanded {
+    opacity: 1;
+  }
+</style>
+
+<script is:client>
+  (() => {
+    const btn = document.getElementById("about-btn");
+    const content = document.getElementById("about-content");
+    if (!btn || !content) return;
+
+    let collapsedHeight = parseFloat(getComputedStyle(content).height);
+    const setCollapsed = () => (content.style.height = `${collapsedHeight}px`);
+
+    // Inicialización
+    setCollapsed();
+
+    const toggle = () => {
+      const expanded = content.classList.toggle("expanded");
+
+      if (expanded) {
+        // Expandir
+        content.style.height = `${content.scrollHeight}px`;
+        btn.textContent = "Leer menos...";
+        btn.setAttribute("aria-expanded", "true");
+      } else {
+        // Contraer
+        content.style.height = `${content.scrollHeight}px`;
+        content.offsetHeight; // reflow
+        setCollapsed();
+        btn.textContent = "Leer más...";
+        btn.setAttribute("aria-expanded", "false");
+      }
+    };
+
+    btn.addEventListener("click", toggle);
+
+    content.addEventListener("transitionend", (e) => {
+      if (
+        e.propertyName === "height" &&
+        content.classList.contains("expanded")
+      ) {
+        content.style.height = "auto";
+      }
+    });
+
+    // Recalcular en resize (cuando cambia el tamaño base de rem)
+    window.addEventListener("resize", () => {
+      if (!content.classList.contains("expanded")) {
+        collapsedHeight = parseFloat(getComputedStyle(content).height);
+        setCollapsed();
+      }
+    });
+  })();
+</script>
