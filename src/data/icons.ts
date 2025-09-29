@@ -2,6 +2,7 @@ export const techIcons: Record<string, string> = {
     "HTML": "/icons/html.svg",
     "CSS": "/icons/css.svg",
     "JavaScript": "/icons/javascript.svg",
+    "TypeScript": "/icons/typescript.svg",
     "ReactJS": "/icons/reactjs.svg",
     "Tailwind CSS": "/icons/tailwind.svg",
     "Bootstrap": "/icons/bootstrap.svg",
@@ -33,5 +34,10 @@ export const techIcons: Record<string, string> = {
     "Docker": "/icons/docker.svg",
     "Azure Key Vault": "/icons/azure/Key-Vaults.svg",
     "Next.js": "/icons/framework/nextjs.svg",
-    "FastAPI": "/icons/framework/fastapi.svg"
+    "FastAPI": "/icons/framework/fastapi.svg",
+    "Supabase": "/icons/supabase.svg",
+    "Zustand": "/icons/zustand.svg",
+    "Qwen 3.5": "/icons/qwen.svg",
+    "JWT": "/icons/jwt.svg",
+    "Unsplash API": "/icons/unsplash.svg"
 };
