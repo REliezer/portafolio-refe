@@ -1,4 +1,6 @@
 ---
+import Analytics from '@vercel/analytics/astro';
+
 import { plainify } from "@lib/textConverter";
 import Footer from "@components/base/Footer.astro";
 import Header from "@components/base/Header.astro";
@@ -80,5 +82,6 @@ const baseUrl = "https://portafolio-refe.vercel.app/";
     </main>
     <Footer />
     <ObserverScript />
+    <Analytics />
   </body>
 </html>
