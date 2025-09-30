@@ -12,7 +12,7 @@ export const techIcons: Record<string, string> = {
     "Azure Functions": "https://www.vectorlogo.zone/logos/azurefunctions/azurefunctions-icon.svg",
     "SQL": "/icons/sql.svg",
     "MongoDB": "/icons/mongodb.svg",
-    "Oracle": "https://img.icons8.com/color/48/oracle-logo.png",
+    "Oracle": "/icons/oracle.png",
     "Figma": "/icons/figma.svg",
     "Adobe XD": "/icons/xd.svg",
     "GitHub": "/icons/github.svg",
