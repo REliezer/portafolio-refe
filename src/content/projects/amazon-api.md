@@ -19,7 +19,7 @@ github:
   - title: "AmazonAPI"
     link: "https://github.com/REliezer/amazonAPI"
     
-link: "https://api-amazonproducts-dev.azurewebsites.net/"
+link: ""
 
 stack:
   - label: "Azure App Service Plans"

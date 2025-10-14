@@ -110,9 +110,15 @@ const autoPlayInterval = 3000;
 
 <!-- JavaScript para funcionalidad del carousel -->
 <script define:vars={{ carouselId, autoPlay, autoPlayInterval }}>
-  document.addEventListener('DOMContentLoaded', function() {
+  function initializeCarousel() {
     const carousel = document.getElementById(carouselId);
     if (!carousel) return;
+    
+    // Verificar si ya está inicializado
+    if (carousel.hasAttribute('data-carousel-initialized')) return;
+    
+    // Marcar como inicializado
+    carousel.setAttribute('data-carousel-initialized', 'true');
 
     const track = carousel.querySelector('[data-carousel-track]');
     const slides = carousel.querySelectorAll('[data-slide]');
@@ -243,10 +249,121 @@ const autoPlayInterval = 3000;
       }
     });
 
-    // Initialize
-    updateCarousel();
-    startAutoPlay();
-  });
+    // Esperar a que las imágenes se carguen antes de inicializar completamente
+    const images = carousel.querySelectorAll('img');
+    let loadedImages = 0;
+    let totalImages = images.length;
+    
+    function onImageLoad() {
+      loadedImages++;
+      if (loadedImages >= totalImages) {
+        // Todas las imágenes cargadas, inicializar completamente
+        setTimeout(() => {
+          updateCarousel();
+          startAutoPlay();
+        }, 50);
+      }
+    }
+    
+    if (totalImages > 0) {
+      images.forEach(function(img) {
+        if (img.complete && img.naturalHeight !== 0) {
+          // Imagen ya cargada
+          onImageLoad();
+        } else {
+          // Esperar a que cargue
+          img.addEventListener('load', onImageLoad);
+          img.addEventListener('error', onImageLoad); // Contar errores también
+        }
+      });
+      
+      // Timeout de seguridad: inicializar después de 1 segundo máximo
+      setTimeout(function() {
+        if (loadedImages < totalImages) {
+          updateCarousel();
+          startAutoPlay();
+        }
+      }, 1000);
+    } else {
+      // No hay imágenes, inicializar inmediatamente
+      updateCarousel();
+      startAutoPlay();
+    }
+  }
+  
+  // Múltiples formas de inicializar para garantizar funcionamiento
+  // 1. Si el DOM ya está cargado
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeCarousel);
+  } else {
+    // DOM ya cargado, inicializar inmediatamente
+    initializeCarousel();
+  }
+  
+  // 2. Como respaldo, intentar inicializar después de un pequeño delay
+  setTimeout(initializeCarousel, 100);
+  
+  // 3. Observer para detectar cuando el elemento se añade al DOM
+  if (typeof MutationObserver !== 'undefined') {
+    const observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        if (mutation.type === 'childList') {
+          const addedNodes = Array.from(mutation.addedNodes);
+          addedNodes.forEach(function(node) {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+              if (node.id === carouselId || node.querySelector(`#${carouselId}`)) {
+                setTimeout(initializeCarousel, 50);
+              }
+            }
+          });
+        }
+      });
+    });
+    
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+    
+    // Limpiar el observer después de un tiempo
+    setTimeout(() => observer.disconnect(), 5000);
+  }
+</script>
+
+<!-- Script inline adicional para asegurar inicialización inmediata -->
+<script is:inline>
+  // Este script se ejecuta inmediatamente cuando el HTML se parsea
+  (function() {
+    'use strict';
+    
+    function quickInit() {
+      // Buscar todos los carousels que no estén inicializados
+      const carousels = document.querySelectorAll('[id^="carousel-"]:not([data-carousel-initialized])');
+      
+      carousels.forEach(function(carousel) {
+        const track = carousel.querySelector('[data-carousel-track]');
+        const indicators = carousel.querySelectorAll('[data-carousel-indicator]');
+        
+        if (track && indicators.length > 0) {
+          // Inicialización básica: activar primer indicador
+          indicators[0].classList.add('bg-[#4A2FBD]/80');
+          indicators[0].classList.remove('bg-white/30');
+          
+          // Asegurar que el track esté en posición inicial
+          track.style.transform = 'translateX(0%)';
+          
+          // Marcar temporalmente como inicializado básicamente
+          carousel.setAttribute('data-carousel-quick-init', 'true');
+        }
+      });
+    }
+    
+    // Ejecutar inmediatamente
+    quickInit();
+    
+    // Y después de un pequeño delay por si acaso
+    setTimeout(quickInit, 10);
+  })();
 </script>
 
 <style>
