@@ -24,7 +24,7 @@ github:
     link: "https://github.com/REliezer/pokequeue-sql"
   - title: "PokeQueue Terraform"
     link: "https://github.com/REliezer/pokequeue-terrafom" 
-link: "ui-pokequeue-refe-dev.azurewebsites.net"
+link: ""
 
 stack:
   - label: "Azure App Service Plans"
