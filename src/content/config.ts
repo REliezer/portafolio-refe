@@ -2,6 +2,13 @@ import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 import { TechSchema } from "@/schemas/tech";
 
+// Configuración base
+const baseSchema = z.object({
+  //lang: z.enum(['es', 'en']).default('es'),
+  draft: z.boolean().default(false),
+});
+
+// Esquema común para contenido buscable
 const searchable = z.object({
   title: z.string(),
   description: z.string().optional(),
@@ -9,21 +16,31 @@ const searchable = z.object({
   draft: z.boolean().default(false),
 });
 
-// Colección About (solo archivos -index.md/mdx)
+// Función helper para crear loaders con i18n
+const createI18nLoader = (basePath: string) => {
+  return glob({ 
+    pattern: ["**/*.md", "**/*.mdx", "**/*.en.md", "**/*.es.md", "**/*.en.mdx", "**/*.es.mdx"],
+    base: basePath 
+  });
+};
+
+// Colección About
 const about = defineCollection({
-  loader: glob({ pattern: "-index.{md,mdx}", base: "./src/content/about" }),
+  loader: createI18nLoader("./src/content/about"),
   schema: ({ image }) =>
-    searchable.extend({
+    baseSchema.extend({
       image: image().optional(),
       imageAlt: z.string().default(""),
+      title: z.string(),
+      description: z.string().optional(),
     }),
 });
 
-// Colección Home (solo archivos -index.md/mdx)
+// Colección Home
 const home = defineCollection({
-  loader: glob({ pattern: "-index.{md,mdx}", base: "./src/content/home" }),
+  loader: createI18nLoader("./src/content/home"),
   schema: ({ image }) =>
-    z.object({
+    baseSchema.extend({
       image: image().optional(),
       imageAlt: z.string().default(""),
       title: z.string(),
@@ -40,23 +57,24 @@ const home = defineCollection({
 
 // Colección Terms (solo archivos -index.md/mdx)
 const terms = defineCollection({
-  loader: glob({ pattern: "-index.{md,mdx}", base: "./src/content/terms" }),
+  loader: createI18nLoader("./src/content/terms"),
   schema: searchable,
 });
 
 // Colección Contact (solo archivos -index.md/mdx)
 const contact = defineCollection({
-  loader: glob({ pattern: "-index.{md,mdx}", base: "./src/content/contact" }),
+  loader: createI18nLoader("./src/content/contact"),
   schema: ({ image }) =>
-    z.object({
+    baseSchema.extend({
       image: image().optional(),
       imageAlt: z.string().default(""),
       title: z.string(),
     }),
 });
 
-// Colección Skills (lista de habilidades y tecnologías)
+// Colección Skills (lista de habilidades y tecnologías) con i18n
 const skill = defineCollection({
+  loader: createI18nLoader("./src/content/skill"),
   schema: z.object({
     title: z.string(),
     description: z.string().optional(),
@@ -64,29 +82,25 @@ const skill = defineCollection({
   }),
 });
 
-// Colección Projects (archivos con nombre diferente a _*.md/mdx)
+// Colección Projects con i18n
 const projects = defineCollection({
-  loader: glob({
-    pattern: "**\/[^_]*.{md,mdx}",
-    base: "./src/content/projects",
-  }),
+  loader: createI18nLoader("./src/content/projects"),
   schema: ({ image }) =>
-    searchable.extend({
+    baseSchema.extend({
       title: z.string(),
+      description: z.string(),
       date: z.date().optional(),
       imageCover: image().optional(),
       imageCoverAlt: z.string().default(""),
       author: z.string().optional(),
       categories: z.array(z.string()).default([]),
-      platform: z.record(z.boolean()).default({}),      
+      platform: z.record(z.boolean()).default({}),
       resume: z.string().optional(),
-      diagrama: z.
-        object({
+      diagrama: z.object({
           resume: z.string().default(""),
           image: image(),
           imageAlt: z.string().optional().default(""),
-          diagramaComponent: z
-          .array(
+          diagramaComponent: z.array(
                 z.object({
                   nombre: z.string(),
                   resume: z.string().optional(),
@@ -112,6 +126,7 @@ const projects = defineCollection({
         .array(
           z.object({
             title: z.string().optional().default("Repositorio GitHub"),
+            title_en: z.string().optional().default("GitHub Repository"),
             link: z.string()
               .url("Debe ser una URL válida")
               .startsWith("https://github.com/", "Debe ser un enlace a GitHub"),

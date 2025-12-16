@@ -1,7 +1,12 @@
 ---
 import ThemeSwitcher from "@components/base/ThemeSwitcher.astro";
+import LanguageSwitcher from "./LanguageSwitcher.astro";
 
 const { pathname } = Astro.url;
+const rawPaths = pathname.split("/").filter((x) => x);
+const defaultLang = "es";
+const supportedLangs = ["es", "en"];
+const currentLang = rawPaths.length > 0 && supportedLangs.includes(rawPaths[0]) ? rawPaths[0] : defaultLang;
 const stickyHeader = true;
 
 const menu = [
@@ -59,6 +64,7 @@ const menu = [
     </ul>
     <div class="order-1 ml-auto flex items-center md:order-2 lg:ml-0">      
       <ThemeSwitcher />
+      <LanguageSwitcher currentLang={currentLang} availableLangs={supportedLangs} className="ml-2" />
     </div>
   </nav>
 </header>

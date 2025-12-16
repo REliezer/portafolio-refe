@@ -7,10 +7,9 @@ export const prerender = true;
 
 export async function getStaticPaths() {
   const projects = (await getEntries("projects", {
-    lang: "es",
+    lang: "en",
     sortFunction: sortByTitle,
   })) as ProjectEntry[];
- 
   const normalizeId = (id: string) => id.replace(/(?:\.|-)?(en|es)$/i, "");
   const paths = projects.map((entry) => ({
     params: {

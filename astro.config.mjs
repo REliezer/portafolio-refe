@@ -12,6 +12,10 @@ import remarkToc from "remark-toc";
 export default defineConfig({
   output: 'server',
   adapter: vercel(),
+  i18n: {
+    locales: ["es", "en"],
+    defaultLocale: "es",
+  },
   vite: {
     plugins: [tailwindcss({
       config: {

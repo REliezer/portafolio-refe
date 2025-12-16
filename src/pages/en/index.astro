@@ -1,0 +1,80 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+import { getIndex, getEntries } from "@lib/contentParser";
+import { sortByDate } from "@lib/sortFunctions";
+import BaseLayout from "@components/base/BaseLayout.astro";
+import type { HomeEntry, AboutEntry, SkillEntry, ProjectEntry } from "@/types";
+
+//Componentes
+import EntryLayout from "@components/home/EntryLayout.astro";
+import TechTable from "@components/common/TechTable.astro";
+import RecipeCard from "@components/projects/Card.astro";
+import AboutEntryLayout from "@components/about/AboutEntryLayout.astro";
+import HeroSection from "@components/common/HeroSection.astro";
+
+// Obtener la URL para proyectos en inglés
+const projectsURL = getRelativeLocaleUrl("en", "projects");
+
+//Datos
+const entryHome = (await getIndex("home", "en")) as HomeEntry;
+const { data: aboutData } = (await getIndex("about", "en")) as AboutEntry;
+const { data: skillsData } = (await getIndex("skill", "en")) as SkillEntry;
+const { data: projectData } = (await getIndex("projects", "en")) as ProjectEntry; // Index Home for projects
+
+const titleSkills = skillsData?.title || "Skills";
+const descriptionSkills = skillsData?.description || "";
+const techs = skillsData?.techs || [];
+
+const titleProject = projectData.title || "My Projects...";
+const descriptionProject = projectData.description || "A selection of my recent work";
+
+const allProjects = (await getEntries("projects", {
+  lang: "en",
+  sortFunction: sortByDate,
+})) as ProjectEntry[]; // All project entries
+const recentProjects = allProjects.slice(0, 3); //Ultimos 3 proyectos
+---
+
+<BaseLayout title="Home | Portfolio Rodrigo Funes" lang="en">
+  <!-- Sección Home -->
+  {entryHome && <EntryLayout entry={entryHome} />}
+
+  <!-- Sección About -->
+  {aboutData && <AboutEntryLayout entry={ { data: aboutData } } />}
+
+  <!-- Sección Skills -->
+  <HeroSection
+    title={titleSkills}
+    description={descriptionSkills}
+    titleAlign="left"
+    idSection="skills"
+  >
+    {techs.length > 0 && <TechTable techs={techs} />}
+  </HeroSection>
+
+  <!-- Sección Projects -->
+  <HeroSection
+    title={titleProject}
+    description={descriptionProject}
+    titleAlign="right"
+    idSection="projects"
+  >
+    <div class="row">
+      {
+        recentProjects.length > 0 ? (
+          recentProjects.map((project) => (
+            <div class="col-12 sm:col-6 md:col-4 h-min p-2">
+              <RecipeCard entry={project} />
+            </div>
+          ))
+        ) : (
+          <div class="col-12 text-center py-8">
+            <p>No projects available in English yet.</p>
+          </div>
+        )
+      }
+    </div>
+    <a href={projectsURL} class="btn-more">View All Projects...</a>
+  </HeroSection>
+</BaseLayout>

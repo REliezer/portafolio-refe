@@ -14,6 +14,7 @@ import PageHeader from "@components/base/PageHeader.astro";
 export interface Props {
   title?: string;
   description?: string | null;
+  lang?: string;
 }
 
 const { pathname } = Astro.url;
@@ -28,7 +29,7 @@ const baseUrl = "https://portafolio-refe.vercel.app/";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={Astro.props.lang ?? "en"}>
 <!-- 
   <html lang={Astro.site?.lang ?? "en"}>
   Para i18n

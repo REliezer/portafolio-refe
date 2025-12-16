@@ -4,12 +4,11 @@ import { sortByDate } from "@lib/sortFunctions";
 import type { ProjectEntry } from "@/types";
 import CollectionLayout from "@components/projects/CollectionLayout.astro";
 
-const entryIndex = (await getIndex("projects", "es")) as ProjectEntry;
+const entryIndex = (await getIndex("projects", "en")) as ProjectEntry;
 const entries = (await getEntries("projects", {
-  lang: "es",
-  sortFunction: sortByDate
+  lang: "en",
+  sortFunction: sortByDate,
 })) as ProjectEntry[];
-
 const { page } = Astro.params;
 
 const entriesPerPage = 6;
@@ -23,9 +22,9 @@ export const prerender = true;
 
 export async function getStaticPaths() {
   const entries = (await getEntries("projects", {
-    lang: "es",
+    lang: "en",
     sortFunction: sortByDate
-  } )) as ProjectEntry[];
+  })) as ProjectEntry[];
   // divisor below must equal entriesPerPage
   const pageCount = Math.ceil(entries.length / 6);
   const paths = [];

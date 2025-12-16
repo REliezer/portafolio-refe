@@ -1,0 +1,51 @@
+---
+// Switcher para cambiar el idioma del sitio web
+import { getRelativeLocaleUrl } from "@/utils/locale-utils";
+
+const {
+  currentLang = "es",
+  availableLangs = ["es", "en"],
+  className = "",
+} = Astro.props;
+---
+
+<div class="theme-switcher inline-flex items-center mr-2">
+  <nav class={className} aria-label="Language Switcher">
+    <ul class="inline-flex" role="list">
+      {
+        availableLangs.map((lang: string) => {
+          // Obtner la URL actual
+          const path = Astro.url.pathname;
+          
+            // Generar la URL relativa para el idioma seleccionado
+            const href = getRelativeLocaleUrl(path, lang);
+
+          //const href = getRelativeLocaleUrl(Astro.url.pathname, lang);
+          return (
+            <li class="mx-1" role="listitem">
+              {lang !== currentLang ? (
+                <a
+                  href={href}
+                  class="text-text-base dark:text-dark-text-base"
+                  hreflang={lang}
+                  rel="alternate external"
+                  lang={lang}
+                >
+                  {lang.toUpperCase()}
+                </a>
+              ) : (
+                <span
+                  class="text-txt-light dark:text-darkmode-txt-light"
+                  aria-current="page"
+                  lang={lang}
+                >
+                  {lang.toUpperCase()}
+                </span>
+              )}
+            </li>
+          );
+        })
+      }
+    </ul>
+  </nav>
+</div>
