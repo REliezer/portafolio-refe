@@ -1,6 +1,7 @@
 ---
 import { lowerHumanize } from "@lib/textConverter";
 
+const { currentLocale } = Astro;
 const { className }: { className?: string } = Astro.props;
 
 const rawPaths = Astro.url.pathname.split("/").filter((x) => x);
@@ -29,14 +30,14 @@ console.log("Breadcrumbs paths (raw):", rawPaths);
 console.log("Breadcrumbs paths (clean):", paths);
 let parts = [
   {
-    label: "Home",
-    href: "/",
+    label: currentLocale === "es" ? "Inicio" : "Home",
+    href: currentLocale === "es" ? "/" : `/${currentLocale}/`,
     "aria-label": Astro.url.pathname === "/" ? "page" : undefined,
   },
 ];
 
 paths.forEach((label: string, i: number) => {
-  const href = `/${paths.slice(0, i + 1).join("/")}`;
+  const href = `${currentLocale === "es" ? "/" : `/${currentLocale}/`}${paths.slice(0, i + 1).join("/")}`;
   label !== "page" &&
     parts.push({
       label: lowerHumanize(label.replace(/[-_]/g, " ")) || "",

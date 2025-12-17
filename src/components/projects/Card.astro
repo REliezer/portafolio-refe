@@ -6,23 +6,50 @@ interface Props {
   entry: ProjectEntry;
 }
 
+const { currentLocale } = Astro;
 const { entry } = Astro.props;
 const { title, imageCover, imageCoverAlt, resume } = entry.data || {};
 
-// Remover codigos de lenguaje del id
-let entryId = "";
-if (entry.id.endsWith("en")) {
-  entryId = entry.id.slice(0, -2);
-} else if (entry.id.endsWith("es")) {
-  entryId = entry.id.slice(0, -2);
-} else {
-  entryId = entry.id;
-}
+console.log("Entry in Card.astro:", entry);
+console.log("Current locale in Card:", currentLocale);
+
+// Obtener el slug base del proyecto (sin extensión de idioma)
+const getProjectSlug = (id: string): string => {
+  // Remover .en o .es del final
+  if (id.endsWith(".en") || id.endsWith("en")) {
+    return id.replace(/\.en$/, "").replace(/en$/, "");
+  }
+  if (id.endsWith(".es") || id.endsWith("es")) {
+    return id.replace(/\.es$/, "").replace(/es$/, "");
+  }
+  return id;
+};
+
+// Construir la URL correctamente según el idioma actual
+const getProjectUrl = (): string => {
+  const projectSlug = getProjectSlug(entry.id);
+
+  // Si estamos en español, URL sin prefijo
+  if (currentLocale === "es") {
+    return `/projects/${projectSlug}`;
+  }
+
+  // Si estamos en inglés, URL con prefijo /en/
+  return `/en/projects/${projectSlug}`;
+};
+
+const projectUrl = getProjectUrl();
+console.log("Project URL generated:", projectUrl);
 ---
 
-<div class="h-full m-2 pl-0 bg-gradient-to-br gradient rounded-lg intersect:animate-fadeUp" >
+<div
+  class="h-full m-2 pl-0 bg-gradient-to-br gradient rounded-lg intersect:animate-fadeUp"
+>
   <div class="glass h-full rounded-lg">
-    <a class="group hover:opacity-100" href={`/projects/${entryId}`}>
+    <a
+      class="group hover:opacity-100"
+      href={projectUrl}
+    >
       <div class="relative rounded-lg pb-9/16 overflow-hidden">
         {
           imageCover && (
@@ -36,11 +63,18 @@ if (entry.id.endsWith("en")) {
             />
           )
         }
-        <div class="glass-d absolute w-[80%] text-center rounded-lg px-2 py-1 top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]" >
-          <h3 class="text-h3-sm text-text-base dark:text-dark-text-base font-bold">
+        <div
+          class="glass-d absolute w-[80%] text-center rounded-lg px-2 py-1 top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]"
+        >
+          <h3
+            class="text-h3-sm text-text-base dark:text-dark-text-base font-bold"
+          >
             {title}
           </h3>
-          <span class="hidden font-mono text-sm text-justify w-full md:line-clamp-3">{resume}</span>
+          <span
+            class="hidden font-mono text-sm text-justify w-full md:line-clamp-3"
+            >{resume}</span
+          >
         </div>
       </div>
     </a>

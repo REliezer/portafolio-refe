@@ -12,7 +12,11 @@ interface Props {
   pageCount: number;
 }
 
+const { currentLocale } = Astro;
 const { entryIndex, entries, pageIndex, pageCount }: Props = Astro.props;
+console.log("Entries in CollectionLayout:", entries);
+//quitar la entries con id index{currentLocale}
+const filteredEntries = entries.filter(entry => !entry.id.includes(`index${currentLocale}`));
 ---
 
 <BaseLayout title={entryIndex.data.title} >
@@ -21,7 +25,7 @@ const { entryIndex, entries, pageIndex, pageCount }: Props = Astro.props;
     <div class="container">
       <div class="row">
         {
-          entries.map((entry) => (
+          filteredEntries.map((entry) => (
             <div class="md:col-6 lg:col-4 h-min p-2">
               <RecipeCard entry={entry} />
             </div>
