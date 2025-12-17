@@ -7,6 +7,7 @@ portafolio-refe
 ├─ LICENSE
 ├─ package-lock.json
 ├─ package.json
+├─ Project-Tree.md
 ├─ public
 │  ├─ .htaccess
 │  ├─ favicon
@@ -17,20 +18,14 @@ portafolio-refe
 ├─ src
 │  ├─ assets
 │  │  ├─ backgrounds
-│  │  │  ├─ banner-bg-light.webp
-│  │  │  ├─ banner-bg.webp
-│  │  │  ├─ bwca-day.png
-│  │  │  ├─ bwca-dusk.png
-│  │  │  └─ bwca-night.png
 │  │  ├─ contact
-│  │  │  └─ contact-img.svg
 │  │  ├─ home
-│  │  │  └─ header-img.svg
-│  │  ├─ og-image.png
 │  │  ├─ profile
-│  │  │  └─ profile.jpg
 │  │  └─ projects
 │  │     ├─ amazonAPI
+│  │     │  ├─ gallery_1.png
+│  │     │  ├─ gallery_2.png
+│  │     │  └─ gallery_3.png
 │  │     ├─ cooky
 │  │     ├─ default.svg
 │  │     ├─ ecommerce
@@ -44,6 +39,10 @@ portafolio-refe
 │  │     ├─ pokeAPI
 │  │     │  ├─ PokeQueue.png
 │  │     │  └─ ui-pokequeue.png
+│  │     ├─ project-img1a.png
+│  │     ├─ project-img1b.png
+│  │     ├─ project-img4.png
+│  │     └─ project-img5.png
 │  ├─ components
 │  │  ├─ about
 │  │  ├─ base
@@ -56,34 +55,53 @@ portafolio-refe
 │  │  └─ projects
 │  ├─ content
 │  │  ├─ about
-│  │  │  └─ -index.md
+│  │  │  ├─ index.en.md
+│  │  │  └─ index.es.md
 │  │  ├─ config.ts
 │  │  ├─ contact
-│  │  │  └─ -index.md
+│  │  │  ├─ index.en.md
+│  │  │  └─ index.es.md
 │  │  ├─ home
-│  │  │  └─ -index.md
+│  │  │  ├─ index.en.md
+│  │  │  └─ index.es.md
 │  │  ├─ projects
-│  │  │  ├─ -index.md
-│  │  │  ├─ amazon-api.md
-│  │  │  ├─ cooky.md
-│  │  │  ├─ ecommerce.md
-│  │  │  ├─ opti-entregas-admin.md
-│  │  │  ├─ opti-entregas-cliente.md
-│  │  │  ├─ opti-entregas-react.md
-│  │  │  ├─ opti-entregas-repartidor.md
-│  │  │  ├─ pasee.md
-│  │  │  ├─ poke-api.md
-│  │  │  ├─ portafolio.md
+│  │  │  ├─ amazon-api.en.md
+│  │  │  ├─ amazon-api.es.md
+│  │  │  ├─ cooky.en.md
+│  │  │  ├─ cooky.es.md
+│  │  │  ├─ ecommerce.en.md
+│  │  │  ├─ ecommerce.es.md
+│  │  │  ├─ index.en.md
+│  │  │  ├─ index.es.md
+│  │  │  ├─ opti-entregas-admin.en.md
+│  │  │  ├─ opti-entregas-admin.es.md
+│  │  │  ├─ opti-entregas-cliente.en.md
+│  │  │  ├─ opti-entregas-cliente.es.md
+│  │  │  ├─ opti-entregas-react.en.md
+│  │  │  ├─ opti-entregas-react.es.md
+│  │  │  ├─ opti-entregas-repartidor.en.md
+│  │  │  ├─ opti-entregas-repartidor.es.md
+│  │  │  ├─ pasee.en.md
+│  │  │  ├─ pasee.es.md
+│  │  │  ├─ poke-api.en.md
+│  │  │  ├─ poke-api.es.md
+│  │  │  ├─ portafolio.en.md
+│  │  │  ├─ portafolio.es.md
 │  │  │  └─ _template.md
 │  │  ├─ skill
-│  │  │  └─ -index.md
+│  │  │  ├─ index.en.md
+│  │  │  └─ index.es.md
 │  │  └─ terms
-│  │     └─ -index.md
+│  │     ├─ index.en.md
+│  │     └─ index.es.md
 │  ├─ data
 │  │  └─ icons.ts
 │  ├─ env.d.ts
 │  ├─ hooks
 │  │  └─ useFormValidation.ts
+│  ├─ i18n
+│  │  ├─ i18n.ts
+│  │  └─ utils.ts
 │  ├─ lib
 │  │  ├─ contentParser.ts
 │  │  ├─ formatDate.ts
@@ -95,14 +113,31 @@ portafolio-refe
 │  ├─ middleware.ts
 │  ├─ pages
 │  │  ├─ api
-│  │  │  └─ send-email.ts
 │  │  ├─ en
-│  │  │  └─ projects
-│  │  │     ├─ categories
-│  │  │     └─ page
-│  │  └─ projects
-│  │     ├─ categories
-│  │     └─ page
+│  │  │  ├─ projects
+│  │  │  │  ├─ categories
+│  │  │  │  │  ├─ [category].astro
+│  │  │  │  │  └─ index.astro
+│  │  │  │  ├─ page
+│  │  │  │  │  └─ [page].astro
+│  │  │  │  ├─ [entry].astro
+│  │  │  │  └─ index.astro
+│  │  │  ├─404.astro
+│  │  │  ├─about.astro
+│  │  │  ├─constact.astro
+│  │  │  └─index.astro
+│  │  ├─ projects
+│  │  │  ├─ categories
+│  │  │  │  ├─ [category].astro
+│  │  │  │  └─ index.astro
+│  │  │  ├─ page
+│  │  │  │  └─ [page].astro
+│  │  │  ├─ [entry].astro
+│  │  │  └─ index.astro
+│  │  └─404.astro
+│  │  └─about.astro
+│  │  └─constact.astro
+│  │  └─index.astro
 │  ├─ schemas
 │  │  ├─ social.ts
 │  │  └─ tech.ts
@@ -125,6 +160,7 @@ portafolio-refe
 │  ├─ types
 │  │  └─ index.d.ts
 │  └─ utils
+│     └─ locale-utils.ts
 ├─ tailwind.config.js
 └─ tsconfig.json
 

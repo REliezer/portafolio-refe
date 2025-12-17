@@ -1,51 +1,211 @@
 ---
 // Switcher para cambiar el idioma del sitio web
-import { getRelativeLocaleUrl } from "@/utils/locale-utils";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { i18nConfig } from "@/i18n/i18n";
 
+const { currentLocale } = Astro;
 const {
-  currentLang = "es",
-  availableLangs = ["es", "en"],
-  className = "",
-} = Astro.props;
+  locales,
+  localeNames,
+  localeFlags,
+  defaultLocale,
+  showNames,
+  showFlags,
+} = i18nConfig;
+
+// Props del componente
+interface Props {
+  className?: string;
+}
+
+const { className = "" } = Astro.props;
+
+// Función para construir URLs
+const getLocaleUrl = (targetLocale: string): string => {
+  if (targetLocale === currentLocale) {
+    console.log(`❌ Ya estamos en ${targetLocale}, no hacer nada`);
+    return "#";
+  }
+
+  const currentPath = Astro.url.pathname;
+  console.log(`📍 Cambiando idioma:`);
+  console.log(`📍 Cambiando de: ${currentLocale} a: ${targetLocale}`);
+  console.log(`📍 Ruta actual: ${currentPath}`);
+
+  // CASO 1: Ya estamos en el idioma objetivo
+  if (currentLocale === targetLocale) {
+    return currentPath;
+  }
+
+  // CASO 2: Estamos en español (default) y queremos inglés
+  if (currentLocale === defaultLocale && targetLocale !== defaultLocale) {
+    let newPath;
+
+    if (currentPath === "/") {
+      newPath = "/en";
+    } else if (currentPath.startsWith("/projects")) {
+      // Manejar rutas de proyectos
+      if (currentPath === "/projects") {
+        newPath = "/en/projects";
+      } else if (currentPath.startsWith("/projects/page/")) {
+        newPath = currentPath.replace("/projects/page/", "/en/projects/page/");
+      } else if (currentPath.startsWith("/projects/categories/")) {
+        newPath = currentPath.replace(
+          "/projects/categories/",
+          "/en/projects/categories/",
+        );
+      } else {
+        // Detalle de proyecto
+        newPath = `/en/projects${currentPath.replace("/projects", "")}`;
+      }
+    } else if (currentPath === "/about") {
+      newPath = "/en/about";
+    } else if (currentPath === "/contact") {
+      newPath = "/en/contact";
+    } else {
+      // Para otras rutas
+      newPath = `/en${currentPath}`;
+    }
+
+    console.log(`   📍 Español → Inglés: ${newPath}`);
+    return newPath;
+  }
+
+  // CASO 3: Estamos en inglés y queremos español (default)
+  if (currentLocale !== defaultLocale && targetLocale === defaultLocale) {
+    let newPath;
+
+    if (currentPath === "/en") {
+      newPath = "/";
+    } else if (currentPath.startsWith("/en/projects")) {
+      // Manejar rutas de proyectos
+      if (currentPath === "/en/projects") {
+        newPath = "/projects";
+      } else if (currentPath.startsWith("/en/projects/page/")) {
+        newPath = currentPath.replace("/en/projects/page/", "/projects/page/");
+      } else if (currentPath.startsWith("/en/projects/categories/")) {
+        newPath = currentPath.replace(
+          "/en/projects/categories/",
+          "/projects/categories/",
+        );
+      } else {
+        // Detalle de proyecto
+        newPath = currentPath.replace("/en/projects", "/projects");
+      }
+    } else if (currentPath === "/en/about") {
+      newPath = "/about";
+    } else if (currentPath === "/en/contact") {
+      newPath = "/contact";
+    } else {
+      // Para otras rutas
+      newPath = currentPath.replace("/en", "") || "/";
+    }
+
+    console.log(`   📍 Inglés → Español: ${newPath}`);
+    return newPath;
+  }
+
+  // Fallback
+  const fallbackUrl = getRelativeLocaleUrl(targetLocale, currentPath);
+  console.log(`   ⚠ Fallback: ${fallbackUrl}`);
+  return fallbackUrl;
+};
 ---
-
-<div class="theme-switcher inline-flex items-center mr-2">
-  <nav class={className} aria-label="Language Switcher">
-    <ul class="inline-flex" role="list">
+<div class={`language-switcher-hover relative inline-block group ${className}`}>
+  <!-- Idioma actual -->
+  <div
+    class="language-current flex items-center justify-between cursor-pointer select-none px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 group-hover:rounded-b-none group-hover:border-b-0"
+    aria-haspopup="true"
+    aria-expanded="false"
+    tabindex="0"
+    role="button"
+  >
+    <span class="flex items-center">
       {
-        availableLangs.map((lang: string) => {
-          // Obtner la URL actual
-          const path = Astro.url.pathname;
-          
-            // Generar la URL relativa para el idioma seleccionado
-            const href = getRelativeLocaleUrl(path, lang);
+        showFlags && localeFlags[currentLocale] && (
+          <span class="mr-2 text-lg" aria-hidden="true">
+            {localeFlags[currentLocale]}
+          </span>
+        )
+      }
+      {showNames ? localeNames[currentLocale] : currentLocale.toUpperCase()}
+    </span>
+    <svg
+      class="w-4 h-4 ml-2 transition-transform duration-200 group-hover:rotate-180"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      aria-hidden="true"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M19 9l-7 7-7-7"></path>
+    </svg>
+  </div>
 
-          //const href = getRelativeLocaleUrl(Astro.url.pathname, lang);
+  <!-- Dropdown -->
+  <div
+    class="language-dropdown absolute top-full left-0 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-b-md shadow-lg opacity-0 invisible transition-all duration-200 transform -translate-y-2 z-50 pointer-events-none group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:pointer-events-auto"
+  >
+    {
+      locales
+        .filter((locale) => locale !== currentLocale)
+        .map((locale: string) => {
+          const href = getLocaleUrl(locale);
+
           return (
-            <li class="mx-1" role="listitem">
-              {lang !== currentLang ? (
-                <a
-                  href={href}
-                  class="text-text-base dark:text-dark-text-base"
-                  hreflang={lang}
-                  rel="alternate external"
-                  lang={lang}
-                >
-                  {lang.toUpperCase()}
-                </a>
-              ) : (
-                <span
-                  class="text-txt-light dark:text-darkmode-txt-light"
-                  aria-current="page"
-                  lang={lang}
-                >
-                  {lang.toUpperCase()}
+            <a
+              href={href}
+              class="language-option flex items-center px-3 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors first:rounded-t-md last:rounded-b-md"
+              hreflang={locale}
+              lang={locale}
+              title={`Cambiar a ${localeNames[locale]}`}
+              onclick={`
+              console.log('Changing to ${locale}', '${href}');
+              // Forzar recarga para asegurar cambio de idioma
+              window.location.href = '${href}';
+              return false;
+            `}
+            >
+              {showFlags && localeFlags[locale] && (
+                <span class="mr-2 text-lg" aria-hidden="true">
+                  {localeFlags[locale]}
                 </span>
               )}
-            </li>
+              {showNames ? localeNames[locale] : locale.toUpperCase()}
+            </a>
           );
         })
-      }
-    </ul>
-  </nav>
+    }
+  </div>
 </div>
+
+<style>
+  /* Asegurar que funcione en dispositivos táctiles */
+  @media (hover: hover) and (pointer: fine) {
+    .language-switcher-hover:hover .language-dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .language-switcher-hover:hover .language-current svg {
+      transform: rotate(180deg);
+    }
+  }
+
+  /* Para dispositivos táctiles, mantener visible al tocar */
+  .language-switcher-hover:focus-within .language-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .language-switcher-hover:focus-within .language-current svg {
+    transform: rotate(180deg);
+  }
+</style>

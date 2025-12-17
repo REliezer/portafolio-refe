@@ -12,13 +12,13 @@ import AboutEntryLayout from "@components/about/AboutEntryLayout.astro";
 import HeroSection from "@components/common/HeroSection.astro";
 
 //Datos
-const entryHome = (await getIndex("home")) as HomeEntry;
+const entryHome = (await getIndex("home", "es")) as HomeEntry;
 const { data: aboutData } = (await getIndex("about")) as AboutEntry;
 
-const { data: skillsData } = (await getIndex("skill")) as SkillEntry;
+const { data: skillsData } = (await getIndex("skill", "es")) as SkillEntry;
 const { title: titleSkills, description: descriptionSkills, techs } = skillsData;
 
-const { data: projectData } = (await getIndex("projects")) as ProjectEntry; // Index Home for projects
+const { data: projectData } = (await getIndex("projects", "es")) as ProjectEntry; // Index Home for projects
 const { title: titleProject, description: descriptionProject } = projectData;
 
 const allProjects = (await getEntries(

@@ -1,6 +1,4 @@
 ---
-import { getRelativeLocaleUrl } from "astro:i18n";
-
 import { getIndex, getEntries } from "@lib/contentParser";
 import { sortByDate } from "@lib/sortFunctions";
 import BaseLayout from "@components/base/BaseLayout.astro";
@@ -13,20 +11,23 @@ import RecipeCard from "@components/projects/Card.astro";
 import AboutEntryLayout from "@components/about/AboutEntryLayout.astro";
 import HeroSection from "@components/common/HeroSection.astro";
 
-// Obtener la URL para proyectos en inglés
-const projectsURL = getRelativeLocaleUrl("en", "projects");
+// Obtener datos en inglés
+const entryHome = await getIndex("home", "en") as HomeEntry;
+const aboutEntry = await getIndex("about", "en") as AboutEntry;
+const skillsEntry = await getIndex("skill", "en") as SkillEntry;
+const projectIndex = await getIndex("projects", "en") as ProjectEntry;
 
-//Datos
-const entryHome = (await getIndex("home", "en")) as HomeEntry;
-const { data: aboutData } = (await getIndex("about", "en")) as AboutEntry;
-const { data: skillsData } = (await getIndex("skill", "en")) as SkillEntry;
-const { data: projectData } = (await getIndex("projects", "en")) as ProjectEntry; // Index Home for projects
+// Datos con valores por defecto
+const homeData = entryHome?.data || {};
+const aboutData = aboutEntry?.data || {};
+const skillsData = skillsEntry?.data || {};
+const projectData = projectIndex?.data || {};
 
-const titleSkills = skillsData?.title || "Skills";
-const descriptionSkills = skillsData?.description || "";
-const techs = skillsData?.techs || [];
+const titleSkills = skillsData.title || "Skills";
+const descriptionSkills = skillsData.description || "";
+const techs = skillsData.techs || [];
 
-const titleProject = projectData.title || "My Projects...";
+const titleProject = projectData.title || "My Projects";
 const descriptionProject = projectData.description || "A selection of my recent work";
 
 const allProjects = (await getEntries("projects", {
@@ -41,17 +42,19 @@ const recentProjects = allProjects.slice(0, 3); //Ultimos 3 proyectos
   {entryHome && <EntryLayout entry={entryHome} />}
 
   <!-- Sección About -->
-  {aboutData && <AboutEntryLayout entry={ { data: aboutData } } />}
+  {aboutData && <AboutEntryLayout entry={aboutEntry} />}
 
   <!-- Sección Skills -->
-  <HeroSection
-    title={titleSkills}
-    description={descriptionSkills}
-    titleAlign="left"
-    idSection="skills"
-  >
-    {techs.length > 0 && <TechTable techs={techs} />}
-  </HeroSection>
+  {skillsData && (
+    <HeroSection
+      title={titleSkills}
+      description={descriptionSkills}
+      titleAlign="left"
+      idSection="skills"
+    >
+      {techs.length > 0 && <TechTable techs={techs} />}
+    </HeroSection>
+  )}
 
   <!-- Sección Projects -->
   <HeroSection
@@ -75,6 +78,8 @@ const recentProjects = allProjects.slice(0, 3); //Ultimos 3 proyectos
         )
       }
     </div>
-    <a href={projectsURL} class="btn-more">View All Projects...</a>
+    {allProjects.length > 0 && (
+      <a href="/en/projects" class="btn-more">View More Projects...</a>
+    )}
   </HeroSection>
 </BaseLayout>
