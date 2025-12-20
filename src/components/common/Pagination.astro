@@ -8,6 +8,8 @@ type Props = {
   pageIDs?: string[];
 };
 
+const { currentLocale } = Astro;
+const basePath = currentLocale === "es" ? "" : "/en";
 const { collection, pageIndex = 1, pageCount = 1, pageIDs } = Astro.props;
 
 let pageList: number[] = [];
@@ -21,22 +23,22 @@ let nextPage: string | null;
 if (pageIDs) {
   prevPage =
     pageIndex > 0
-      ? `${collection ? "/" + collection : ""}/${pageIDs[pageIndex - 1]}`
+      ? `${basePath}${collection ? "/" + collection : ""}/${pageIDs[pageIndex - 1]}`
       : null;
   nextPage =
     pageIndex < pageCount - 1
-      ? `${collection ? "/" + collection : ""}/${pageIDs[pageIndex + 1]}`
+      ? `${basePath}${collection ? "/" + collection : ""}/${pageIDs[pageIndex + 1]}`
       : null;
 } else {
   prevPage =
     pageIndex === 2
-      ? `${collection ? "/" + collection : "/"}`
+      ? `${basePath}${collection ? "/" + collection : "/"}`
       : pageIndex > 2
-        ? `${collection ? "/" + collection : ""}/page/${pageIndex - 1}`
+        ? `${basePath}${collection ? "/" + collection : ""}/page/${pageIndex - 1}`
         : null;
   nextPage =
     pageIndex < pageCount
-      ? `${collection ? "/" + collection : ""}/page/${pageIndex + 1}`
+      ? `${basePath}${collection ? "/" + collection : ""}/page/${pageIndex + 1}`
       : null;
 }
 ---
@@ -83,8 +85,8 @@ if (pageIDs) {
               <a
                 href={
                   pagination === 1
-                    ? `${collection ? "/" + collection : "/"}`
-                    : `${collection ? "/" + collection : ""}/page/${pagination}`
+                    ? `${basePath}${collection ? "/" + collection : "/"}`
+                    : `${basePath}${collection ? "/" + collection : ""}/page/${pagination}`
                 }
                 aria-current="page"
                 class="col rounded px-4 py-2 font-semibold text-text-base dark:text-dark-text-base"

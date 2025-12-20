@@ -61,7 +61,7 @@ const terms = defineCollection({
   schema: searchable,
 });
 
-// Colección Contact (solo archivos -index.md/mdx)
+// Colección Contact
 const contact = defineCollection({
   loader: createI18nLoader("./src/content/contact"),
   schema: ({ image }) =>

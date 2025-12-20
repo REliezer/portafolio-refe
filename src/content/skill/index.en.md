@@ -16,23 +16,23 @@ techs:
 
   - label: "ReactJS"
     level: 75
-    group: "Frameworks JavaScript"
+    group: "JavaScript Frameworks"
 
   - label: "Tailwind CSS"
     level: 50
-    group: "Frameworks/Preprocesadores CSS"
+    group: "CSS Frameworks/Preprocessors"
 
   - label: "Bootstrap"
     level: 80
-    group: "Frameworks/Preprocesadores CSS"
+    group: "CSS Frameworks/Preprocessors"
 
   - label: "SASS"
     level: 60
-    group: "Frameworks/Preprocesadores CSS"
+    group: "CSS Frameworks/Preprocessors"
 
   - label: "Astro"
     level: 25
-    group: "Frameworks JavaScript"
+    group: "JavaScript Frameworks"
 
   - label: "Node.js"
     level: 50
@@ -44,15 +44,15 @@ techs:
 
   - label: "SQL"
     level: 65
-    group: "Base de Datos"
+    group: "Database"
 
   - label: "MongoDB"
     level: 50
-    group: "Base de Datos"
+    group: "Database"
     
   - label: "Oracle"
     level: 50
-    group: "Base de Datos" 
+    group: "Database" 
 
   - label: "Figma"
     level: 80

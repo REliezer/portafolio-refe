@@ -4,20 +4,25 @@ import { getIndex, getEntries } from "@lib/contentParser";
 import { sortByDate } from "@lib/sortFunctions";
 import type { ProjectEntry } from "@/types";
 
+const { currentLocale } = Astro;
 const entryIndex = (await getIndex("projects", "es")) as ProjectEntry;
 const entries = (await getEntries("projects", {
   lang: "es",
   sortFunction: sortByDate,
 })) as ProjectEntry[];
 
+//quitar la entries con id index{currentLocale} y id comienza con _
+const filteredEntries = entries.filter(entry => !entry.id.includes(`index${currentLocale}`) && !entry.id.includes(`_`));
+console.log("Filtered Entries Title:", filteredEntries.map(e => e.id));
+
 const { slug } = Astro.params;
 
 const entriesPerPage = 6;
 const currentPageIndex = slug && !isNaN(Number(slug)) ? Number(slug) : 1;
-const pageCount = Math.ceil(entries.length / entriesPerPage);
+const pageCount = Math.ceil(filteredEntries.length / entriesPerPage);
 const indexOfLastEntry = currentPageIndex * entriesPerPage;
 const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
-const currentEntries = entries.slice(indexOfFirstEntry, indexOfLastEntry);
+const currentEntries = filteredEntries.slice(indexOfFirstEntry, indexOfLastEntry);
 ---
 
 <CollectionLayout

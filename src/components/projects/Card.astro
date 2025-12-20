@@ -10,7 +10,6 @@ const { currentLocale } = Astro;
 const { entry } = Astro.props;
 const { title, imageCover, imageCoverAlt, resume } = entry.data || {};
 
-console.log("Entry in Card.astro:", entry);
 console.log("Current locale in Card:", currentLocale);
 
 // Obtener el slug base del proyecto (sin extensión de idioma)

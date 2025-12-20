@@ -18,7 +18,7 @@ const { title, description, titleAlign, idSection } = Astro.props;
   <hr class="mb-6 hr-separator" />
   {description && (
     typeof description === "string"
-      ? <p class="text-lg text-justify">{description}</p>
+      ? <p class="text-sm md:text-lg leading-relaxed text-justify">{description}</p>
       : <Fragment>{description}</Fragment>
   )}
   
