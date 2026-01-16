@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import type { ProjectEntry } from "@/types";
+import { getProjectUrl } from "@/i18n/utils";
 
 interface Props {
   entry: ProjectEntry;
@@ -10,34 +11,8 @@ const { currentLocale } = Astro;
 const { entry } = Astro.props;
 const { title, imageCover, imageCoverAlt, resume } = entry.data || {};
 
-console.log("Current locale in Card:", currentLocale);
-
-// Obtener el slug base del proyecto (sin extensión de idioma)
-const getProjectSlug = (id: string): string => {
-  // Remover .en o .es del final
-  if (id.endsWith(".en") || id.endsWith("en")) {
-    return id.replace(/\.en$/, "").replace(/en$/, "");
-  }
-  if (id.endsWith(".es") || id.endsWith("es")) {
-    return id.replace(/\.es$/, "").replace(/es$/, "");
-  }
-  return id;
-};
-
-// Construir la URL correctamente según el idioma actual
-const getProjectUrl = (): string => {
-  const projectSlug = getProjectSlug(entry.id);
-
-  // Si estamos en español, URL sin prefijo
-  if (currentLocale === "es") {
-    return `/projects/${projectSlug}`;
-  }
-
-  // Si estamos en inglés, URL con prefijo /en/
-  return `/en/projects/${projectSlug}`;
-};
-
-const projectUrl = getProjectUrl();
+console.log("Card Component - Entry ID:", entry.id);
+const projectUrl = getProjectUrl(entry.id, (currentLocale as "en" | "es") || "es");
 console.log("Project URL generated:", projectUrl);
 ---
 

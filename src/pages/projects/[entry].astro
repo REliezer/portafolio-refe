@@ -3,6 +3,7 @@ import type { ProjectEntry } from "@/types";
 import EntryLayout from "@components/projects/EntryLayout.astro";
 import { getEntries } from "@lib/contentParser";
 import { sortByTitle } from "@lib/sortFunctions";
+import { getProjectSlug } from "@/i18n/utils";
 export const prerender = true;
 
 export async function getStaticPaths() {
@@ -11,10 +12,9 @@ export async function getStaticPaths() {
     sortFunction: sortByTitle,
   })) as ProjectEntry[];
  
-  const normalizeId = (id: string) => id.replace(/(?:\.|-)?(en|es)$/i, "");
   const paths = projects.map((entry) => ({
     params: {
-      entry: normalizeId(entry.id),
+      entry: getProjectSlug(entry.id),
     },
     props: { entry },
   }));

@@ -11,6 +11,7 @@ const entries = (await getEntries("projects", {
   sortFunction: sortByDate,
 })) as ProjectEntry[];
 
+console.log("All Entries Title:", entries.map(e => e.id));
 //quitar la entries con id index{currentLocale} y id comienza con _
 const filteredEntries = entries.filter(entry => !entry.id.includes(`index${currentLocale}`) && !entry.id.includes(`_`));
 console.log("Filtered Entries Title:", filteredEntries.map(e => e.id));

@@ -1,5 +1,3 @@
-import type { APIRoute } from 'astro';
-
 // Idiomas soportados
 export const LANGUAGES = {
   es: 'es',
@@ -31,48 +29,34 @@ export function localizeUrl(path: string, lang: Language): string {
   return `/${lang}${cleanPath === '/' ? '' : cleanPath}`;
 }
 
-// Obtener rutas alternativas para otros idiomas
-export function getAlternateRoutes(currentPath: string, currentLang: Language) {
-  const routes: Record<Language, string> = {} as Record<Language, string>;
-
-  // Obtener la ruta base sin el idioma
-  const basePath = currentLang === DEFAULT_LANGUAGE
-    ? currentPath
-    : currentPath.replace(`/${currentLang}`, '');
-
-  Object.keys(LANGUAGES).forEach(lang => {
-    const langKey = lang as Language;
-    routes[langKey] = localizeUrl(basePath, langKey);
-  });
-
-  return routes;
-}
-
 // Obtener el idioma desde el contexto de Astro
 export function getLangFromAstro(Astro: any): Language {
   return getLangFromUrl(Astro.url);
 }
 
-// Validar si un idioma es válido
-export function isValidLanguage(lang: string): lang is Language {
-  return lang in LANGUAGES;
+// FUNCIONES EXPORTADAS DE OTROS COMPONETES
+// Obtener el slug base del proyecto (sin extensión de idioma)
+export function getProjectSlug(id: string): string {
+  // Normalizar: quitar carpeta de idioma si existe (ej. "en/slug" -> "slug")
+  let slug = id.replace(/^\//, '');
+  if (slug.startsWith('en/')) slug = slug.replace(/^en\//, '');
+  if (slug.startsWith('es/')) slug = slug.replace(/^es\//, '');
+
+  // Quitar sufijos de idioma comunes (.en, .es, -en, -es, _en, _es)
+  slug = slug.replace(/(\.en|\.es|[-_.]en|[-_.]es|es|en)$/, '');
+
+  // Quitar índices residuales (index, -index)
+  // slug = slug.replace(/\/?(-?index)$/, '');
+  console.log("Computed project slug:", slug);
+  return slug;
 }
 
-// Redirección automática basada en Accept-Language
-export function getPreferredLanguage(acceptLanguage?: string): Language {
-  if (!acceptLanguage) return DEFAULT_LANGUAGE;
 
-  const supportedLangs = Object.keys(LANGUAGES);
-  const preferredLangs = acceptLanguage
-    .split(',')
-    .map(lang => lang.trim().split(';')[0].toLowerCase())
-    .map(lang => lang.split('-')[0]); // es-ES -> es
-
-  for (const preferred of preferredLangs) {
-    if (supportedLangs.includes(preferred)) {
-      return preferred as Language;
-    }
-  }
-
-  return DEFAULT_LANGUAGE;
+// Construir la URL correctamente según el idioma actual
+export function getProjectUrl(entryId: string, lang: Language): string {
+  const projectSlug = getProjectSlug(entryId);
+  const basePath = `/projects/${projectSlug}`;
+  return localizeUrl(basePath, lang);
+  
 }
+

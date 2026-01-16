@@ -154,6 +154,7 @@ const getLocaleUrl = (targetLocale: string): string => {
         .filter((locale) => locale !== currentLocale)
         .map((locale: string) => {
           const href = getLocaleUrl(locale);
+          console.log(`Idioma opción: ${locale}, URL: ${href}`);
 
           return (
             <a
@@ -162,12 +163,7 @@ const getLocaleUrl = (targetLocale: string): string => {
               hreflang={locale}
               lang={locale}
               title={`Cambiar a ${localeNames[locale]}`}
-              onclick={`
-              console.log('Changing to ${locale}', '${href}');
-              // Forzar recarga para asegurar cambio de idioma
-              window.location.href = '${href}';
-              return false;
-            `}
+              
             >
               {showFlags && localeFlags[locale] && (
                 <span class="mr-2 text-lg" aria-hidden="true">

@@ -18,9 +18,13 @@ const determineLang = (lang?: string): string => {
 // Función para extraer idioma del id
 const extractLangFromId = (id: string): string => {
   const parts = id.split('/');
-  const slug = parts[parts.length - 1];
 
-  // Buscar patrones como "indexen", "amazon-apien"
+  // Preferir carpeta de idioma si existe: e.g. "en/xxx" or "projects/en/xxx"
+  if (parts.includes('en')) return 'en';
+  if (parts.includes('es')) return 'es';
+
+  // Si no hay carpeta, buscar sufijos en el slug (ej. indexen, amazon-apien)
+  const slug = parts[parts.length - 1];
   if (slug.endsWith('en')) return 'en';
   if (slug.endsWith('es')) return 'es';
 
@@ -37,20 +41,16 @@ export const getIndex = async (
   try {
     const allEntries = await getCollection(collection);
     // 1: Buscar por patrón: index + idioma
-    const indexId = `index${targetLang}`;
-    // 1. Buscar exactamente index{lang}
-    let entry = allEntries.find(e => e.id === indexId);
-    if (entry) {
-      return entry;
-    } else {
-      console.log(`✗ No se encontró índice exacto: ${indexId}`);
-      //Si no se encuentra, buscar cualquier archivo en el idioma
-      const entriesInLang = allEntries.filter(e => extractLangFromId(e.id) === targetLang);
+    const candidates = [`index${targetLang}`, `${targetLang}/index`, `${targetLang}/-index`];
+    let entry = allEntries.find(e => candidates.includes(e.id));
+    if (entry) return entry;
 
-      if (entriesInLang.length > 0) {
-        console.log(`⚠ Usando primer archivo en ${targetLang}: ${entriesInLang[0].id}`);
-        return entriesInLang[0];
-      }
+    // Si no se encuentra exacto, intentar buscar por sufijo o por carpeta
+    console.log(`✗ No se encontró índice exacto para ${targetLang}, buscando alternativas`);
+    const entriesInLang = allEntries.filter(e => extractLangFromId(e.id) === targetLang);
+    if (entriesInLang.length > 0) {
+      console.log(`⚠ Usando primer archivo en ${targetLang}: ${entriesInLang[0].id}`);
+      return entriesInLang[0];
     }
     console.log(`✗ No hay archivos en ${targetLang}`);
     return null;

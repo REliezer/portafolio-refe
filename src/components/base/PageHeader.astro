@@ -1,39 +1,12 @@
 ---
 import ThemeSwitcher from "@components/base/ThemeSwitcher.astro";
 import LanguageSwitcher from "./LanguageSwitcher.astro";
+import { menuEs, menuEn } from "@/i18n/locales/menuHeader";
 
 const { pathname } = Astro.url;
 const stickyHeader = true;
 const { currentLocale } = Astro;
 
-const menuEs = [
-  {
-    name: "Inicio",
-    url: "/",
-  },
-  {
-    name: "Proyectos",
-    url: "/projects",
-  },
-  {
-    name: "Contacto",
-    url: "/contact",
-  },
-];
-const menuEn = [
-  {
-    name: "Home",
-    url: "/en/",
-  },
-  {
-    name: "Projects",
-    url: "/en/projects",
-  },
-  {
-    name: "Contact",
-    url: "/en/contact",
-  },
-];
 ---
 
 <header transition:persist class={`container glass py-2 z-30 mb-4 lg:mt-4 lg:rounded-lg ${stickyHeader && "sticky top-0"}`} >
