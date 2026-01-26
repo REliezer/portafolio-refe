@@ -1,6 +1,6 @@
 ---
 import ThemeSwitcher from "@components/base/ThemeSwitcher.astro";
-import LanguageSwitcher from "./LanguageSwitcher.astro";
+import LanguageSelector from "@components/i18n/LanguageSelector.astro";
 import { menuEs, menuEn } from "@/i18n/locales/menuHeader";
 
 const { pathname } = Astro.url;
@@ -31,6 +31,7 @@ const { currentLocale } = Astro;
     <!-- /navbar toggler -->
     <ul id="nav-menu" class="text-center lg:text-left order-3 hidden w-full pb-6 md:order-1 md:flex md:w-auto md:space-x-2 md:pb-0 lg:space-x-4" >
       { currentLocale === 'es' ? menuEs.map((item) => (
+        item.url && (
           <li class="">
             <a
               href={item.url}
@@ -42,7 +43,8 @@ const { currentLocale } = Astro;
               {item.name}
             </a>
           </li>
-        )) : menuEn.map((item) => (
+        ))) : menuEn.map((item) => (
+        item.url && (
           <li class="">
             <a
               href={item.url}
@@ -54,12 +56,17 @@ const { currentLocale } = Astro;
               {item.name}
             </a>
           </li>
-        ))
+        )))
       }
     </ul>
     <div class="order-1 ml-auto flex items-center md:order-2 lg:ml-0">      
       <ThemeSwitcher />
-      <LanguageSwitcher />
+      <LanguageSelector 
+        class="ml-4 hidden md:inline-block"
+        variant="dropdown"
+        showFlags={true}
+        position="right"
+      />
     </div>
   </nav>
 </header>

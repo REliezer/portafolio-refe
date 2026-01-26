@@ -7,12 +7,10 @@ export const menuEs = [
   {
     name: "Acerca de",
     id: "#about",
-    url: "/about",
   },
   {
     name: "Habilidades",
     id: "#skills",
-    url: "/skill",
   },
   {
     name: "Proyectos",
@@ -35,12 +33,10 @@ export const menuEn = [
   {
     name: "About",
     id: "#about",
-    url: "/en/about",
   },
   {
     name: "Skills",
     id: "#skills",
-    url: "/en/skill",
   },
   {
     name: "Projects",

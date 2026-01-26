@@ -4,7 +4,7 @@ resume: Your smart kitchen assistant with AI-powered recipes and shopping.
 date: 2025-08-21
 imageCover: "@assets/projects/cooky/Cooky-Cover.png"
 imageCoverAlt: Cooky
-categories: [Academic Projects, Collaborative Projects]
+categories: [academic-projects, collaborative-projects]
 platform:
   web: true
   movil: true

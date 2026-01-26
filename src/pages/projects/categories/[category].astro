@@ -3,29 +3,30 @@ import type { ProjectEntry } from "@/types";
 import { getEntries } from "@lib/contentParser";
 import { getTaxa } from "@lib/taxonomyParser";
 import taxonomyFilter from "@lib/taxonomyFilter";
+import { upperHumanize } from "@lib/textConverter";
 import TaxonLayout from "@components/projects/TaxonLayout.astro";
+import { CATEGORY_LABELS } from "@/i18n/locales/categories";
+import { getLangFromAstro } from "@/i18n/utils";
+
 export const prerender = true;
 
 export async function getStaticPaths() {
   const taxa = await getTaxa("projects", "categories");
   const paths = taxa.map((taxon) => ({
-    params: {
-      category: taxon,
-    },
+    params: { category: taxon, },
     props: { taxon },
   }));
   return paths;
 }
 
+const lang = getLangFromAstro(Astro);
 const { taxon } = Astro.props;
 const entries = (await getEntries("projects", {
   lang: "es",
 })) as ProjectEntry[];
-const filteredEntries: ProjectEntry[] = taxonomyFilter(
-  entries,
-  "categories",
-  taxon!,
-);
+
+const filteredEntries: ProjectEntry[] = taxonomyFilter(entries, "categories", taxon!);
+const taxonLabel = CATEGORY_LABELS[lang]?.[taxon!] ?? taxon!;
 ---
 
-<TaxonLayout taxon={taxon} entries={filteredEntries} />
+<TaxonLayout taxon={upperHumanize(taxonLabel)} entries={filteredEntries} />

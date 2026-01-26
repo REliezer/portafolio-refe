@@ -13,7 +13,6 @@ const entries = (await getEntries("projects", {
 
 //quitar la entries con id index{currentLocale} o id comienza con _
 const filteredEntries = entries.filter(entry => !entry.id.includes(`index${currentLocale}`) && !entry.id.includes(`_`));
-console.log("Filtered Entries Title:", filteredEntries.map(e => e.id));
 
 const { slug } = Astro.params;
 

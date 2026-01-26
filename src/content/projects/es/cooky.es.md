@@ -4,7 +4,7 @@ resume: Tu asistente de cocina inteligente con recetas y compras con IA.
 date: 2025-08-21
 imageCover: "@assets/projects/cooky/Cooky-Cover.png"
 imageCoverAlt: Cooky
-categories: [Proyectos Academicos, Proyectos Colaborativos]
+categories: [academic-projects, collaborative-projects]
 platform:
   web: true
   movil: true

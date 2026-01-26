@@ -8,42 +8,28 @@ const rawPaths = Astro.url.pathname.split("/").filter((x) => x);
 
 const LANGS = ["en", "es"];
 const hasLeadingLang = rawPaths.length > 0 && LANGS.includes(rawPaths[0].toLowerCase());
-// Si hay un idioma al inicio, eliminamos ese segmento y además
-// limpiamos sufijos '-en'|'_en' Y el sufijo directo 'en' (sin separador).
-// Si NO hay idioma al inicio, solo eliminamos sufijos con separador.
+
+// Delete the prefix of language if it exists.
 let paths = rawPaths
   .slice(hasLeadingLang ? 1 : 0)
-  .map((seg) => {
-    // quitar '-en' o '_en' al final (si existe)
-    let cleaned = seg.replace(new RegExp(`[-_](${LANGS.join("|")})$`, "i"), "");
-    // si había idioma al inicio, también quitar sufijo directo 'en'/'es' (sin separador)
-    if (hasLeadingLang) {
-      cleaned = cleaned.replace(new RegExp(`(${LANGS.join("|")})$`, "i"), "");
-    }
-    return cleaned;
-  })
   .filter((s) => s && s.length > 0);
 
-// Depuración (dejar solo durante desarrollo si se necesita)
-console.log("Breadcrumbs pathname:", Astro.url.pathname);
-console.log("Breadcrumbs paths (raw):", rawPaths);
-console.log("Breadcrumbs paths (clean):", paths);
-let parts = [
+const base = currentLocale === "es" ? "" : `/${currentLocale}`;
+const parts = [
   {
     label: currentLocale === "es" ? "Inicio" : "Home",
-    href: currentLocale === "es" ? "/" : `/${currentLocale}/`,
-    "aria-label": Astro.url.pathname === "/" ? "page" : undefined,
+    href: base || "/",
+    "aria-label": Astro.url.pathname === (base || "/") ? "page" : undefined,
   },
 ];
 
-paths.forEach((label: string, i: number) => {
-  const href = `${currentLocale === "es" ? "/" : `/${currentLocale}/`}${paths.slice(0, i + 1).join("/")}`;
-  label !== "page" &&
-    parts.push({
-      label: lowerHumanize(label.replace(/[-_]/g, " ")) || "",
-      href,
-      "aria-label": Astro.url.pathname === href ? "page" : undefined,
-    });
+paths.forEach((segment: string, i: number) => {
+  const href = `${base}/${paths.slice(0, i + 1).join("/")}` || "/";
+  parts.push({
+    label: lowerHumanize(segment.replace(/[-_]/g, " ")) || "",
+    href,
+    "aria-label": Astro.url.pathname === href ? "page" : undefined,
+  });
 });
 ---
 

@@ -13,7 +13,6 @@ interface Props {
 }
 
 const { entryIndex, entries, pageIndex, pageCount }: Props = Astro.props;
-console.log("Rendering CollectionLayout with entries:", entries.map(e => e.id));
 ---
 
 <BaseLayout title={entryIndex.data.title} >

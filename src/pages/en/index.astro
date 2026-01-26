@@ -34,6 +34,8 @@ const allProjects = (await getEntries("projects", {
   lang: "en",
   sortFunction: sortByDate,
 })) as ProjectEntry[]; // All project entries
+
+//const projectNoDraft = allProjects.filter(project => !project.data.draft);
 const recentProjects = allProjects ? allProjects?.slice(0, 3) : []; //Ultimos 3 proyectos
 ---
 

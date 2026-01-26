@@ -7,31 +7,139 @@ portafolio-refe
 ├─ LICENSE
 ├─ package-lock.json
 ├─ package.json
-├─ Project-Tree.md
+├─ Project-Tree2.md
 ├─ public
 │  ├─ .htaccess
 │  ├─ favicon
+│  │  ├─ android-chrome-192x192.png
+│  │  ├─ android-chrome-512x512.png
+│  │  ├─ apple-touch-icon.png
+│  │  ├─ favicon-16x16.png
+│  │  ├─ favicon-32x32.png
+│  │  └─ favicon.ico
 │  ├─ fonts
+│  │  ├─ Centra
+│  │  │  ├─ CentraNo2-Bold.ttf
+│  │  │  ├─ CentraNo2-Book.ttf
+│  │  │  └─ CentraNo2-Medium.ttf
+│  │  ├─ Inter
+│  │  │  ├─ Inter-Italic.woff2
+│  │  │  └─ Inter-Regular.woff2
+│  │  └─ Ubuntu_Mono
+│  │     ├─ UbuntuMono-Bold.woff2
+│  │     ├─ UbuntuMono-BoldItalic.woff2
+│  │     ├─ UbuntuMono-Italic.woff2
+│  │     └─ UbuntuMono-Regular.woff2
 │  ├─ icons
+│  │  ├─ astrojs.svg
+│  │  ├─ azure
+│  │  │  ├─ App-Service-Plans.svg
+│  │  │  ├─ App-Services.svg
+│  │  │  ├─ Application-Insights.svg
+│  │  │  ├─ Azure-AD-B2C.svg
+│  │  │  ├─ Cache-Redis.svg
+│  │  │  ├─ Container-Registries.svg
+│  │  │  ├─ Data-Factories.svg
+│  │  │  ├─ Key-Vaults.svg
+│  │  │  ├─ Resource-Groups.svg
+│  │  │  ├─ SQL-Data-Warehouses.svg
+│  │  │  ├─ SQL-Database.svg
+│  │  │  ├─ SQL-Server.svg
+│  │  │  ├─ Storage-Accounts.svg
+│  │  │  └─ Storage-Queue.svg
+│  │  ├─ azure.svg
+│  │  ├─ bootstrap.svg
+│  │  ├─ css.svg
+│  │  ├─ default.svg
+│  │  ├─ docker.svg
+│  │  ├─ figma.svg
+│  │  ├─ firebase.svg
+│  │  ├─ framework
+│  │  │  ├─ fastapi.svg
+│  │  │  └─ nextjs.svg
+│  │  ├─ github.svg
+│  │  ├─ html.svg
+│  │  ├─ javascript.svg
+│  │  ├─ jwt.svg
+│  │  ├─ mongodb.svg
+│  │  ├─ nodejs.svg
+│  │  ├─ oracle.png
+│  │  ├─ postman.svg
+│  │  ├─ qwen.svg
+│  │  ├─ reactjs.svg
+│  │  ├─ sass.svg
+│  │  ├─ sql.svg
+│  │  ├─ supabase.svg
+│  │  ├─ tailwind.svg
+│  │  ├─ terraform.svg
+│  │  ├─ typescript.svg
+│  │  ├─ unsplash.svg
+│  │  ├─ xd.svg
+│  │  └─ zustand.svg
 │  └─ robots.txt
 ├─ README.md
 ├─ src
 │  ├─ assets
 │  │  ├─ backgrounds
+│  │  │  ├─ banner-bg-light.webp
+│  │  │  ├─ banner-bg.webp
+│  │  │  ├─ bwca-day.png
+│  │  │  ├─ bwca-dusk.png
+│  │  │  └─ bwca-night.png
 │  │  ├─ contact
+│  │  │  └─ contact-img.svg
 │  │  ├─ home
+│  │  │  └─ header-img.svg
+│  │  ├─ og-image.png
 │  │  ├─ profile
+│  │  │  └─ profile.jpg
 │  │  └─ projects
 │  │     ├─ amazonAPI
 │  │     │  ├─ gallery_1.png
 │  │     │  ├─ gallery_2.png
 │  │     │  └─ gallery_3.png
 │  │     ├─ cooky
+│  │     │  ├─ Cooky-Cover.png
+│  │     │  ├─ Cookyv1.svg
+│  │     │  ├─ gallery_01.png
+│  │     │  ├─ gallery_02.png
+│  │     │  ├─ gallery_03.png
+│  │     │  ├─ gallery_04.png
+│  │     │  ├─ gallery_05.png
+│  │     │  ├─ gallery_06.png
+│  │     │  ├─ gallery_07.png
+│  │     │  ├─ gallery_08.png
+│  │     │  ├─ gallery_09.png
+│  │     │  ├─ gallery_10.png
+│  │     │  └─ gallery_11.png
 │  │     ├─ default.svg
 │  │     ├─ ecommerce
+│  │     │  ├─ diagrama.avif
+│  │     │  ├─ gallery_1.avif
+│  │     │  ├─ gallery_2.svg
+│  │     │  ├─ gallery_3.avif
+│  │     │  ├─ gallery_4.svg
+│  │     │  ├─ gallery_5.avif
+│  │     │  └─ gallery_6.svg
 │  │     ├─ pasee
 │  │     │  ├─ Administrador
+│  │     │  │  ├─ actividades_canceladas.png
+│  │     │  │  ├─ actividades_disponibles.png
+│  │     │  │  ├─ actividades_terminadas.png
+│  │     │  │  ├─ historial_planillas_pago.png
+│  │     │  │  ├─ lista_asistencia.png
+│  │     │  │  ├─ login_admin.png
+│  │     │  │  ├─ reportes_enviados.png
+│  │     │  │  └─ seguimiento_becas.png
 │  │     │  ├─ Becario
+│  │     │  │  ├─ actividades_disponibles.png
+│  │     │  │  ├─ actividades_inscritas.png
+│  │     │  │  ├─ formulario_incripcion.png
+│  │     │  │  ├─ informacion_actividad_disponibles.png
+│  │     │  │  ├─ login.png
+│  │     │  │  ├─ mi_beca.png
+│  │     │  │  ├─ mi_perfil.png
+│  │     │  │  └─ reportes_recibidos.png
 │  │     │  ├─ becas_oferta.png
 │  │     │  ├─ comunicados.png
 │  │     │  ├─ FAQ.png
@@ -51,6 +159,7 @@ portafolio-refe
 │  │  │  └─ Contact.tsx
 │  │  ├─ home
 │  │  │  └─ Banner.tsx
+│  │  ├─ i18n
 │  │  ├─ not-found
 │  │  └─ projects
 │  ├─ content
@@ -65,28 +174,30 @@ portafolio-refe
 │  │  │  ├─ index.en.md
 │  │  │  └─ index.es.md
 │  │  ├─ projects
-│  │  │  ├─ amazon-api.en.md
-│  │  │  ├─ amazon-api.es.md
-│  │  │  ├─ cooky.en.md
-│  │  │  ├─ cooky.es.md
-│  │  │  ├─ ecommerce.en.md
-│  │  │  ├─ ecommerce.es.md
+│  │  │  ├─ en
+│  │  │  │  ├─ amazon-api.en.md
+│  │  │  │  ├─ cooky.en.md
+│  │  │  │  ├─ _ecommerce.en.md
+│  │  │  │  ├─ _opti-entregas-admin.en.md
+│  │  │  │  ├─ _opti-entregas-cliente.en.md
+│  │  │  │  ├─ _opti-entregas-react.en.md
+│  │  │  │  ├─ _opti-entregas-repartidor.en.md
+│  │  │  │  ├─ _pasee.en.md
+│  │  │  │  ├─ _poke-api.en.md
+│  │  │  │  └─ _portafolio.en.md
+│  │  │  ├─ es
+│  │  │  │  ├─ amazon-api.es.md
+│  │  │  │  ├─ cooky.es.md
+│  │  │  │  ├─ ecommerce.es.md
+│  │  │  │  ├─ opti-entregas-admin.es.md
+│  │  │  │  ├─ opti-entregas-cliente.es.md
+│  │  │  │  ├─ opti-entregas-react.es.md
+│  │  │  │  ├─ opti-entregas-repartidor.es.md
+│  │  │  │  ├─ pasee.es.md
+│  │  │  │  ├─ poke-api.es.md
+│  │  │  │  └─ portafolio.es.md
 │  │  │  ├─ index.en.md
 │  │  │  ├─ index.es.md
-│  │  │  ├─ opti-entregas-admin.en.md
-│  │  │  ├─ opti-entregas-admin.es.md
-│  │  │  ├─ opti-entregas-cliente.en.md
-│  │  │  ├─ opti-entregas-cliente.es.md
-│  │  │  ├─ opti-entregas-react.en.md
-│  │  │  ├─ opti-entregas-react.es.md
-│  │  │  ├─ opti-entregas-repartidor.en.md
-│  │  │  ├─ opti-entregas-repartidor.es.md
-│  │  │  ├─ pasee.en.md
-│  │  │  ├─ pasee.es.md
-│  │  │  ├─ poke-api.en.md
-│  │  │  ├─ poke-api.es.md
-│  │  │  ├─ portafolio.en.md
-│  │  │  ├─ portafolio.es.md
 │  │  │  └─ _template.md
 │  │  ├─ skill
 │  │  │  ├─ index.en.md
@@ -100,7 +211,9 @@ portafolio-refe
 │  ├─ hooks
 │  │  └─ useFormValidation.ts
 │  ├─ i18n
-│  │  ├─ i18n.ts
+│  │  ├─ locales
+│  │  │  └─ menuHeader.ts
+│  │  ├─ translations.ts
 │  │  └─ utils.ts
 │  ├─ lib
 │  │  ├─ contentParser.ts
@@ -110,34 +223,19 @@ portafolio-refe
 │  │  ├─ taxonomyFilter.ts
 │  │  ├─ taxonomyParser.ts
 │  │  └─ textConverter.ts
+│  ├─ middleware
+│  │  └─ i18n.ts
 │  ├─ middleware.ts
 │  ├─ pages
 │  │  ├─ api
+│  │  │  └─ send-email.ts
 │  │  ├─ en
-│  │  │  ├─ projects
-│  │  │  │  ├─ categories
-│  │  │  │  │  ├─ [category].astro
-│  │  │  │  │  └─ index.astro
-│  │  │  │  ├─ page
-│  │  │  │  │  └─ [page].astro
-│  │  │  │  ├─ [entry].astro
-│  │  │  │  └─ index.astro
-│  │  │  ├─404.astro
-│  │  │  ├─about.astro
-│  │  │  ├─constact.astro
-│  │  │  └─index.astro
-│  │  ├─ projects
-│  │  │  ├─ categories
-│  │  │  │  ├─ [category].astro
-│  │  │  │  └─ index.astro
-│  │  │  ├─ page
-│  │  │  │  └─ [page].astro
-│  │  │  ├─ [entry].astro
-│  │  │  └─ index.astro
-│  │  └─404.astro
-│  │  └─about.astro
-│  │  └─constact.astro
-│  │  └─index.astro
+│  │  │  └─ projects
+│  │  │     ├─ categories
+│  │  │     └─ page
+│  │  └─ projects
+│  │     ├─ categories
+│  │     └─ page
 │  ├─ schemas
 │  │  ├─ social.ts
 │  │  └─ tech.ts

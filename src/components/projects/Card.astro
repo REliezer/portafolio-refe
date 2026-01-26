@@ -11,9 +11,7 @@ const { currentLocale } = Astro;
 const { entry } = Astro.props;
 const { title, imageCover, imageCoverAlt, resume } = entry.data || {};
 
-console.log("Card Component - Entry ID:", entry.id);
 const projectUrl = getProjectUrl(entry.id, (currentLocale as "en" | "es") || "es");
-console.log("Project URL generated:", projectUrl);
 ---
 
 <div
