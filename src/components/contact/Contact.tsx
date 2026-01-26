@@ -5,10 +5,11 @@ import '@/styles/components/ContactComponente.css';
 
 interface BannerProps {
     title: string;
+    labels: Record<string, string>;
     children?: React.ReactNode;
 }
 
-const Contact = ({ title, children }: BannerProps) => {
+const Contact = ({ title, labels, children }: BannerProps) => {
     const formInitialDetails = {
         firstName: '',
         lastName: '',
@@ -56,10 +57,10 @@ const Contact = ({ title, children }: BannerProps) => {
             const data = await res.json();
 
             if (data.success) {
-                toast.success('¡Mensaje enviado!. Tu mensaje ha sido enviado correctamente. Te responderé pronto.');
+                toast.success(labels.success);
                 reset();
             } else {
-                toast.error('Error al enviar. Hubo un problema al enviar tu mensaje. Por favor, inténtalo de nuevo.');
+                toast.error(labels.error);
             }
         } catch (error) {
             console.error('Error sending email:', error);
@@ -89,7 +90,7 @@ const Contact = ({ title, children }: BannerProps) => {
                                             type='text'
                                             name='firstName'
                                             value={values.firstName}
-                                            placeholder='Nombre'
+                                            placeholder={labels.firstName}
                                             onChange={(e) => handleChange('firstName', e.target.value)}
                                             onBlur={() => handleBlur('firstName')}
                                             className={touched.firstName && errors.firstName ? 'error' : ''}
@@ -105,7 +106,7 @@ const Contact = ({ title, children }: BannerProps) => {
                                             type='text'
                                             name='lastName'
                                             value={values.lastName}
-                                            placeholder='Apellidos'
+                                            placeholder={labels.lastName}
                                             onChange={(e) => handleChange('lastName', e.target.value)}
                                             onBlur={() => handleBlur('lastName')}
                                             className={touched.lastName && errors.lastName ? 'error' : ''}
@@ -121,7 +122,7 @@ const Contact = ({ title, children }: BannerProps) => {
                                             type='email'
                                             name='email'
                                             value={values.email}
-                                            placeholder='Correo Electrónico'
+                                            placeholder={labels.email}
                                             onChange={(e) => handleChange('email', e.target.value)}
                                             onBlur={() => handleBlur('email')}
                                             className={touched.email && errors.email ? 'error' : ''}
@@ -137,7 +138,7 @@ const Contact = ({ title, children }: BannerProps) => {
                                             type='tel'
                                             name='phone'
                                             value={values.phone}
-                                            placeholder='Teléfono'
+                                            placeholder={labels.phone}
                                             onChange={(e) => handleChange('phone', e.target.value)}
                                             onBlur={() => handleBlur('phone')}
                                             className={touched.phone && errors.phone ? 'error' : ''}
@@ -153,7 +154,7 @@ const Contact = ({ title, children }: BannerProps) => {
                                             rows={6}
                                             name='message'
                                             value={values.message}
-                                            placeholder='Mensaje'
+                                            placeholder={labels.message}
                                             onChange={(e) => handleChange('message', e.target.value)}
                                             onBlur={() => handleBlur('message')}
                                             className={`col-span-full ${touched.message && errors.message ? 'error' : ''}`}
@@ -165,7 +166,7 @@ const Contact = ({ title, children }: BannerProps) => {
                                 </div>
 
                                 <button type='submit' disabled={isSubmitting} className={isSubmitting ? 'loading' : ''}>
-                                    <span>{isSubmitting ? 'Enviando...' : 'Enviar Mensaje'}</span>
+                                    <span>{isSubmitting ? labels.sending : labels.send}</span>
                                 </button>
 
                             </form>
