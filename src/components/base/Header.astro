@@ -2,14 +2,22 @@
 import ThemeSwitcher from "@components/base/ThemeSwitcher.astro";
 import LanguageSelector from "@components/i18n/LanguageSelector.astro";
 import { menuEs, menuEn } from "@/i18n/locales/menuHeader";
+import { localizeUrl } from "@/i18n/utils";
 
 const { pathname } = Astro.url;
 const stickyHeader = true;
 const { currentLocale } = Astro;
 
+const menu = currentLocale === "es" ? menuEs : menuEn;
+
+const isAnchor = (href: string) => href.startsWith("#");
+const normalizePath = (p: string) =>
+  p !== "/" && p.endsWith("/") ? p.slice(0, -1) : p;
+
+const normalizedPathname = normalizePath(pathname);
 ---
 
-<header transition:persist class={`container glass py-2 z-30 mb-4 lg:mt-4 lg:rounded-lg ${stickyHeader && "sticky top-0"}`} >
+<header class={`container glass py-2 z-30 mb-4 lg:mt-4 lg:rounded-lg ${stickyHeader && "sticky top-0"}`} >
   <nav class="relative flex flex-wrap items-center justify-between">
     <!-- navbar toggler -->
     <input id="nav-toggle" type="checkbox" class="hidden" />
@@ -30,34 +38,30 @@ const { currentLocale } = Astro;
     </label>
     <!-- /navbar toggler -->
     <ul id="nav-menu" class="text-center lg:text-left order-3 hidden w-full pb-6 md:order-1 md:flex md:w-auto md:space-x-2 md:pb-0 lg:space-x-4" >
-      { currentLocale === 'es' ? menuEs.map((item) => (
-        item.id && (
+      { menu.map((item) => {
+        if (!item.id) return null;
+
+        const href = isAnchor(item.id) ? item.id : localizeUrl(item.id, currentLocale);
+        const hrefNormalized = isAnchor(href) ? href : normalizePath(href);
+
+        const isActive =
+          !isAnchor(hrefNormalized) &&
+          (normalizedPathname === hrefNormalized ||
+            normalizedPathname === `${hrefNormalized}/`);
+
+        return (
           <li class="">
             <a
-              href={item.id}
+              href={href}
               class={`cursor-pointer rounded-lg no-underline hover:bg-white/15 dark:hover:bg-black/15 block p-2 font-secondary font-semibold text-text-base transition-colors duration-200 dark:text-dark-text-base lg:px-2 lg:py-3 ${
-                (pathname === `${item.id}/` || pathname === item.id) &&
-                "active"
+                isActive && "active"
               }`}
             >
               {item.name}
             </a>
           </li>
-        ))) : menuEn.map((item) => (
-        item.id && (
-          <li class="">
-            <a
-              href={item.id}
-              class={`cursor-pointer rounded-lg no-underline hover:bg-white/15 dark:hover:bg-black/15 block p-2 font-secondary font-semibold text-text-base transition-colors duration-200 dark:text-dark-text-base lg:px-2 lg:py-3 ${
-                (pathname === `${item.id}/` || pathname === item.id) &&
-                "active"
-              }`}
-            >
-              {item.name}
-            </a>
-          </li>
-        )))
-      }
+        );
+      }) }
     </ul>
     <div class="order-1 ml-auto flex items-center md:order-2 lg:ml-0">      
       <ThemeSwitcher />

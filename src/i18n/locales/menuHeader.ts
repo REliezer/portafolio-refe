@@ -27,8 +27,8 @@ export const menuEs = [
 export const menuEn = [
   {
     name: "Home",
-    id: "/en/",
-    url: "/en/",
+    id: "/",
+    url: "/",
   },
   {
     name: "About",
@@ -41,11 +41,11 @@ export const menuEn = [
   {
     name: "Projects",
     id: "#projects",
-    url: "/en/projects",
+    url: "/projects",
   },
   {
     name: "Contact",
-    id: "/en/contact",
-    url: "/en/contact",
+    id: "/contact",
+    url: "/contact",
   },
 ];
