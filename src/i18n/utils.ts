@@ -38,11 +38,6 @@ export function getLangFromAstro(Astro: any): Language {
   return DEFAULT_LANGUAGE;  
 }
 
-// Validate if a language is valid
-export function isValidLanguage(lang: string): lang is Language {
-  return lang in LANGUAGES;
-}
-
 // Get alternate routes for other languages
 export function getAlternateRoutes(currentPath: string, currentLang: Language): Record<Language, string> {
   const routes = {} as Record<Language, string>;
@@ -86,23 +81,8 @@ export function getAlternateRoutes(currentPath: string, currentLang: Language): 
   return routes;
 }
 
-// Formateo de fechas localizado
-export function formatDate(date: Date, lang: Language, options?: Intl.DateTimeFormatOptions): string {
-  const defaultOptions: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  };
-  
-  return new Intl.DateTimeFormat(lang === 'es' ? 'es-ES' : 'en-US', {
-    ...defaultOptions,
-    ...options
-  }).format(date);
-}
-
-// FUNCIONES EXPORTADAS DE OTROS COMPONETES
-
-export function normalizeContentIdToSlug(id: string): string {
+// Obtener el slug base del proyecto (sin extensión de idioma)
+export function getProjectSlug(id: string): string {
   const parts = id.split("/").filter(Boolean);
 
   // quitar prefijo de idioma si viene como carpeta
@@ -119,12 +99,6 @@ export function normalizeContentIdToSlug(id: string): string {
 
   return slug;
 }
-
-// Obtener el slug base del proyecto (sin extensión de idioma)
-export function getProjectSlug(id: string): string {
-  return normalizeContentIdToSlug(id);
-}
-
 
 // Construir la URL correctamente según el idioma actual
 export function getProjectUrl(entryId: string, lang: Language): string {

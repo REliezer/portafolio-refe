@@ -53,10 +53,8 @@ export const getIndex = async (
 ): Promise<GenericEntry | null> => {
   const targetLang = determineLang(lang);
 
-  console.log(`Getting index for collection: ${collection} in language: ${targetLang}`);
   try {
     const allEntries = await getCollection(collection);
-    console.log("All entries id:", allEntries.map(e => e.id));
     
     const candidates = [
       // folder format (if exists)
@@ -75,9 +73,6 @@ export const getIndex = async (
     const exact = allEntries.find((e) => candidates.includes(e.id));
     if (exact) return exact;
 
-    console.log(
-      `✗ No se encontró índice exacto para ${targetLang}, buscando alternativas`
-    );
     const entriesInLang = allEntries.filter(
       (e) => extractLangFromId(e.id) === targetLang
     );
@@ -87,11 +82,9 @@ export const getIndex = async (
     if (maybeIndex) return maybeIndex;
 
     if (entriesInLang.length > 0) {
-      console.log(`⚠ Usando primer archivo en ${targetLang}: ${entriesInLang[0].id}`);
       return entriesInLang[0];
     }
 
-    console.log(`✗ No hay archivos en ${targetLang}`);
     return null;
 
   } catch (error) {

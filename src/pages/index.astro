@@ -35,7 +35,6 @@ const allProjects = (await getEntries("projects", {
   lang: "es",
   sortFunction: sortByDate,
 })) as ProjectEntry[]; // All project entries
-console.log("All Projects ES Titles:", allProjects.map(e => e.id));
 const recentProjects = allProjects ? allProjects?.slice(0, 3) : []; //Ultimos 3 proyectos
 ---
 

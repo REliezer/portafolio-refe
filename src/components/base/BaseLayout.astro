@@ -10,30 +10,30 @@ import Background from "@/components/base/Background.astro";
 import { Tooltips } from "astro-tooltips";
 import ObserverScript from "./ObserverScript.astro";
 import PageHeader from "@components/base/PageHeader.astro";
+import { getLangFromAstro } from "@/i18n/utils";
 
 export interface Props {
   title?: string;
   description?: string | null;
   lang?: string;
 }
+const lang = getLangFromAstro(Astro);
 
 const { pathname } = Astro.url;
-
 const { title, description } = Astro.props;
 
-const siteTitle = "Portafolio | Rodrigo Fúnes";
-const siteDescription = "Desarrollador web enfocado en crear soluciones de valor.";
+const siteTitle = lang === "es" ? "Portafolio | Rodrigo Fúnes" : "Portfolio | Rodrigo Fúnes";
+const siteDescription = lang === "es" ? "Desarrollador web enfocado en crear soluciones de valor." : "Web developer focused on creating valuable solutions.";
 const siteImage = "@/assets/og-image.png";
 const siteAuthor = "Rodrigo Fúnes";
 const baseUrl = "https://portafolio-refe.vercel.app/";
+
+const homePaths = new Set(["/", "/en"]);
+const normalizedPath = pathname !== "/" && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
 ---
 
 <!doctype html>
-<html lang={Astro.props.lang ?? "en"}>
-<!-- 
-  <html lang={Astro.site?.lang ?? "en"}>
-  Para i18n
--->
+<html lang={lang}>
   <head>
     <!-- favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
@@ -77,7 +77,7 @@ const baseUrl = "https://portafolio-refe.vercel.app/";
   </head>
   <body>
     <Background />
-    {pathname === "/" || pathname === "/en/" || pathname === "/en"? <Header /> : <PageHeader />}
+    {homePaths.has(normalizedPath) ? <Header /> : <PageHeader />}
     <main id="main-content" class="flex-1">
       <slot />
     </main>
