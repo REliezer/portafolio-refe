@@ -32,7 +32,7 @@ export default defineConfig({
 
     )],
   },
-  site: "https://portafolio-refe.vercel.app/",
+  site: "https://portafolio-refe.vercel.app",
   base: "/",
   trailingSlash: "ignore",
   prefetch: {

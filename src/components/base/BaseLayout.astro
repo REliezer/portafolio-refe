@@ -10,7 +10,7 @@ import Background from "@/components/base/Background.astro";
 import { Tooltips } from "astro-tooltips";
 import ObserverScript from "./ObserverScript.astro";
 import PageHeader from "@components/base/PageHeader.astro";
-import { getLangFromAstro } from "@/i18n/utils";
+import { getLangFromAstro, getAlternateRoutes } from "@/i18n/utils";
 
 export interface Props {
   title?: string;
@@ -18,15 +18,25 @@ export interface Props {
   lang?: string;
 }
 const lang = getLangFromAstro(Astro);
-
 const { pathname } = Astro.url;
+
 const { title, description } = Astro.props;
 
 const siteTitle = lang === "es" ? "Portafolio | Rodrigo Fúnes" : "Portfolio | Rodrigo Fúnes";
 const siteDescription = lang === "es" ? "Desarrollador web enfocado en crear soluciones de valor." : "Web developer focused on creating valuable solutions.";
 const siteImage = "@/assets/og-image.png";
 const siteAuthor = "Rodrigo Fúnes";
-const baseUrl = "https://portafolio-refe.vercel.app/";
+const baseUrl = "https://portafolio-refe.vercel.app";
+
+const currentPath = Astro.url.pathname;
+const alternateRoutes = getAlternateRoutes(currentPath, lang);
+
+const canonicalUrl = new URL(currentPath, baseUrl).toString();
+
+// Alternates absolutos (hreflang)
+const alternateAbs = Object.fromEntries(
+  Object.entries(alternateRoutes).map(([l, p]) => [l, new URL(p, baseUrl).toString()])
+);
 
 const homePaths = new Set(["/", "/en"]);
 const normalizedPath = pathname !== "/" && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
@@ -41,6 +51,14 @@ const normalizedPath = pathname !== "/" && pathname.endsWith("/") ? pathname.sli
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
+    <!-- SEO: canonical + hreflang -->
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang="es" href={alternateAbs.es} />
+    <link rel="alternate" hreflang="en" href={alternateAbs.en} />
+    <link rel="alternate" hreflang="x-default" href={alternateAbs.es} />
+
+    <meta name="robots" content="index,follow" />
+
     <meta name="theme-name" content="pages" />
     <meta name="msapplication-TileColor" content="#000000" />
     <meta
@@ -53,9 +71,10 @@ const normalizedPath = pathname !== "/" && pathname.endsWith("/") ? pathname.sli
       media="(prefers-color-scheme: dark)"
       content="#000"
     />
-    {/*<meta name="generator" content={Astro.generator} />*/}
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+
     <title> {plainify(title ? title : siteTitle)} </title>
     <meta name="description" content={plainify(description ? description : siteDescription)} />
     <meta name="author" content={siteAuthor} />
@@ -64,13 +83,31 @@ const normalizedPath = pathname !== "/" && pathname.endsWith("/") ? pathname.sli
     <meta property="og:title" content={plainify(title ? title : siteTitle)} />
     <meta property="og:description" content={plainify(description ? description : siteDescription)} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={`${baseUrl}/${Astro.url.pathname}`} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:locale" content={lang === "es" ? "es_ES" : "en_US"} />
     <meta property="og:image" content={siteImage} />
 
+    <!-- Twitter -->
     <meta name="twitter:title" content={plainify(title ? title : siteTitle)} />
     <meta name="twitter:description" content={plainify(description ? description : siteDescription)} />
     <meta name="twitter:image" content={siteImage} />
     <meta name="twitter:card" content="summary_large_image" />
+    
+    <!-- JSON-LD (opcional pero recomendable) -->
+    <script type="application/ld+json">
+      {JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: lang === "es" ? "Portafolio | Rodrigo Fúnes" : "Portfolio | Rodrigo Fúnes",
+        url: baseUrl,
+        inLanguage: lang,
+        author: {
+          "@type": "Person",
+          name: siteAuthor,
+          url: baseUrl,
+        },
+      })}
+    </script>
     
     <ClientRouter fallback="swap" />
     <Tooltips interactive={false} delay={[333, 0]} />

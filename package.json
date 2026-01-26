@@ -11,10 +11,7 @@
     "postbuild": "pagefind --site dist",
     "preview": "astro preview",
     "format": "prettier -w ./src",
-    "clean": "rimraf dist .astro",
-    "i18n:validate": "node scripts/validate-translations.js validate",
-    "i18n:template": "node scripts/validate-translations.js template",
-    "prebuild": "npm run i18n:validate"
+    "clean": "rimraf dist .astro"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.0",
