@@ -4,7 +4,7 @@ resume: Solución integral de backend para migrar datos a gran escala, implement
 date: 2025-07-19
 imageCover: "@assets/projects/default.svg"
 imageCoverAlt: Proyecto Sistemas Expertos
-categories: [Proyectos Academicos]
+categories: [academic-projects]
 platform:
   web: true
   movil: false
@@ -23,46 +23,46 @@ link: ""
 
 stack:
   - label: "Azure App Service Plans"
-    group: "Backend"
+    group: "backend"
 
   - label: "Azure App Service"
-    group: "Backend"
+    group: "backend"
 
   - label: "Azure SQL Server"
-    group: "Base de Datos"
+    group: "base-dato"
 
   - label: "Azure SQL Database"
-    group: "Base de Datos"
+    group: "base-dato"
 
   - label: "Azure Cache for Redis"
-    group: "Base de Datos"
+    group: "base-dato"
 
   - label: "Application Insights"
-    group: "Monitoreo"
+    group: "monitoring"
 
   - label: "Azure Resource Group"
-    group: "Infraestructura y Administración"
+    group: "infrastructure-admin"
 
   - label: "Terraform"
-    group: "Infraestructura y Administración"
+    group: "infrastructure-admin"
 
   - label: "Azure Data Factory"
-    group: "Integración y Automatización"
+    group: "infrastructure"
 
   - label: "Azure Container Registry"
-    group: "Almacenamiento y Contenedores"
+    group: "storage-and-containers"
 
   - label: "Azure Blob Storage"
-    group: "Almacenamiento y Contenedores"
+    group: "storage-and-containers"
 
   - label: "Docker"
-    group: "Almacenamiento y Contenedores"
+    group: "storage-and-containers"
 
   - label: "Firebase Authentication"
-    group: "Identidad y Seguridad"
+    group: "identity-security"
 
   - label: "Azure Key Vault"
-    group: "Identidad y Seguridad"
+    group: "identity-security"
 
 description: |
   Desarrollo de una solución integral de backend capaz de migrar datos a gran escala, exponerlos mediante una API segura y optimizada, y desplegar todo en un entorno productivo en la nube.  

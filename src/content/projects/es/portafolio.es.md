@@ -4,7 +4,7 @@ resume: Portafolio de proyectos.
 date: 2024-01-01
 imageCover: "@assets/projects/project-img5.png"
 imageCoverAlt: Portafolio
-categories: [Proyectos Personales]
+categories: [personal-projects]
 platform:
   web: true
   movil: true

@@ -4,7 +4,7 @@ resume: Aplicación web en la nube para generar reportes CSV basados en datos de
 date: 2025-08-08
 imageCover: "@assets/projects/pokeAPI/ui-pokequeue.png"
 imageCoverAlt: Proyecto Sistemas Expertos
-categories: [Proyectos Academicos]
+categories: [academic-projects]
 platform:
   web: true
   movil: false

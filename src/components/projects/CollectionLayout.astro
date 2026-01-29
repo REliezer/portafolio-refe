@@ -4,6 +4,7 @@ import RecipeCard from "@components/projects/Card.astro";
 import Pagination from "@components/common/Pagination.astro";
 import PageHeader from "@components/common/PageHeader.astro";
 import type { ProjectEntry } from "@/types";
+import { getLangFromAstro } from "@/i18n/utils";
 
 interface Props {
   entryIndex: ProjectEntry;
@@ -13,9 +14,12 @@ interface Props {
 }
 
 const { entryIndex, entries, pageIndex, pageCount }: Props = Astro.props;
+const lang = getLangFromAstro(Astro);
+const siteTitle = lang === "es" ? 'Proyectos | Portafolio Rodrigo Fúnes' : 'Projects | Portfolio Rodrigo Fúnes';
+
 ---
 
-<BaseLayout title={entryIndex.data.title} >
+<BaseLayout title={siteTitle}>
   <PageHeader title={entryIndex.data.title} />
   <section class="section m-2">
     <div class="container">

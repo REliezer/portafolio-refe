@@ -48,64 +48,64 @@ stack:
     group: "Backend API"
 
   - label: "Supabase"
-    group: "Base de Datos"
+    group: "Database"
 
   - label: "JWT"
-    group: "Identidad y Seguridad"
+    group: "Identity and Security"
 
   - label: "FastAPI"
     group: "Backend IA"
 
   - label: "Qwen 3.5"
-    group: "Inteligencia Artificial"
+    group: "Artificial Intelligence"
 
   - label: "Unsplash API"
-    group: "APIs externas"
+    group: "External APIs"
 
 description: |
-  Cooky es un asistente de cocina inteligente que transforma los ingredientes que tienes en recetas personalizadas.
-  Gracias a la integración del modelo Qwen 3.5 de Inteligencia Artificial, la aplicación no solo genera recetas adaptadas a tu despensa, sino que también propone listas de compras con los ingredientes que te hagan falta.
-  Su interfaz moderna y responsiva permite acceder fácilmente desde web o móvil.
+  Cooky is an intelligent kitchen assistant that transforms the ingredients you have into personalized recipes.
+  Thanks to the integration of the Qwen 3.5 Artificial Intelligence model, the app not only generates recipes tailored to your pantry, but also suggests shopping lists with the ingredients you’re missing.
+  Its modern, responsive interface makes it easy to access from web or mobile.
 
 content:
   description: |
-    Aplicación web y movil que permite a los usuarios buscar recetas usando los ingredientes que tienen a disposición.
-    La aplicación cuenta con una interfaz moderna, responsiva que se adapta a cualquier dispositivo movil, una IA practica que facilita la busqueda de recetas y hace que la cocina sea mas facil y practica.
-    Además, integra Unsplash API para ilustrar recetas con imágenes reales y atractivas.  
+    Web and mobile application that allows users to search for recipes using the ingredients they have available.
+    The app features a modern, responsive interface that adapts to any mobile device, and a practical AI that makes searching for recipes easier and makes cooking more simple and convenient.
+    In addition, it integrates the Unsplash API to illustrate recipes with real, attractive images.
 
   item:
-  - nombre: "✨ Características principales"
+  - nombre: "✨ Main features"
     resume: |
-      Funcionalidades que diferencian a Cooky de una app de recetas convencional.
+      Features that set Cooky apart from a conventional recipe app.
     modulos:
-    - 🔐 Autenticación con JWT y gestión de usuarios.
-    - 👤 Perfil personalizable de acuerdo a las preferencias y restricciones del usuario.
-    - 🗂️ Ingredientes agrupados por categorías.
-    - 🤖 Motor de recetas con IA (Qwen 3.5).
-    - 🛒 Gestión de listas de compras.
-    - 🖼️ Recetas ilustradas con imágenes de Unsplash API.
-    - 🗄️ Base de datos en Supabase.
-  - nombre: "💡 Valor agregado"
+    - 🔐 JWT authentication and user management.
+    - 👤 Customizable profile according to the user’s preferences and restrictions.
+    - 🗂️ Ingredients grouped by categories.
+    - 🤖 AI-powered recipe engine (Qwen 3.5).
+    - 🛒 Shopping list management.
+    - 🖼️ Recipes illustrated with images from the Unsplash API.
+    - 🗄️ Database on Supabase.
+  - nombre: "💡 Added value"
     resume: |
-      Cooky no solo organiza recetas: optimiza la experiencia de cocina reduciendo tiempos, costos y desperdicio. 
-      Integra tecnologías de IA para ofrecer resultados prácticos, accesibles y personalizados.
+      Cooky doesn’t just organize recipes: it optimizes the cooking experience by reducing time, costs, and waste.
+      It integrates AI technologies to deliver practical, accessible, and personalized results.
     modulos:
-    - ♻️ Reducción de desperdicio alimenticio.
-    - ⏳ Ahorro de tiempo en la planificación.
-    - 🌐 Experiencia multiplataforma.
-    - ⚡ Backend híbrido con Node.js (API REST) y Python (IA).
-  - nombre: "🛠️ Tareas realizadas"
+    - ♻️ Reduced food waste.
+    - ⏳ Time savings in planning.
+    - 🌐 Cross-platform experience.
+    - ⚡ Hybrid backend with Node.js (REST API) and Python (AI).
+  - nombre: "🛠️ Tasks completed"
     resume: |
-      Aportes personales al desarrollo de Cooky en el equipo colaborativo.
+      Personal contributions to Cooky’s development within the collaborative team.
     modulos:
-    - 🏠 Desarrollo de la interfaz de inicio (Landing Page).
-    - 🔐 Desarrollo de la interfaz de login y autenticación.
-    - 📝 Implementación de las interfaces para registro de usuarios.
-    - 🛒 Creación de las interfaces de listas de compra.
-    - 🧩 Creación de componentes reutilizables en React + Tailwind.
-    - 📱 Diseño responsivo para la versión móvil.
-    - 🔗 Integración inicial con la API de autenticación.
-    - 🎨 Ajustes de estilos para coherencia con la identidad visual.
+    - 🏠 Development of the home interface (Landing Page).
+    - 🔐 Development of the login and authentication interface.
+    - 📝 Implementation of the user registration interfaces.
+    - 🛒 Creation of the shopping list interfaces.
+    - 🧩 Creation of reusable components in React + Tailwind.
+    - 📱 Responsive design for the mobile version.
+    - 🔗 Initial integration with the authentication API.
+    - 🎨 Style tweaks for consistency with the visual identity.
 
 gallery:
   - img: "@assets/projects/cooky/gallery_01.png"

@@ -39,7 +39,7 @@ const allProjects = (await getEntries("projects", {
 const recentProjects = allProjects ? allProjects?.slice(0, 3) : []; //Ultimos 3 proyectos
 ---
 
-<BaseLayout title="Home | Portfolio Rodrigo Funes" lang="en">
+<BaseLayout title="Home | Portfolio Rodrigo Funes">
   <!-- Sección Home -->
   {entryHome && <EntryLayout entry={entryHome} />}
 

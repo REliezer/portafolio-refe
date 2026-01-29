@@ -1,10 +1,10 @@
 ---
 title: Creating a Data Pipeline and API with Intelligent Caching
-resume: Solución integral de backend para migrar datos a gran escala, implementar APIs seguras y optimizadas, y desplegar todo en la nube.
+resume: Comprehensive backend solution to migrate data at scale, implement secure and optimized APIs, and deploy everything to the cloud.
 date: 2025-07-19
 imageCover: "@assets/projects/default.svg"
-imageCoverAlt: Proyecto Sistemas Expertos
-categories: [Proyectos Academicos]
+imageCoverAlt: Expert Systems Project
+categories: [academic-projects]
 platform:
   web: true
   movil: false
@@ -29,87 +29,88 @@ stack:
     group: "Backend"
 
   - label: "Azure SQL Server"
-    group: "Base de Datos"
+    group: "Database"
 
   - label: "Azure SQL Database"
-    group: "Base de Datos"
+    group: "Database"
 
   - label: "Azure Cache for Redis"
-    group: "Base de Datos"
+    group: "Database"
 
   - label: "Application Insights"
-    group: "Monitoreo"
+    group: "Monitoring"
 
   - label: "Azure Resource Group"
-    group: "Infraestructura y Administración"
+    group: "Infrastructure and Administration"
 
   - label: "Terraform"
-    group: "Infraestructura y Administración"
+    group: "Infrastructure and Administration"
 
   - label: "Azure Data Factory"
-    group: "Integración y Automatización"
+    group: "Integration and Automation"
 
   - label: "Azure Container Registry"
-    group: "Almacenamiento y Contenedores"
+    group: "Storage and Containers"
 
   - label: "Azure Blob Storage"
-    group: "Almacenamiento y Contenedores"
+    group: "Storage and Containers"
 
   - label: "Docker"
-    group: "Almacenamiento y Contenedores"
+    group: "Storage and Containers"
 
   - label: "Firebase Authentication"
-    group: "Identidad y Seguridad"
+    group: "Identity and Security"
 
   - label: "Azure Key Vault"
-    group: "Identidad y Seguridad"
+    group: "Identity and Security"
 
 description: |
-  Desarrollo de una solución integral de backend capaz de migrar datos a gran escala, exponerlos mediante una API segura y optimizada, y desplegar todo en un entorno productivo en la nube.  
-  Además, se implementa un sistema de monitoreo y una estrategia de caché con invalidación automática.
+  Development of a comprehensive backend solution capable of migrating data at scale, exposing it through a secure and optimized API, and deploying everything in a production cloud environment.
+  In addition, a monitoring system and a caching strategy with automatic invalidation are implemented.
 
 content:
-  description: "Para poder realizar este proyecto se tuvieron que ir completando diferentes fases."
+  description: "To complete this project, different phases had to be carried out."
   item:
-  - nombre: "🏁 Fase 1: Preparación y Migración de Datos"
+  - nombre: "🏁 Phase 1: Data Preparation and Migration"
     resume: |
-        En esta etapa primero se tenia que buscar un dataset que contuviera una cantidad considerable de registros y luego crear la base de datos y las tablas correspondientes en Azure SQL. Para nuestro proyecto se utilizó un dataset de Amazon Products que fué obtenido de Kaggle.
-        Para hacer la migración de los datos se utiliza Azure Data Factory mediante la creación de pipelines que extraen los datos del dataset (que fue subido al Azure Blob Storage) hacia cada una de las tablas.
-  - nombre: "🔑 Fase 2: Desarrollo de API y Autenticación"
+        In this stage, the first step was to find a dataset containing a considerable number of records and then create the database and the corresponding tables in Azure SQL. For our project, an Amazon Products dataset obtained from Kaggle was used.
+        To migrate the data, Azure Data Factory was used by creating pipelines that extracted the data from the dataset (uploaded to Azure Blob Storage) into each of the tables.
+  - nombre: "🔑 Phase 2: API Development and Authentication"
     resume: |
-        Con los datos cargados en las tablas de la base de datos se crean varias API para interactuar con ellos, aplicando buenas prácticas de desarrollo y seguridad.
-        Para desarrollar las API se utiliza FastAPI (Python) y en ciertos endpoints se requerira un token JWT, se implementa Firebase Authentication para gestionar el registro e inicio de sesión de usuarios mediante correo electronico.
-  - nombre: "⏲️ Fase 3: Monitoreo de Rendimiento"
+        With the data loaded into the database tables, several APIs were created to interact with them, applying best development and security practices.
+        The APIs were developed using FastAPI (Python), and certain endpoints required a JWT token. Firebase Authentication was implemented to manage user registration and login via email.
+  - nombre: "⏲️ Phase 3: Performance Monitoring"
     resume: |
-        Se utiliza Azure Application Insights junto con las API para capturar telemetría, trazas de solicitudes, tiempos de respuesta y posibles errores.
-        Para ello se realiza múltiples request consecutivos a los endpoints para analizar y observar el comportamiento de la API en el panel de Application Insights.
-  - nombre: "🧠 Fase 4: Implementación de Caché con Redis"
+        Azure Application Insights was used together with the APIs to capture telemetry, request traces, response times, and possible errors.
+        To do so, multiple consecutive requests were made to the endpoints to analyze and observe the API’s behavior in the Application Insights dashboard.
+  - nombre: "🧠 Phase 4: Cache Implementation with Redis"
     resume: |
-        Para mejorar los tiempos de respuesta, se implementó una capa de caché, para ello se Configura y conecta una base de datos de cache con Redis.
-        En esta fase se tenia que generar una key para guardar cada respuesta en Redis, teniendo dos posibles escenarios:
+        To improve response times, a caching layer was implemented by configuring and connecting a Redis cache database.
+        In this phase, a key had to be generated to store each response in Redis, with two possible scenarios:
     modulos:
-      - Si la key existe, la respuesta se devuelve inmediatamente de esta.
-      - Si no existe, se consulta la base de datos, se almacena la respuesta en Redis usando la key dinámica y luego se devuelve la respuesta al usuario.
-      
-  - nombre: "🧹 Fase 5: Invalidación de Caché"
+      - If the key exists, the response is returned immediately from it.
+      - If it does not exist, the database is queried, the response is stored in Redis using the dynamic key, and then the response is returned to the user.
+
+  - nombre: "🧹 Phase 5: Cache Invalidation"
     resume: |
-        En esta parte se plantea el problema de que al ingresar nuevos datos, los datos originales cambiarian y dejarían el caché obsoleto, por tanto el caché generado debia ser 'inteligente'.
-        Para ello se crea una función que cada vez que se agregaba un nuevo registro esta eliminaba la key específica en Redis que estaba relacionada a cada categoría.
-  - nombre: "🚀 Fase 6: Despliegue en la Nube con Docker"
+        This phase addressed the problem that when new data is inserted, the original data changes and the cache becomes stale, so the generated cache had to be “smart.”
+        To do this, a function was created so that whenever a new record was added, it would delete the specific Redis key related to each category.
+  - nombre: "🚀 Phase 6: Cloud Deployment with Docker"
     resume: |
-        La última fase... La aplicación debia ser empaquetada y desplegada para funcionar en un entorno de nube real de forma independiente.
-        Para ello se creó un Dockerfile con todas las dependencias y configuraciones necesarias para que pudiera ejecutarse de forma aislada y la imagen de Docker se publico en el Azure Container Registry y se terminó con el despliegue del contenedor usando Azure App Service.
-  - nombre: "🔐 Fase Extra: Integrar Key Vault"
+        The final phase... The application had to be packaged and deployed to run independently in a real cloud environment.
+        For this, a Dockerfile was created with all the necessary dependencies and configurations so it could run in isolation, the Docker image was published to Azure Container Registry, and deployment was completed by running the container on Azure App Service.
+  - nombre: "🔐 Extra Phase: Integrate Key Vault"
     resume: |
-        Se integró Azure Key Vault para gestionar de forma segura secretos sensibles como cadenas de conexión, claves de acceso a servicios y credenciales. Durante esta fase se modificó la configuración de la aplicación para recuperar estos valores directamente desde Key Vault, aumentando así la seguridad y facilitando la gestión centralizada de secretos, especialmente en entornos de despliegue continuo.
+        Azure Key Vault was integrated to securely manage sensitive secrets such as connection strings, service access keys, and credentials. During this phase, the application configuration was modified to retrieve these values directly from Key Vault, increasing security and enabling centralized secret management, especially in continuous deployment environments.
+
 diagrama:
   resume: |
-    El diagrama representa el flujo de datos desde la migración de los datos hasta la consulta de estos a traves de una API segura, optimizada y desplegada en la nube. Utilizando servicios de Microsoft Azure.
+    The diagram represents the data flow from data migration to querying it through a secure, optimized API deployed in the cloud, using Microsoft Azure services.
   image: "@assets/projects/amazonAPI/gallery_1.png"
-  imageAlt: "Flujo de Datos"
+  imageAlt: "Data Flow"
 gallery:
   - img: "@assets/projects/amazonAPI/gallery_1.png"
-    imgAlt: "Flujo de los Datos"
+    imgAlt: "Data Flow"
   - img: "@assets/projects/amazonAPI/gallery_2.png"
     imgAlt: "Resources created"
   - img: "@assets/projects/amazonAPI/gallery_3.png"

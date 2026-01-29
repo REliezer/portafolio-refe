@@ -1,4 +1,5 @@
 ---
+draft: true
 title: Opti-Entregas - Administration
 resume: Aplicación web que utilizaran los administradores para gestionar las empresas y productos que se muestran a los usuarios finales.
 date: 2022-12-21
@@ -30,7 +31,7 @@ stack:
   - label: "Node.js"
     group: "Backend"
   - label: "MongoDB"
-    group: "Base de Datos"
+    group: "Database"
 
 description: |
   Plataforma de administración diseñada para optimizar la gestión de pedidos y comercios asociados. A través de un panel intuitivo, los administradores pueden supervisar el estado de las órdenes, actualizar información de productos y controlar las diferentes categorías disponibles. Con herramientas de seguimiento de envíos, Opti-Entregas facilita la organización y mejora la eficiencia del servicio de delivery. 

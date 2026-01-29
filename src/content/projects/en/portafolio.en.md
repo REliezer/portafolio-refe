@@ -1,10 +1,10 @@
 ---
 title: Portfolio
-resume: Portafolio de proyectos.
+resume: Project portfolio.
 date: 2024-01-01
 imageCover: "@assets/projects/project-img5.png"
 imageCoverAlt: Portafolio
-categories: [Proyectos Personales]
+categories: [personal-projects]
 platform:
   web: true
   movil: true
@@ -35,16 +35,16 @@ stack:
     group: "Frontend"
 
 description: |
-  Este es mi portafolio personal, donde muestro mis proyectos y habilidades. Diseñado principalmente con AstroJS, uso de ReactJS para algunos componentes y Tailwind para ofrecer una experiencia de usuario fluida y atractiva. Aquí puedes encontrar información sobre mis proyectos académicos y personales, así como información acerca de mi y mi experiencia profesional.
+    This is my personal portfolio, where I showcase my projects and skills. Designed primarily with AstroJS, I use ReactJS for some components and Tailwind to deliver a smooth and engaging user experience. Here you can find information about my academic and personal projects, as well as details about me and my professional experience.
 
 content:
   item:
-    - nombre: "Módulos Generales"
+    - nombre: "General Modules"
       modulos:
-      - Inicio
-      - Acerca de mi
-      - Proyectos
-      - Habilidades
-      - Contacto
+      - Home
+      - About Me
+      - Projects
+      - Skills
+      - Contact
 ---
 

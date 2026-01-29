@@ -4,7 +4,7 @@ resume: Aplicación web diseñada para que los clientes de Opti Entregas puedan 
 date: 2022-12-21
 imageCover: "@assets/projects/project-img1b.png"
 imageCoverAlt: Opti-Entregas
-categories: [Proyectos Academicos]
+categories: [academic-projects]
 platform:
   web: false
   movil: true

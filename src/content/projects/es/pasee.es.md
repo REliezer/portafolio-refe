@@ -4,7 +4,7 @@ resume: Plataforma integral para la gestión y seguimiento de horas beca de estu
 date: 2025-04-21
 imageCover: "@assets/projects/project-img4.png"
 imageCoverAlt: PASEE
-categories: [Proyectos Academicos, Proyectos Colaborativos]
+categories: [academic-projects, collaborative-projects]
 platform:
   web: true
   movil: true

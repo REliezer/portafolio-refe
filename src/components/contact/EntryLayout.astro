@@ -14,9 +14,10 @@ const { entry } = Astro.props;
 const { image, imageAlt, title } = entry.data;
 const lang = getLangFromAstro(Astro);
 const labels = CONTACT_FORM_LABELS[lang];
+const siteTitle = lang === "es" ? "Contacto | Portafolio Rodrigo Fúnes" : "Contact | Rodrigo Fúnes Portfolio";
 ---
 
-<BaseLayout title="Portafolio | Contacto">
+<BaseLayout title={siteTitle}>
   <ContactForm client:only="react" title={title} labels={labels}>
     <Image
       class="mb-6 w-[92%]"

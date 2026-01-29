@@ -4,7 +4,7 @@ resume: Aplicación web que utilizaran los administradores para gestionar las em
 date: 2022-12-21
 imageCover: "@assets/projects/project-img1b.png"
 imageCoverAlt: Opti-Entregas
-categories: [Proyectos Academicos]
+categories: [academic-projects]
 platform:
   web: true
   movil: false
