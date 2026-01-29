@@ -11,11 +11,11 @@ import RecipeCard from "@components/projects/Card.astro";
 import AboutEntryLayout from "@components/about/AboutEntryLayout.astro";
 import HeroSection from "@components/common/HeroSection.astro";
 
-//Datos
-const entryHome = (await getIndex("home", "es")) as HomeEntry;
-const aboutEntry = (await getIndex("about", "es")) as AboutEntry;
-const skillsEntry = (await getIndex("skill", "es")) as SkillEntry;
-const projectIndex = (await getIndex("projects", "es")) as ProjectEntry; // Index Home for projects
+// Obtener datos en inglés
+const entryHome = await getIndex("home", "en") as HomeEntry;
+const aboutEntry = await getIndex("about", "en") as AboutEntry;
+const skillsEntry = await getIndex("skill", "en") as SkillEntry;
+const projectIndex = await getIndex("projects", "en") as ProjectEntry;
 
 // Datos con valores por defecto
 const homeData = entryHome?.data || {};
@@ -27,18 +27,19 @@ const titleSkills = skillsData.title || "Skills";
 const descriptionSkills = skillsData.description || "";
 const techs = skillsData.techs || [];
 
-const titleProject = projectData.title || "Mis Proyectos";
-const descriptionProject =
-  projectData.description || "Una selección de mis proyectos recientes";
+const titleProject = projectData.title || "My Projects";
+const descriptionProject = projectData.description || "A selection of my recent work";
 
 const allProjects = (await getEntries("projects", {
-  lang: "es",
+  lang: "en",
   sortFunction: sortByDate,
 })) as ProjectEntry[]; // All project entries
+
+//const projectNoDraft = allProjects.filter(project => !project.data.draft);
 const recentProjects = allProjects ? allProjects?.slice(0, 3) : []; //Ultimos 3 proyectos
 ---
 
-<BaseLayout title="Inicio | Portafolio Rodrigo Fúnes">
+<BaseLayout title="Home | Portfolio Rodrigo Funes">
   <!-- Sección Home -->
   {entryHome && <EntryLayout entry={entryHome} />}
 
@@ -46,14 +47,16 @@ const recentProjects = allProjects ? allProjects?.slice(0, 3) : []; //Ultimos 3 
   {aboutData && <AboutEntryLayout entry={aboutEntry} />}
 
   <!-- Sección Skills -->
-  <HeroSection
-    title={titleSkills}
-    description={descriptionSkills}
-    titleAlign="left"
-    idSection="skills"
-  >
-    {techs.length > 0 && <TechTable techs={techs} />}
-  </HeroSection>
+  {skillsData && (
+    <HeroSection
+      title={titleSkills}
+      description={descriptionSkills}
+      titleAlign="left"
+      idSection="skills"
+    >
+      {techs.length > 0 && <TechTable techs={techs} />}
+    </HeroSection>
+  )}
 
   <!-- Sección Projects -->
   <HeroSection
@@ -72,11 +75,13 @@ const recentProjects = allProjects ? allProjects?.slice(0, 3) : []; //Ultimos 3 
           ))
         ) : (
           <div class="col-12 text-center py-8">
-            <p>No hay proyectos disponibles aún.</p>
+            <p>No projects available in English yet.</p>
           </div>
         )
       }
     </div>
-    <a href="/projects" class="btn-more">Ver mas proyectos...</a>
+    {allProjects.length > 0 && (
+      <a href="/en/projects" class="btn-more">View More Projects...</a>
+    )}
   </HeroSection>
 </BaseLayout>

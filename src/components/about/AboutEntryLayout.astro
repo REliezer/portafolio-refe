@@ -14,7 +14,7 @@ const { title, description } = entry.data;
   <hr class="mb-6 hr-separator" />
   <div
     id="about-content"
-    class="about-transition text-lg text-justify w-full"
+    class="about-transition text-sm md:text-lg leading-relaxed text-left w-full"
     set:html={description?.replace(/\n/g, "<br />")}
   />
   <button

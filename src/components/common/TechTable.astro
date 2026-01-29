@@ -1,5 +1,6 @@
 ---
 import { techIcons } from "@/data/icons";
+import { getLangFromAstro } from "@/i18n/utils";
 
 /* * Componente para mostrar una tabla de tecnologías agrupadas por su grupo.
  * Cada tecnología tiene un nombre, una imagen, un nivel y opcionalmente un grupo.
@@ -13,14 +14,14 @@ export interface Props {
 }
 
 const { techs } = Astro.props;
-
+const lang = getLangFromAstro(Astro);
 /*
  * Agrupa las tecnologías por su grupo.
- * Si no tienen grupo, se asigna al grupo "Varios".
+ * Si no tienen grupo, se asigna al grupo "Otros".
  */
 const groupedTechs = techs.reduce(
   (acc, tech) => {
-    const group = tech.group || "Varios";
+    const group = tech.group ? tech.group : (lang === 'es' ? "Otros" : "Others");
     if (!acc[group]) {
       acc[group] = [];
     }
@@ -62,8 +63,8 @@ const groupedTechs = techs.reduce(
                     high={80}
                     optimum={95}
                     class="w-full h-2"
-                    title={`Nivel de habilidad en ${tech.label}`}
-                    aria-label={`Habilidad en ${tech.label}`}
+                    title={lang === 'es' ? `Nivel de habilidad en ${tech.label}` : `Skill level in ${tech.label}`}
+                    aria-label={lang === 'es' ? `Habilidad en ${tech.label}` : `Skill in ${tech.label}`}
                   />
                 )}
               </div>

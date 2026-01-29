@@ -12,6 +12,13 @@ import remarkToc from "remark-toc";
 export default defineConfig({
   output: 'server',
   adapter: vercel(),
+  i18n: {
+    locales: ["es", "en"],
+    defaultLocale: "es",
+    routing: {
+      prefixDefaultLocale: false,
+    }
+  },
   vite: {
     plugins: [tailwindcss({
       config: {
@@ -25,7 +32,7 @@ export default defineConfig({
 
     )],
   },
-  site: "https://portafolio-refe.vercel.app/",
+  site: "https://portafolio-refe.vercel.app",
   base: "/",
   trailingSlash: "ignore",
   prefetch: {
@@ -33,7 +40,19 @@ export default defineConfig({
   },
   integrations: [
     react(),
-    sitemap(),
+    sitemap({
+      filter: (page) => {
+        const { pathname } = new URL(page);
+
+        // Excluir 404/500 (con y sin slash final)
+        return !(
+          pathname === "/404" || pathname === "/404/" ||
+          pathname === "/en/404" || pathname === "/en/404/" ||
+          pathname === "/500" || pathname === "/500/" ||
+          pathname === "/en/500" || pathname === "/en/500/"
+        );
+      },
+    }),
     mdx()
   ],
   markdown: {

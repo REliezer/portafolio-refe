@@ -1,12 +1,13 @@
 ---
-title: Opti-Entregas - Clientes
+draft: true
+title: Opti-Entregas - Customers with React
 resume: Aplicación web diseñada para que los clientes de Opti Entregas puedan hacer sus pedidos.
-date: 2022-12-21
+date: 2023-09-21
 imageCover: "@assets/projects/project-img1b.png"
 imageCoverAlt: Opti-Entregas
-categories: [Proyectos Academicos]
+categories: [Proyectos Personales]
 platform:
-  web: false
+  web: true
   movil: true
   nativo: false
   pwa: false
@@ -15,8 +16,8 @@ platform:
 author: Rodrigo Fúnes
 github:
   - title: "Repositorio GitHub"
-    link: "https://github.com/"
-link: ""
+    link: "https://github.com/REliezer/Frontend-cliente-final-react.git"
+link: "https://opti-entregas.vercel.app/"
 
 stack:
   - label: "HTML"
@@ -27,13 +28,18 @@ stack:
     group: "Frontend"
   - label: "Bootstrap"
     group: "Frontend"
+  - label: "ReactJS"
+    group: "Frontend"
+  - label: "SASS"
+    group: "Frontend"
   - label: "Node.js"
     group: "Backend"
   - label: "MongoDB"
-    group: "Base de Datos"
+    group: "Database"
 
 description: |
   Opti-Entregas es una plataforma de delivery diseñada para facilitar compras en múltiples categorías, como Café & Panadería, Farmacias, Mascotas, Restaurantes y Tecnología. Los usuarios registrados pueden explorar negocios, seleccionar productos y definir cantidades con total facilidad. La experiencia de compra se completa con opciones flexibles de pago y selección de dirección de envío, garantizando un servicio cómodo y eficiente.
+  Reimplementación moderna de la aplicación web usada por los clientes para hacer sus pedidos. Esta versión se desarrolló como práctica de React, enfocándose en la arquitectura basada en componentes, manejo eficiente del estado, y mejoras significativas en la experiencia de usuario. Además, se optimizó el diseño responsive para garantizar una visualización fluida en distintos dispositivos.
 
 content:
   item:

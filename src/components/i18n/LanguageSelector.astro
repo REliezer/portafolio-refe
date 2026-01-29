@@ -1,0 +1,260 @@
+---
+import { 
+  LANGUAGES, 
+  LANGUAGE_LABELS,
+  LANGUAGE_FLAGS,
+  getLangFromAstro, 
+  getAlternateRoutes, 
+  type Language 
+} from '../../i18n/utils';
+
+interface Props {
+  class?: string;
+  showFlags?: boolean;
+  variant?: 'dropdown' | 'inline';
+  position?: 'left' | 'right';
+}
+
+const { 
+  class: className = '', 
+  showFlags = true,
+  variant = 'dropdown',
+  position = 'right'
+} = Astro.props;
+
+const currentLang = getLangFromAstro(Astro);
+const currentPath = Astro.url.pathname;
+const alternateRoutes = getAlternateRoutes(currentPath, currentLang);
+---
+
+{variant === 'dropdown' ? (
+  <div class={`language-selector relative ${className}`}>
+    <button 
+      data-lang-toggle
+      class="flex items-center gap-2 px-3 py-2 text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200"
+      aria-label="Cambiar idioma / Change language"
+      aria-expanded="false"
+      aria-haspopup="true"
+    >
+      {showFlags && <span class="text-lg" role="img">{LANGUAGE_FLAGS[currentLang]}</span>}
+      <span class="hidden sm:inline">{LANGUAGE_LABELS[currentLang]}</span>
+      <span class="sm:hidden">{currentLang.toUpperCase()}</span>
+      <svg 
+        class="w-4 h-4 transition-transform duration-200" 
+        fill="none" 
+        stroke="currentColor" 
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+      </svg>
+    </button>
+    
+    <div 
+      data-lang-dropdown
+      role="menu"
+      aria-orientation="vertical"
+      class={`absolute top-full mt-1 w-full min-w-[140px] bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50 opacity-0 invisible transform scale-95 transition-all duration-200 ${
+        position === 'right' ? 'right-0' : 'left-0'
+      }`}
+    >
+      {Object.entries(LANGUAGES).map(([langCode]) => {
+        const lang = langCode as Language;
+        const isActive = lang === currentLang;
+        const href = alternateRoutes[lang] ?? `/${lang}`;
+        
+        return (
+          <a 
+            href={href}
+            class={`flex items-center gap-2 px-3 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors first:rounded-t-lg last:rounded-b-lg ${
+              isActive 
+                ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 font-medium' 
+                : 'text-gray-700 dark:text-gray-300'
+            }`}
+            hreflang={lang}
+            role="menuitem"
+          >
+            {showFlags && <span class="text-lg" role="img">{LANGUAGE_FLAGS[lang]}</span>}
+            <span class="flex-1">{LANGUAGE_LABELS[lang]}</span>
+            {isActive && (
+              <svg 
+                class="w-4 h-4 text-blue-600 dark:text-blue-400" 
+                fill="currentColor" 
+                viewBox="0 0 20 20"
+                aria-hidden="true"
+              >
+                <path 
+                  fill-rule="evenodd" 
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" 
+                  clip-rule="evenodd"
+                />
+              </svg>
+            )}
+          </a>
+        );
+      })}
+    </div>
+  </div>
+) : (
+  <div class={`language-selector-inline flex items-center gap-1 ${className}`}>
+    {Object.entries(LANGUAGES).map(([langCode], index) => {
+      const lang = langCode as Language;
+      const isActive = lang === currentLang;
+      const href = alternateRoutes[lang] ?? `/${lang}`;
+      
+      return (
+        <>
+          {index > 0 && <span class="text-gray-400 dark:text-gray-600">|</span>}
+          <a 
+            href={href}
+            class={`px-2 py-1 text-sm font-medium rounded transition-colors ${
+              isActive 
+                ? 'bg-blue-100 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300' 
+                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+            }`}
+            hreflang={lang}
+            title={LANGUAGE_LABELS[lang]}
+          >
+            {showFlags ? LANGUAGE_FLAGS[lang] : lang.toUpperCase()}
+          </a>
+        </>
+      );
+    })}
+  </div>
+)}
+
+<script>
+  class LanguageSelector {
+    private root: HTMLElement;
+    private toggle: HTMLElement | null = null;
+    private dropdown: HTMLElement | null = null;
+    private isOpen = false;
+
+    constructor(root: HTMLElement) {
+      this.root = root;
+      this.init();
+    }
+
+    private init(): void {
+      this.toggle = this.root.querySelector('[data-lang-toggle]');
+      this.dropdown = this.root.querySelector('[data-lang-dropdown]');
+      if (!this.toggle || !this.dropdown) return;
+
+      if ((this.toggle as any).dataset.initialized) return;
+      (this.toggle as any).dataset.initialized = 'true';
+
+      this.bindEvents();
+      this.initKeyboardNavigation();
+    }
+
+    private bindEvents(): void {
+      this.toggle!.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        this.toggleDropdown();
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!this.root.contains(e.target as Node)) {
+          this.closeDropdown();
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && this.isOpen) {
+          this.closeDropdown();
+          this.toggle?.focus();
+        }
+      });
+
+      this.dropdown!.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => this.closeDropdown());
+      });
+    }
+
+    private toggleDropdown(): void {
+      this.isOpen ? this.closeDropdown() : this.openDropdown();
+    }
+
+    private openDropdown(): void {
+      this.isOpen = true;
+      this.toggle!.setAttribute('aria-expanded', 'true');
+      this.dropdown!.classList.remove('opacity-0', 'invisible', 'scale-95');
+      this.dropdown!.classList.add('opacity-100', 'visible', 'scale-100');
+      this.toggle!.querySelector('svg')?.classList.add('rotate-180');
+      (this.dropdown!.querySelector('a') as HTMLElement)?.focus();
+    }
+
+    private closeDropdown(): void {
+      this.isOpen = false;
+      this.toggle!.setAttribute('aria-expanded', 'false');
+      this.dropdown!.classList.remove('opacity-100', 'visible', 'scale-100');
+      this.dropdown!.classList.add('opacity-0', 'invisible', 'scale-95');
+      this.toggle!.querySelector('svg')?.classList.remove('rotate-180');
+    }
+
+    private initKeyboardNavigation(): void {
+      const links = this.dropdown!.querySelectorAll('a[role="menuitem"]');
+      links.forEach((link, index) => {
+        link.addEventListener('keydown', (e) => {
+          const key = (e as KeyboardEvent).key;
+          if (key === 'ArrowDown') {
+            e.preventDefault();
+            (links[(index + 1) % links.length] as HTMLElement).focus();
+          }
+          if (key === 'ArrowUp') {
+            e.preventDefault();
+            (links[(index - 1 + links.length) % links.length] as HTMLElement).focus();
+          }
+          if (key === 'Home') {
+            e.preventDefault();
+            (links[0] as HTMLElement).focus();
+          }
+          if (key === 'End') {
+            e.preventDefault();
+            (links[links.length - 1] as HTMLElement).focus();
+          }
+        });
+      });
+    }
+  }
+
+  function initLanguageSelectors(): void {
+    document
+      .querySelectorAll('.language-selector')
+      .forEach(el => new LanguageSelector(el as HTMLElement));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLanguageSelectors);
+  } else {
+    initLanguageSelectors();
+  }
+
+  document.addEventListener('astro:page-load', initLanguageSelectors);
+</script>
+
+<style>
+  .language-selector {
+    position: relative;
+  }
+
+  .language-selector-inline a {
+    position: relative;
+  }
+
+  .language-selector-inline a::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: currentColor;
+    transition: width 0.2s ease;
+  }
+
+  .language-selector-inline a:hover::before {
+    width: 100%;
+  }
+</style>

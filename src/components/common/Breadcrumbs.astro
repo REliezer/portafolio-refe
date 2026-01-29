@@ -1,25 +1,35 @@
 ---
 import { lowerHumanize } from "@lib/textConverter";
 
+const { currentLocale } = Astro;
 const { className }: { className?: string } = Astro.props;
 
-const paths = Astro.url.pathname.split("/").filter((x) => x);
-let parts = [
+const rawPaths = Astro.url.pathname.split("/").filter((x) => x);
+
+const LANGS = ["en", "es"];
+const hasLeadingLang = rawPaths.length > 0 && LANGS.includes(rawPaths[0].toLowerCase());
+
+// Delete the prefix of language if it exists.
+let paths = rawPaths
+  .slice(hasLeadingLang ? 1 : 0)
+  .filter((s) => s && s.length > 0);
+
+const base = currentLocale === "es" ? "" : `/${currentLocale}`;
+const parts = [
   {
-    label: "Home",
-    href: "/",
-    "aria-label": Astro.url.pathname === "/" ? "page" : undefined,
+    label: currentLocale === "es" ? "Inicio" : "Home",
+    href: base || "/",
+    "aria-label": Astro.url.pathname === (base || "/") ? "page" : undefined,
   },
 ];
 
-paths.forEach((label: string, i: number) => {
-  const href = `/${paths.slice(0, i + 1).join("/")}`;
-  label !== "page" &&
-    parts.push({
-      label: lowerHumanize(label.replace(/[-_]/g, " ")) || "",
-      href,
-      "aria-label": Astro.url.pathname === href ? "page" : undefined,
-    });
+paths.forEach((segment: string, i: number) => {
+  const href = `${base}/${paths.slice(0, i + 1).join("/")}` || "/";
+  parts.push({
+    label: lowerHumanize(segment.replace(/[-_]/g, " ")) || "",
+    href,
+    "aria-label": Astro.url.pathname === href ? "page" : undefined,
+  });
 });
 ---
 
@@ -34,7 +44,9 @@ paths.forEach((label: string, i: number) => {
               {label}
             </a>
           ) : (
-            <span class="text-txt-light dark:text-darkmode-txt-light">{label}</span>
+            <span class="text-txt-light dark:text-darkmode-txt-light">
+              {label}
+            </span>
           )}
         </li>
       ))

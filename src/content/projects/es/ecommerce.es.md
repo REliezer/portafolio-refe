@@ -4,7 +4,7 @@ resume: Infraestructura modular para una plataforma de comercio electrónico y a
 date: 2025-06-21
 imageCover: "@assets/projects/default.svg"
 imageCoverAlt: Diagrama de arquitectura cloud del proyecto
-categories: [Proyectos Academicos]
+categories: [academic-projects]
 platform:
   web: true
   movil: false

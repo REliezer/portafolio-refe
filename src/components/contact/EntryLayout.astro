@@ -3,6 +3,8 @@ import BaseLayout from "@components/base/BaseLayout.astro";
 import type { ContactEntry } from "@/types";
 import { Image } from "astro:assets";
 import ContactForm from "./Contact.tsx";
+import { CONTACT_FORM_LABELS } from '@/i18n/locales/contactForm';
+import { getLangFromAstro } from '@/i18n/utils';
 
 interface Props {
   entry: ContactEntry;
@@ -10,10 +12,13 @@ interface Props {
 
 const { entry } = Astro.props;
 const { image, imageAlt, title } = entry.data;
+const lang = getLangFromAstro(Astro);
+const labels = CONTACT_FORM_LABELS[lang];
+const siteTitle = lang === "es" ? "Contacto | Portafolio Rodrigo Fúnes" : "Contact | Rodrigo Fúnes Portfolio";
 ---
 
-<BaseLayout title="Portafolio | Contacto">
-  <ContactForm client:only="react" title={title}>
+<BaseLayout title={siteTitle}>
+  <ContactForm client:only="react" title={title} labels={labels}>
     <Image
       class="mb-6 w-[92%]"
       src={image!}

@@ -22,7 +22,7 @@ export async function getStaticPaths() {
 const lang = getLangFromAstro(Astro);
 const { taxon } = Astro.props;
 const entries = (await getEntries("projects", {
-  lang: "es",
+  lang: "en",
 })) as ProjectEntry[];
 
 const filteredEntries: ProjectEntry[] = taxonomyFilter(entries, "categories", taxon!);
