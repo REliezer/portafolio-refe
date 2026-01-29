@@ -40,7 +40,19 @@ export default defineConfig({
   },
   integrations: [
     react(),
-    sitemap(),
+    sitemap({
+      filter: (page) => {
+        const { pathname } = new URL(page);
+
+        // Excluir 404/500 (con y sin slash final)
+        return !(
+          pathname === "/404" || pathname === "/404/" ||
+          pathname === "/en/404" || pathname === "/en/404/" ||
+          pathname === "/500" || pathname === "/500/" ||
+          pathname === "/en/500" || pathname === "/en/500/"
+        );
+      },
+    }),
     mdx()
   ],
   markdown: {

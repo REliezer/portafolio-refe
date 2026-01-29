@@ -24,9 +24,11 @@ const { title, description } = Astro.props;
 
 const siteTitle = lang === "es" ? "Portafolio | Rodrigo Fúnes" : "Portfolio | Rodrigo Fúnes";
 const siteDescription = lang === "es" ? "Desarrollador web enfocado en crear soluciones de valor." : "Web developer focused on creating valuable solutions.";
-const siteImage = "@/assets/og-image.png";
+
 const siteAuthor = "Rodrigo Fúnes";
 const baseUrl = "https://portafolio-refe.vercel.app";
+
+const siteImage = new URL("/og-image.png", baseUrl).toString();
 
 const currentPath = Astro.url.pathname;
 const alternateRoutes = getAlternateRoutes(currentPath, lang);
@@ -86,7 +88,8 @@ const normalizedPath = pathname !== "/" && pathname.endsWith("/") ? pathname.sli
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:locale" content={lang === "es" ? "es_ES" : "en_US"} />
     <meta property="og:image" content={siteImage} />
-
+    <meta property="og:site_name" content={lang === "es" ? "Portafolio | Rodrigo Fúnes" : "Portfolio | Rodrigo Fúnes"} />
+    
     <!-- Twitter -->
     <meta name="twitter:title" content={plainify(title ? title : siteTitle)} />
     <meta name="twitter:description" content={plainify(description ? description : siteDescription)} />
