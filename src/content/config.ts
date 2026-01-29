@@ -84,14 +84,7 @@ const skill = defineCollection({
 
 // Colección Projects con i18n
 const projects = defineCollection({
-<<<<<<< HEAD
-  loader: glob({
-    pattern: ["**\/[^_]*.{md,mdx}"],
-    base: "./src/content/projects",
-  }),
-=======
   loader: createI18nLoader("./src/content/projects"),
->>>>>>> develop
   schema: ({ image }) =>
     baseSchema.extend({
       title: z.string(),

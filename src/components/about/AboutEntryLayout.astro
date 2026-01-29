@@ -1,5 +1,6 @@
 ---
 import type { AboutEntry } from "@/types";
+import { getLangFromAstro } from "@/i18n/utils";
 
 interface Props {
   entry: AboutEntry;
@@ -7,24 +8,31 @@ interface Props {
 
 const { entry } = Astro.props;
 const { title, description } = entry.data;
+
+const lang = getLangFromAstro(Astro);
+const labels = lang === "es"
+  ? { more: "Leer más...", less: "Leer menos..." }
+  : { more: "Read more...", less: "Read less..." };
 ---
 
-<section class="container mb-6" id="about">
+<section class="container mb-6" id="about" data-about>
   <h2 class="font-bold text-right">{title}</h2>
   <hr class="mb-6 hr-separator" />
   <div
     id="about-content"
     class="about-transition text-sm md:text-lg leading-relaxed text-left w-full"
+    data-about-content
     set:html={description?.replace(/\n/g, "<br />")}
   />
   <button
-    id="about-btn"
     type="button"
-    class="btn-more mt-2"
+    class="btn-more mt-2"data-about-btn
     aria-expanded="false"
     aria-controls="about-content"
+    data-more={labels.more}
+    data-less={labels.less}
   >
-    Leer más...
+    {labels.more}
   </button>
 </section>
 
@@ -44,31 +52,38 @@ const { title, description } = entry.data;
 </style>
 
 <script is:client>
-  (() => {
-    const btn = document.getElementById("about-btn");
-    const content = document.getElementById("about-content");
-    if (!btn || !content) return;
+  function initAbout(root) {
+    const btn = root.querySelector("[data-about-btn]");
+    const content = root.querySelector("[data-about-content]");
+    if (!(btn instanceof HTMLButtonElement) || !(content instanceof HTMLElement)) return;
 
-    let collapsedHeight = parseFloat(getComputedStyle(content).height);
-    const setCollapsed = () => (content.style.height = `${collapsedHeight}px`);
+    const more = btn.dataset.more || "Read more...";
+    const less = btn.dataset.less || "Read less...";
 
-    // Inicialización
+    if (btn.dataset.bound === "true") return;
+    btn.dataset.bound = "true";
+
+    const COLLAPSED_HEIGHT = "10rem";
+
+    const setCollapsed = () => {
+      content.style.height = COLLAPSED_HEIGHT;
+    };
+
     setCollapsed();
 
     const toggle = () => {
       const expanded = content.classList.toggle("expanded");
 
       if (expanded) {
-        // Expandir
         content.style.height = `${content.scrollHeight}px`;
-        btn.textContent = "Leer menos...";
+        btn.textContent = less;
         btn.setAttribute("aria-expanded", "true");
       } else {
         // Contraer
         content.style.height = `${content.scrollHeight}px`;
         content.offsetHeight; // reflow
         setCollapsed();
-        btn.textContent = "Leer más...";
+        btn.textContent = more;
         btn.setAttribute("aria-expanded", "false");
       }
     };
@@ -76,20 +91,28 @@ const { title, description } = entry.data;
     btn.addEventListener("click", toggle);
 
     content.addEventListener("transitionend", (e) => {
-      if (
-        e.propertyName === "height" &&
-        content.classList.contains("expanded")
-      ) {
+      if (e.propertyName === "height" && content.classList.contains("expanded")) {
         content.style.height = "auto";
       }
     });
 
-    // Recalcular en resize (cuando cambia el tamaño base de rem)
     window.addEventListener("resize", () => {
-      if (!content.classList.contains("expanded")) {
-        collapsedHeight = parseFloat(getComputedStyle(content).height);
-        setCollapsed();
+      if (!content.classList.contains("expanded")) setCollapsed();
+      if (content.classList.contains("expanded") && content.style.height !== "auto") {
+        content.style.height = `${content.scrollHeight}px`;
       }
     });
-  })();
+  }
+
+  function initAllAbout() {
+    document.querySelectorAll("[data-about]").forEach(initAbout);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initAllAbout, { once: true });
+  } else {
+    initAllAbout();
+  }
+
+  document.addEventListener("astro:page-load", initAllAbout);
 </script>
