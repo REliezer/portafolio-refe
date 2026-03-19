@@ -54,7 +54,7 @@ const BannerComponent = ({title, subtitle, content, button, children}: BannerPro
                     <div className="text-center lg:w-2/3">
                         <span className='tagline'>{title}</span>
                         <h1>{subtitle} </h1>
-                        <h1 className='text-h1-sm md:text-lh1 wrap'>{text}</h1>
+                        <h2 className='text-h1-sm md:text-lh1 wrap'>{text}</h2>
                         <p className='text-justify font-mono'>{content}</p>
                         <button>
                             <a href={button?.link}>{button?.label}</a>
